@@ -1,0 +1,52 @@
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply bg-white;
+}
+
+.Content {
+    @apply w-full px-4 py-4 mx-auto flex flex-col items-center bg-black text-white;
+}
+
+nav {
+    @apply flex text-black bg-white;
+}
+
+nav .Navigation-Button {
+    @apply p-4;
+}
+
+nav .Navigation-Button:hover {
+    @apply bg-black text-white;
+}
+
+h1 {
+    @apply text-5xl mb-2;
+}
+
+h2 {
+    @apply text-3xl mb-2;
+}
+
+h3 {
+    @apply text-2xl mb-2;
+}
+
+div .Books {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+}
+
+div .Books .Book {
+    @apply bg-gray-100 p-4 rounded shadow;
+}
+
+div .Book h2 {
+    @apply text-xl font-bold mb-2;
+}
+
+div .Book p {
+    @apply text-gray-700;
+}
