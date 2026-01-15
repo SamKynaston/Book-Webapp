@@ -6,7 +6,7 @@ function Home({ allBooks, setAllBooks }) {
   let navigate = useNavigate();
 
   const routeToBook = (id) => {
-    navigate(`/book/${id}`);
+    navigate(`${id}`);
   };
 
   return (
@@ -15,11 +15,14 @@ function Home({ allBooks, setAllBooks }) {
         {allBooks.map((book) => (
           <div
             className="Book"
-            key={book.id}
-            onClick={() => routeToBook(book.id)}
+            key={book.key}
+            onClick={() => routeToBook(book.key)}
           >
             <h2>{book.title}</h2>
-            <p>{book.author}</p>
+            <p>
+              {book.authors &&
+                book.authors.map((author: any) => author.name).join(", ")}
+            </p>
           </div>
         ))}
       </div>

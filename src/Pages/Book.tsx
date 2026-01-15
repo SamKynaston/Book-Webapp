@@ -13,7 +13,7 @@ function Book({ books }: { books: any }) {
     return <Page>Loading...</Page>;
   }
 
-  const book = books.find((book: any) => book.id === parseInt(id));
+  const book = books.find((book: any) => book.key === `/works/${id}`);
 
   if (!book) {
     return <Page>Book not found</Page>;
@@ -22,19 +22,11 @@ function Book({ books }: { books: any }) {
   return (
     <Page>
       <h1>{book.title}</h1>
-      <h2>{book.author}</h2>
 
-      {book.description && (
-        <>
-          {" "}
-          <br />
-          <h3>Description</h3>
-          <p className="reference p-4 bg-gray-100 rounded shadow mb-4 w-4xl">
-            {book.description}
-          </p>{" "}
-        </>
-      )}
+      {book.authors &&
+        book.authors.map((author: any) => author.name).join(", ")}
 
+      <br />
       <br />
       <h3>Harvard Reference</h3>
       <HarvardReference book={book} />

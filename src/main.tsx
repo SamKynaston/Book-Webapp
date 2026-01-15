@@ -1,7 +1,6 @@
-import { StrictMode } from "react";
+import { StrictMode, useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useState } from "react";
 import Navigation from "./Components/Navigation.tsx";
 import "./Styles/tailwind.css";
 import { pages } from "./Components/Routes";
@@ -11,7 +10,21 @@ import Book from "./Pages/Book.tsx";
 import Error from "./Pages/Error.tsx";
 
 const App = () => {
-  const [allBooks, setAllBooks] = useState(SampleBooks);
+  const [allBooks, setAllBooks] = useState([]);
+  const addBook = (book) => {
+    setAllBooks([...allBooks, book]);
+  };
+
+  useEffect(() => {
+    fetch("https://openlibrary.org/subjects/programming.json")
+      .then((response) => response.json())
+      //.then((response) => console.log(response))
+      .then((response) => {
+        if (response && response.works) {
+          setAllBooks(response.works);
+        }
+      });
+  }, []);
 
   return (
     <StrictMode>
@@ -23,7 +36,7 @@ const App = () => {
             element={<Home allBooks={allBooks} setAllBooks={setAllBooks} />}
           />
 
-          <Route path="/book/:id" element={<Book books={allBooks} />} />
+          <Route path="/works/:id" element={<Book books={allBooks} />} />
 
           <Route path="*" element={<Error />} />
         </Routes>
