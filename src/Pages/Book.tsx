@@ -1,5 +1,6 @@
 import Page from "../Components/Page";
 import { useParams } from "react-router-dom";
+import { HarvardReference } from "../Components/Reference";
 
 function Book({ books }: { books: any }) {
   const { id } = useParams();
@@ -20,8 +21,18 @@ function Book({ books }: { books: any }) {
 
   return (
     <Page>
-      <h2>{book.title}</h2>
-      <p>Authored by: {book.author}</p>
+      <h1>{book.title}</h1>
+      <h4>Authored by: {book.author}</h4>
+
+      {book.description && (
+        <>
+          {" "}
+          <br /> <p>{book.description}</p>{" "}
+        </>
+      )}
+
+      <br />
+      <HarvardReference book={book} />
     </Page>
   );
 }

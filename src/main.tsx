@@ -5,9 +5,10 @@ import { useState } from "react";
 import Navigation from "./Components/Navigation.tsx";
 import "./Styles/tailwind.css";
 import { pages } from "./Components/Routes";
-import SampleBooks from "./SampleData.json";
+import { SampleBooks } from "./SampleData.tsx";
 import Home from "./Pages/Home.tsx";
 import Book from "./Pages/Book.tsx";
+import Error from "./Pages/Error.tsx";
 
 const App = () => {
   const [allBooks, setAllBooks] = useState(SampleBooks);
@@ -23,6 +24,8 @@ const App = () => {
           />
 
           <Route path="/book/:id" element={<Book books={allBooks} />} />
+
+          <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>
     </StrictMode>
