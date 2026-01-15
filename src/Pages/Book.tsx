@@ -22,16 +22,21 @@ function Book({ books }: { books: any }) {
   return (
     <Page>
       <h1>{book.title}</h1>
-      <h4>Authored by: {book.author}</h4>
+      <h2>{book.author}</h2>
 
       {book.description && (
         <>
           {" "}
-          <br /> <p>{book.description}</p>{" "}
+          <br />
+          <h3>Description</h3>
+          <p className="reference p-4 bg-gray-100 rounded shadow mb-4 w-4xl">
+            {book.description}
+          </p>{" "}
         </>
       )}
 
       <br />
+      <h3>Harvard Reference</h3>
       <HarvardReference book={book} />
     </Page>
   );
