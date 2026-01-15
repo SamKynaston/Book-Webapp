@@ -3,16 +3,37 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Home({ allBooks, setAllBooks }) {
+  const [inputText, setInputText] = useState("");
   let navigate = useNavigate();
 
   const routeToBook = (id) => {
     navigate(`${id}`);
   };
 
+  const inputHandler = (event) => {
+    setInputText(event.target.value);
+  };
+
+  const filteredBooks = allBooks.filter((book) => {
+    if (!inputText) {
+      return book;
+    } else {
+      return book.title.toLowerCase().includes(inputText.toLowerCase());
+    }
+  });
+
   return (
     <Page>
+      <input
+        type="text"
+        placeholder="Search books..."
+        value={inputText}
+        onChange={inputHandler}
+      />
+      <br />
+
       <div className="Books">
-        {allBooks.map((book) => (
+        {filteredBooks.map((book) => (
           <div
             className="Book"
             key={book.key}

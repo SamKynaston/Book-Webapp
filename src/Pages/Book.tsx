@@ -1,9 +1,11 @@
 import Page from "../Components/Page";
 import { useParams } from "react-router-dom";
+import { useState } from "react";
 import { HarvardReference } from "../Components/Reference";
 
 function Book({ books }: { books: any }) {
   const { id } = useParams();
+  const [coverLoaded, setCoverLoaded] = useState(false);
 
   if (!id) {
     return <Page>Invalid ID</Page>;
@@ -14,6 +16,9 @@ function Book({ books }: { books: any }) {
   }
 
   const book = books.find((book: any) => book.key === `/works/${id}`);
+  const coverUrl = book.cover_id
+    ? `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
+    : null;
 
   if (!book) {
     return <Page>Book not found</Page>;
@@ -21,10 +26,15 @@ function Book({ books }: { books: any }) {
 
   return (
     <Page>
-      {book.cover_id && (
+      {coverUrl && !coverLoaded && (
+        <p className="text-gray-700">Loading cover...</p>
+      )}
+
+      {coverUrl && (
         <img
-          src={`https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`}
+          src={coverUrl}
           alt={book.title}
+          onLoad={() => setCoverLoaded(true)}
         />
       )}
 

@@ -33,7 +33,7 @@ const App = () => {
   if (loading) {
     return (
       <div className="text-center py-10 text-xl font-semibold">
-        Please wait, loading data...
+        Please wait, loading books...
       </div>
     );
   }
@@ -49,7 +49,6 @@ const App = () => {
           />
 
           <Route path="/works/:id" element={<Book books={allBooks} />} />
-
           <Route path="*" element={<Error />} />
         </Routes>
       </BrowserRouter>
