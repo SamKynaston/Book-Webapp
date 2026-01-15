@@ -32,31 +32,35 @@ function Home({ allBooks, setAllBooks }) {
       />
       <br />
 
-      <div className="Books">
-        {filteredBooks.map((book) => (
-          <div
-            className="Book"
-            key={book.key}
-            onClick={() => routeToBook(book.key)}
-          >
-            {book.cover_id && (
-              <img
-                className="BookCover"
-                src={`https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`}
-                alt={book.title}
-              />
-            )}
+      {filteredBooks.length === 0 ? (
+        <p className="text-gray-700 text-center">Nothing but chickens here!</p>
+      ) : (
+        <div className="Books">
+          {filteredBooks.map((book) => (
+            <div
+              className="Book"
+              key={book.key}
+              onClick={() => routeToBook(book.key)}
+            >
+              {book.cover_id && (
+                <img
+                  className="BookCover"
+                  src={`https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`}
+                  alt={book.title}
+                />
+              )}
 
-            <div className="BookDetails">
-              <h2>{book.title}</h2>
-              <p>
-                {book.authors &&
-                  book.authors.map((author: any) => author.name).join(", ")}
-              </p>
+              <div className="BookDetails">
+                <h2>{book.title}</h2>
+                <p>
+                  {book.authors &&
+                    book.authors.map((author: any) => author.name).join(", ")}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </Page>
   );
 }
