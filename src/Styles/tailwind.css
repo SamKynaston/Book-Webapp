@@ -40,7 +40,11 @@ div .Books {
 }
 
 div .Books .Book {
-    @apply bg-gray-100 p-4 rounded shadow;
+    @apply bg-gray-100 p-4 gap-4 rounded shadow flex items-start cursor-pointer;
+}
+
+div .Books .Book:hover {
+    @apply bg-gray-200 scale-105;
 }
 
 div .Book h2 {
@@ -49,4 +53,12 @@ div .Book h2 {
 
 div .Book p {
     @apply text-gray-700;
+}
+
+div .Book .BookCover {
+    @apply w-24 h-32 object-cover mb-2 flex-shrink-0 rounded;
+}
+
+div .Book .BookDetails {
+    @apply flex flex-col;
 }

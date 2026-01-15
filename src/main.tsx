@@ -18,7 +18,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    fetch("https://openlibrary.org/subjects/programming.json")
+    fetch("https://openlibrary.org/subjects/programming.json?details=true")
       .then((response) => response.json())
 
       .then((response) => {

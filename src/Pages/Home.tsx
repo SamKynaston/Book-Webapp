@@ -18,11 +18,21 @@ function Home({ allBooks, setAllBooks }) {
             key={book.key}
             onClick={() => routeToBook(book.key)}
           >
-            <h2>{book.title}</h2>
-            <p>
-              {book.authors &&
-                book.authors.map((author: any) => author.name).join(", ")}
-            </p>
+            {book.cover_id && (
+              <img
+                className="BookCover"
+                src={`https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`}
+                alt={book.title}
+              />
+            )}
+
+            <div className="BookDetails">
+              <h2>{book.title}</h2>
+              <p>
+                {book.authors &&
+                  book.authors.map((author: any) => author.name).join(", ")}
+              </p>
+            </div>
           </div>
         ))}
       </div>

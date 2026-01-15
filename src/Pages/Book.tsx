@@ -21,6 +21,14 @@ function Book({ books }: { books: any }) {
 
   return (
     <Page>
+      {book.cover_id && (
+        <img
+          src={`https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`}
+          alt={book.title}
+        />
+      )}
+
+      <br />
       <h1>{book.title}</h1>
 
       {book.authors &&
