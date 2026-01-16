@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 function Home({ allBooks, setAllBooks }) {
   const [inputText, setInputText] = useState("");
+  const [booksLoaded, setBooksLoaded] = useState(false);
+
   let navigate = useNavigate();
 
   const routeToBook = (id) => {

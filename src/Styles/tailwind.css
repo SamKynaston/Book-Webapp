@@ -64,5 +64,5 @@ div .Book .BookDetails {
 }
 
 input {
-    @apply p-2 bg-gray-200 rounded w-full md:w-100;
+    @apply p-2 bg-gray-200 rounded w-full lg:w-100;
 }

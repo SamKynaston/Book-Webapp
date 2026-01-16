@@ -11,7 +11,6 @@ import Error from "./Pages/Error.tsx";
 
 const App = () => {
   const [allBooks, setAllBooks] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   const addBook = (book) => {
     setAllBooks([...allBooks, book]);
@@ -25,18 +24,8 @@ const App = () => {
         if (response && response.works) {
           setAllBooks(response.works);
         }
-      })
-
-      .finally(() => setLoading(false));
+      });
   }, []);
-
-  if (loading) {
-    return (
-      <div className="text-center py-10 text-xl font-semibold">
-        Please wait, loading books...
-      </div>
-    );
-  }
 
   return (
     <StrictMode>
