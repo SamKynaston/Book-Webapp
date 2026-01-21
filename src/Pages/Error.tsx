@@ -3,8 +3,11 @@ import Page from "../Components/Page";
 function Error() {
   return (
     <Page>
-      There has been an error!
-      <a href="/">Go home</a>
+      <br />
+      <h1>There has been an error!</h1>
+      <br />
+      <a href="/">🏡 Go home</a>
+      <br />
     </Page>
   );
 }

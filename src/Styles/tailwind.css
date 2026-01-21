@@ -21,6 +21,14 @@ nav .Navigation-Button:hover {
     @apply bg-black text-white;
 }
 
+a {
+    @apply underline;
+}
+
+a:hover {
+    @apply text-blue-400;
+}
+
 h1 {
     @apply text-4xl mb-2;
 }
