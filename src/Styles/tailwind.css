@@ -13,6 +13,10 @@ nav {
     @apply flex text-black bg-white;
 }
 
+nav a {
+    @apply no-underline;
+}
+
 nav .Navigation-Button {
     @apply p-4;
 }
