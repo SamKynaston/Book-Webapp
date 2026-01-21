@@ -2,8 +2,13 @@ import Page from "../Components/Page";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { HarvardReference } from "../Components/Reference";
+import type { Book, Author } from "../Types/Books";
 
-function Book({ books }: { books: any }) {
+interface BookPageProps {
+  books: Book[];
+}
+
+const BookPage: React.FC<BookPageProps> = ({ books }) => {
   const { id } = useParams();
   const [coverLoaded, setCoverLoaded] = useState(false);
 
@@ -15,14 +20,15 @@ function Book({ books }: { books: any }) {
     return <Page>Loading...</Page>;
   }
 
-  const book = books.find((book: any) => book.key === `/works/${id}`);
-  const coverUrl = book.cover_id
-    ? `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
-    : null;
+  const book = books.find((book: Book) => book.key === `/works/${id}`);
 
   if (!book) {
     return <Page>Book not found</Page>;
   }
+
+  const coverUrl = book.cover_id
+    ? `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
+    : null;
 
   return (
     <Page>
@@ -42,7 +48,7 @@ function Book({ books }: { books: any }) {
       <h1>{book.title}</h1>
 
       {book.authors &&
-        book.authors.map((author: any) => author.name).join(", ")}
+        book.authors.map((author: Author) => author.name).join(", ")}
 
       <br />
       <br />
@@ -50,6 +56,6 @@ function Book({ books }: { books: any }) {
       <HarvardReference book={book} />
     </Page>
   );
-}
+};
 
-export default Book;
+export default BookPage;

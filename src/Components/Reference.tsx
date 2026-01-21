@@ -1,9 +1,11 @@
+import type { Book, Author } from "../Types/Books";
+
 interface HarvardReferenceProps {
-  book: any;
+  book: Book;
 }
 
 export const HarvardReference = ({ book }: HarvardReferenceProps) => {
-  const text = `${book.authors && book.authors.map((author: any) => author.name).join(", ")}, ${book.first_publish_year}`;
+  const text = `${book.authors && book.authors.map((author: Author) => author.name).join(", ")}, ${book.first_publish_year}`;
 
   const handleClick = () => {
     navigator.clipboard.writeText(`(${text})`);
@@ -16,13 +18,13 @@ export const HarvardReference = ({ book }: HarvardReferenceProps) => {
     >
       <p className="text-gray-800 text-center">
         {book.authors &&
-          book.authors.map((author: any) => author.name).join(", ")}
+          book.authors.map((author: Author) => author.name).join(", ")}
         , {book.first_publish_year} <strong>{book.title}</strong>.
       </p>
       <p className="text-gray-800 text-center text-sm">
         (
         {book.authors &&
-          book.authors.map((author: any) => author.name).join(", ")}
+          book.authors.map((author: Author) => author.name).join(", ")}
         , {book.first_publish_year})
       </p>
     </div>

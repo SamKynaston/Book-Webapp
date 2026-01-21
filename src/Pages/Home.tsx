@@ -1,18 +1,23 @@
 import Page from "../Components/Page";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import type { Author, Book } from "../Types/Books";
 
-function Home({ allBooks, setAllBooks }) {
+interface HomeProps {
+  allBooks: Book[];
+  //setAllBooks: React.Dispatch<React.SetStateAction<Book[]>>;
+}
+
+const Home: React.FC<HomeProps> = ({ allBooks }) => {
   const [inputText, setInputText] = useState("");
-  const [booksLoaded, setBooksLoaded] = useState(false);
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const routeToBook = (id) => {
+  const routeToBook = (id: string) => {
     navigate(`${id}`);
   };
 
-  const inputHandler = (event) => {
+  const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(event.target.value);
   };
 
@@ -56,7 +61,9 @@ function Home({ allBooks, setAllBooks }) {
                 <h2>{book.title}</h2>
                 <p>
                   {book.authors &&
-                    book.authors.map((author: any) => author.name).join(", ")}
+                    book.authors
+                      .map((author: Author) => author.name)
+                      .join(", ")}
                 </p>
               </div>
             </div>
@@ -65,6 +72,6 @@ function Home({ allBooks, setAllBooks }) {
       )}
     </Page>
   );
-}
+};
 
 export default Home;
