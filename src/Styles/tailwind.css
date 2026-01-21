@@ -46,11 +46,11 @@ h3 {
 }
 
 div .Books {
-    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-center;
+    @apply grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 items-center;
 }
 
 div .Books .Book {
-    @apply bg-gray-100 p-4 gap-4 rounded shadow flex items-start cursor-pointer md:w-100;
+    @apply bg-gray-100 p-4 gap-4 rounded shadow flex items-start cursor-pointer lg:w-100;
 }
 
 div .Books .Book:hover {
