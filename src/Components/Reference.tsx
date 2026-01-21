@@ -12,16 +12,13 @@ export const HarvardReference = ({ book }: HarvardReferenceProps) => {
   };
 
   return (
-    <div
-      className="reference p-4 bg-gray-100 rounded shadow mb-4 lgw-4xl cursor-pointer"
-      onClick={handleClick}
-    >
-      <p className="text-gray-800 text-center">
+    <div className="reference" onClick={handleClick}>
+      <p className="title">
         {book.authors &&
           book.authors.map((author: Author) => author.name).join(", ")}
         , {book.first_publish_year} <strong>{book.title}</strong>.
       </p>
-      <p className="text-gray-800 text-center text-sm">
+      <p className="subtitle">
         (
         {book.authors &&
           book.authors.map((author: Author) => author.name).join(", ")}

@@ -54,7 +54,7 @@ div .Books .Book {
 }
 
 div .Books .Book:hover {
-    @apply bg-gray-200 scale-105;
+    @apply scale-105;
 }
 
 div .Book h2 {
@@ -71,6 +71,22 @@ div .Book .BookCover {
 
 div .Book .BookDetails {
     @apply flex flex-col;
+}
+
+div .reference {
+    @apply p-4 bg-gray-100 rounded shadow mb-4 cursor-pointer;
+}
+
+div .reference:hover {
+    @apply scale-105;
+}
+
+div .reference .title {
+    @apply text-gray-800 text-center;
+}
+
+div .reference .subtitle {
+    @apply text-gray-800 text-center text-sm;
 }
 
 input {
