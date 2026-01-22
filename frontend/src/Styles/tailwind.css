@@ -104,3 +104,7 @@ div .reference .subtitle {
 input {
     @apply p-2 bg-neutral-600 shadow-xl rounded-xl w-full lg:w-100 text-gray-300 text-lg pl-4;
 }
+
+div .RecommendedBadge {
+    @apply bg-green-500 text-white px-2 py-1 rounded-full text-sm;
+}

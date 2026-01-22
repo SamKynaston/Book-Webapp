@@ -28,6 +28,7 @@ export const SampleBooks: Book[] = [
     authors: [{ name: "Stuart Russell" }],
     first_publish_year: 2010,
     cover_id: 10617824,
+    isRecommended: true,
   },
   {
     key: "operating-system-concepts",

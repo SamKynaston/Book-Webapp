@@ -8,4 +8,5 @@ export interface Book {
   cover_id?: number;
   authors?: Author[];
   first_publish_year: number;
+  isRecommended?: boolean;
 }

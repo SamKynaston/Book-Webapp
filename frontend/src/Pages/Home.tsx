@@ -1,7 +1,8 @@
 import Page from "../Components/Page";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type { Book, Author } from "@bookwebapp/types";
+import type { Book } from "@bookwebapp/types";
+import { BookBtn } from "src/Components/BookBtn";
 
 interface HomeProps {
   allBooks: Book[];
@@ -53,31 +54,11 @@ const Home: React.FC<HomeProps> = ({ allBooks, isLoaded }) => {
       ) : (
         <div className="Books">
           {filteredBooks.map((book) => (
-            <div
-              className="Book"
-              key={book.key}
-              onClick={() => {
-                routeToBook(book.key);
-              }}
-            >
-              {book.cover_id && (
-                <img
-                  className="BookCover"
-                  src={`https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`}
-                  alt={book.title}
-                />
-              )}
-
-              <div className="BookDetails">
-                <h2>{book.title}</h2>
-                <p>
-                  {book.authors &&
-                    book.authors
-                      .map((author: Author) => author.name)
-                      .join(", ")}
-                </p>
-              </div>
-            </div>
+            <BookBtn
+              book={book}
+              isRecommended={book.isRecommended}
+              routeToBook={routeToBook}
+            />
           ))}
         </div>
       )}
