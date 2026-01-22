@@ -39,7 +39,7 @@ const BookPage: React.FC<BookPageProps> = ({ books }) => {
 
         {coverUrl && (
           <img
-            className="h-75 transition hover:scale-[1.05]"
+            className="h-75 justify-center transition hover:scale-[1.1]"
             src={coverUrl}
             alt={book.title}
             onLoad={() => setCoverLoaded(true)}

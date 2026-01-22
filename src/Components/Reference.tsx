@@ -1,14 +1,20 @@
 import type { Book, Author } from "../Types/Books";
+import { useState } from "react";
 
 interface HarvardReferenceProps {
   book: Book;
 }
 
 export const HarvardReference = ({ book }: HarvardReferenceProps) => {
+  const [copied, setCopied] = useState(false);
+
   const text = `${book.authors && book.authors.map((author: Author) => author.name).join(", ")}, ${book.first_publish_year}`;
 
   const handleClick = () => {
     navigator.clipboard.writeText(`(${text})`);
+    setCopied(true);
+
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -18,12 +24,7 @@ export const HarvardReference = ({ book }: HarvardReferenceProps) => {
           book.authors.map((author: Author) => author.name).join(", ")}
         , {book.first_publish_year} <strong>{book.title}</strong>.
       </p>
-      <p className="subtitle">
-        (
-        {book.authors &&
-          book.authors.map((author: Author) => author.name).join(", ")}
-        , {book.first_publish_year})
-      </p>
+      <p className="subtitle">{copied ? "Copied!" : `(${text})`}</p>
     </div>
   );
 };

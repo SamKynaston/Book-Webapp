@@ -2,15 +2,15 @@
 @tailwind utilities;
 
 body {
-    @apply bg-gray-800 text-gray-300 text-left;
+    @apply bg-neutral-800 text-gray-300 text-left;
 }
 
 .Content {
-    @apply w-full px-4 py-4 mx-auto flex flex-col items-center bg-gray-700 text-white;
+    @apply w-full px-4 py-4 mx-auto flex flex-col items-center bg-neutral-700 text-white;
 }
 
 .Navigation {
-    @apply flex bg-gray-800 text-gray-300 shadow-xl;
+    @apply flex bg-neutral-800 text-gray-300 shadow-xl sticky top-0 z-100;
 }
 
 .Navigation a {
@@ -22,7 +22,11 @@ body {
 }
 
 .Navigation .Navigation-Button:hover {
-    @apply bg-gray-700 text-white;
+    @apply bg-neutral-700 text-white;
+}
+
+.Footer {
+    @apply text-center text-gray-300 p-5;
 }
 
 a {
@@ -50,7 +54,7 @@ div .Books {
 }
 
 div .Books .Book {
-    @apply bg-gray-600 border border-gray-500 p-3 gap-4 rounded-xl shadow-xl flex items-start cursor-pointer lg:w-100 transition;
+    @apply bg-neutral-600 border border-gray-500 p-3 gap-4 rounded-xl shadow-xl flex items-start cursor-pointer lg:w-100 transition;
 }
 
 div .Books .Book:hover {
@@ -82,15 +86,15 @@ div .Book .BookDetails p {
 }
 
 div .reference {
-    @apply p-4 bg-gray-600 rounded shadow mb-4 cursor-pointer transition;
+    @apply p-4 bg-neutral-600 rounded shadow mb-4 cursor-pointer lg:transition w-full lg:w-150;
 }
 
 div .reference:hover {
-    @apply scale-[1.05];
+    @apply lg:scale-[1.05];
 }
 
 div .reference .title {
-    @apply text-gray-300;
+    @apply text-gray-300 mb-6;
 }
 
 div .reference .subtitle {
@@ -98,5 +102,5 @@ div .reference .subtitle {
 }
 
 input {
-    @apply p-2 bg-gray-600 shadow-xl rounded-xl w-full lg:w-100 text-gray-300 text-lg pl-4;
+    @apply p-2 bg-neutral-600 shadow-xl rounded-xl w-full lg:w-100 text-gray-300 text-lg pl-4;
 }

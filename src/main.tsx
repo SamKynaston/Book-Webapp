@@ -7,6 +7,7 @@ import { pages } from "./Components/Routes";
 import Home from "./Pages/Home.tsx";
 import BookPage from "./Pages/Book.tsx";
 import Error from "./Pages/Error.tsx";
+import Footer from "./Components/Footer.tsx";
 
 const App: React.FC = () => {
   const [allBooks, setAllBooks] = useState([]);
@@ -38,6 +39,7 @@ const App: React.FC = () => {
           <Route path="/works/:id" element={<BookPage books={allBooks} />} />
           <Route path="*" element={<Error />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </StrictMode>
   );
