@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import { HarvardReference } from "../Components/Reference";
 import type { Book, Author } from "../Types/Books";
+import ErrorPage from "./Error";
 
 interface BookPageProps {
   books: Book[];
@@ -13,7 +14,7 @@ const BookPage: React.FC<BookPageProps> = ({ books }) => {
   const [coverLoaded, setCoverLoaded] = useState(false);
 
   if (!id) {
-    return <Page>Invalid ID</Page>;
+    return <ErrorPage />;
   }
 
   if (!books) {
@@ -21,9 +22,8 @@ const BookPage: React.FC<BookPageProps> = ({ books }) => {
   }
 
   const book = books.find((book: Book) => book.key === `/works/${id}`);
-
   if (!book) {
-    return <Page>Book not found</Page>;
+    return <ErrorPage />;
   }
 
   const coverUrl = book.cover_id
