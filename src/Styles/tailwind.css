@@ -54,7 +54,7 @@ div .Books .Book {
 }
 
 div .Books .Book:hover {
-    @apply scale-[1.08] shadow-2xl z-10;
+    @apply scale-[1.05] shadow-2xl z-10;
 }
 
 div .Book h2 {
@@ -82,11 +82,11 @@ div .Book .BookDetails p {
 }
 
 div .reference {
-    @apply p-4 bg-gray-600 rounded shadow mb-4 cursor-pointer;
+    @apply p-4 bg-gray-600 rounded shadow mb-4 cursor-pointer transition;
 }
 
 div .reference:hover {
-    @apply scale-105;
+    @apply scale-[1.05];
 }
 
 div .reference .title {

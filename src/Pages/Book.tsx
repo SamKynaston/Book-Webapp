@@ -27,18 +27,19 @@ const BookPage: React.FC<BookPageProps> = ({ books }) => {
   }
 
   const coverUrl = book.cover_id
-    ? `https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`
+    ? `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
     : null;
 
   return (
     <Page>
-      <div className="md:flex md:items-start md:gap-4">
+      <div className="md:flex md:items-start md:gap-4 pt-5">
         {coverUrl && !coverLoaded && (
-          <p className="text-gray-700">Loading cover...</p>
+          <p className="text-gray-400">Loading cover...</p>
         )}
 
         {coverUrl && (
           <img
+            className="h-75 transition hover:scale-[1.05]"
             src={coverUrl}
             alt={book.title}
             onLoad={() => setCoverLoaded(true)}
@@ -46,7 +47,7 @@ const BookPage: React.FC<BookPageProps> = ({ books }) => {
         )}
 
         <br />
-        <div className="md:flex md:flex-col md:grid-cols-1 md:gap-6">
+        <div className="md:flex md:flex-col md:grid-cols-1 md:gap-6 h-75">
           <span>
             <h3>{book.title}</h3>
             <p>
