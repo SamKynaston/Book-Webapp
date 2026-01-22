@@ -36,7 +36,7 @@ const Home: React.FC<HomeProps> = ({ allBooks, isLoaded }) => {
         <>
           <input
             type="text"
-            placeholder="Search the library"
+            placeholder="🔎  Search the library"
             value={inputText}
             onChange={inputHandler}
           />
@@ -56,7 +56,9 @@ const Home: React.FC<HomeProps> = ({ allBooks, isLoaded }) => {
             <div
               className="Book"
               key={book.key}
-              onClick={() => routeToBook(book.key)}
+              onClick={() => {
+                routeToBook(book.key);
+              }}
             >
               {book.cover_id && (
                 <img

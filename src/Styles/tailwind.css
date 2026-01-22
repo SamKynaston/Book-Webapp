@@ -46,15 +46,15 @@ h3 {
 }
 
 div .Books {
-    @apply grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 items-center;
+    @apply grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 lg:gap-8 items-center w-full lg:w-auto;
 }
 
 div .Books .Book {
-    @apply bg-gray-600 p-3 gap-4 rounded-xl shadow-xl flex items-start cursor-pointer lg:w-100;
+    @apply bg-gray-600 border border-gray-500 p-3 gap-4 rounded-xl shadow-xl flex items-start cursor-pointer lg:w-100 transition;
 }
 
 div .Books .Book:hover {
-    @apply scale-105;
+    @apply scale-[1.08] shadow-2xl z-10;
 }
 
 div .Book h2 {
@@ -98,5 +98,5 @@ div .reference .subtitle {
 }
 
 input {
-    @apply p-2 bg-gray-600 shadow-xl rounded-xl w-full lg:w-100 text-gray-300 pl-4;
+    @apply p-2 bg-gray-600 shadow-xl rounded-xl w-full lg:w-100 text-gray-300 text-lg pl-4;
 }
