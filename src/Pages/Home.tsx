@@ -44,12 +44,12 @@ const Home: React.FC<HomeProps> = ({ allBooks, isLoaded }) => {
         </>
       ) : (
         <>
-          <p className="text-gray-700 text-center">Loading</p>
+          <p className="text-gray-300 text-center">Loading</p>
         </>
       )}
 
       {isLoaded && allBooks.length > 0 && filteredBooks.length === 0 ? (
-        <p className="text-gray-700 text-center">No books found</p>
+        <p className="text-gray-300 text-center">No books found</p>
       ) : (
         <div className="Books">
           {filteredBooks.map((book) => (
