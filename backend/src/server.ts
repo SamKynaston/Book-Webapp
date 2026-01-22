@@ -1,12 +1,15 @@
-import express from "express";
-import type { Request, Response } from "express";
+import Express from "express";
+import TestRoute from "./routes/test.route";
 
-const app = express();
+export const Server = () => {
+  const app: Express.Application = Express();
+  const port: number = 3000;
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!");
-});
+  app.use("/v1/", TestRoute);
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000");
-});
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+};
+
+Server();

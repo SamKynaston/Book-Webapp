@@ -1,13 +1,13 @@
 import { StrictMode, useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navigation from "./Components/Navigation.tsx";
+import Navigation from "./Components/Navigation";
 import "./Styles/tailwind.css";
 import { pages } from "./Components/Routes";
-import Home from "./Pages/Home.tsx";
-import BookPage from "./Pages/Book.tsx";
-import Error from "./Pages/Error.tsx";
-import Footer from "./Components/Footer.tsx";
+import Home from "./Pages/Home";
+import BookPage from "./Pages/Book";
+import Error from "./Pages/Error";
+import Footer from "./Components/Footer";
 
 const App: React.FC = () => {
   const [allBooks, setAllBooks] = useState([]);
