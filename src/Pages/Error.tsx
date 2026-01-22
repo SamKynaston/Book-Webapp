@@ -4,7 +4,8 @@ function Error() {
   return (
     <Page>
       <br />
-      <h1>There has been an error!</h1>
+      <h1>404</h1>
+      <p>Page not found</p>
       <br />
       <a href="/">🏡 Go home</a>
       <br />
