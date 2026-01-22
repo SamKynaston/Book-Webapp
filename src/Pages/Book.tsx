@@ -27,33 +27,40 @@ const BookPage: React.FC<BookPageProps> = ({ books }) => {
   }
 
   const coverUrl = book.cover_id
-    ? `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
+    ? `https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`
     : null;
 
   return (
     <Page>
-      {coverUrl && !coverLoaded && (
-        <p className="text-gray-700">Loading cover...</p>
-      )}
+      <div className="md:flex md:items-start md:gap-4">
+        {coverUrl && !coverLoaded && (
+          <p className="text-gray-700">Loading cover...</p>
+        )}
 
-      {coverUrl && (
-        <img
-          src={coverUrl}
-          alt={book.title}
-          onLoad={() => setCoverLoaded(true)}
-        />
-      )}
+        {coverUrl && (
+          <img
+            src={coverUrl}
+            alt={book.title}
+            onLoad={() => setCoverLoaded(true)}
+          />
+        )}
 
+        <br />
+        <div className="md:flex md:flex-col md:grid-cols-1 md:gap-6">
+          <span>
+            <h3>{book.title}</h3>
+            <p>
+              {book.authors &&
+                book.authors.map((author: Author) => author.name).join(", ")}
+            </p>
+          </span>
+          <span>
+            <h3>Harvard Reference</h3>
+            <HarvardReference book={book} />
+          </span>
+        </div>
+      </div>
       <br />
-      <h1>{book.title}</h1>
-
-      {book.authors &&
-        book.authors.map((author: Author) => author.name).join(", ")}
-
-      <br />
-      <br />
-      <h3>Harvard Reference</h3>
-      <HarvardReference book={book} />
     </Page>
   );
 };

@@ -2,15 +2,15 @@
 @tailwind utilities;
 
 body {
-    @apply bg-gray-950 text-gray-300;
+    @apply bg-gray-800 text-gray-300 text-left;
 }
 
 .Content {
-    @apply w-full px-4 py-4 mx-auto flex flex-col items-center bg-gray-800 text-white;
+    @apply w-full px-4 py-4 mx-auto flex flex-col items-center bg-gray-700 text-white;
 }
 
 .Navigation {
-    @apply flex bg-gray-950 text-gray-300;
+    @apply flex bg-gray-800 text-gray-300 shadow-xl;
 }
 
 .Navigation a {
@@ -22,7 +22,7 @@ body {
 }
 
 .Navigation .Navigation-Button:hover {
-    @apply bg-black text-white;
+    @apply bg-gray-700 text-white;
 }
 
 a {
@@ -50,7 +50,7 @@ div .Books {
 }
 
 div .Books .Book {
-    @apply bg-gray-700 p-3 gap-4 rounded-xl shadow flex items-start cursor-pointer lg:w-100;
+    @apply bg-gray-600 p-3 gap-4 rounded-xl shadow-xl flex items-start cursor-pointer lg:w-100;
 }
 
 div .Books .Book:hover {
@@ -62,7 +62,7 @@ div .Book h2 {
 }
 
 div .Book p {
-    @apply text-gray-200;
+    @apply text-gray-300;
 }
 
 div .Book .BookCover {
@@ -82,7 +82,7 @@ div .Book .BookDetails p {
 }
 
 div .reference {
-    @apply p-4 bg-gray-700 rounded shadow mb-4 cursor-pointer;
+    @apply p-4 bg-gray-600 rounded shadow mb-4 cursor-pointer;
 }
 
 div .reference:hover {
@@ -90,13 +90,13 @@ div .reference:hover {
 }
 
 div .reference .title {
-    @apply text-gray-300 text-center;
+    @apply text-gray-300;
 }
 
 div .reference .subtitle {
-    @apply text-gray-300 text-center text-sm;
+    @apply text-gray-300 text-sm;
 }
 
 input {
-    @apply p-2 bg-gray-700 rounded-xl w-full lg:w-100 text-center text-gray-300;
+    @apply p-2 bg-gray-600 shadow-xl rounded-xl w-full lg:w-100 text-gray-300 pl-4;
 }

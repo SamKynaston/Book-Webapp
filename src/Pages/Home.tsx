@@ -36,7 +36,7 @@ const Home: React.FC<HomeProps> = ({ allBooks, isLoaded }) => {
         <>
           <input
             type="text"
-            placeholder="Search books..."
+            placeholder="Search the library"
             value={inputText}
             onChange={inputHandler}
           />
