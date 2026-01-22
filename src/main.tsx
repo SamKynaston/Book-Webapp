@@ -10,6 +10,7 @@ import Error from "./Pages/Error.tsx";
 
 const App: React.FC = () => {
   const [allBooks, setAllBooks] = useState([]);
+  const [isLoaded, setLoadedStatus] = useState(false);
 
   useEffect(() => {
     fetch("https://openlibrary.org/subjects/programming.json?details=true")
@@ -19,6 +20,9 @@ const App: React.FC = () => {
         if (response && response.works) {
           setAllBooks(response.works);
         }
+      })
+      .finally(() => {
+        setLoadedStatus(true);
       });
   }, []);
 
@@ -27,8 +31,10 @@ const App: React.FC = () => {
       <BrowserRouter>
         <Navigation pages={pages} />
         <Routes>
-          <Route path="/" element={<Home allBooks={allBooks} />} />
-
+          <Route
+            path="/"
+            element={<Home allBooks={allBooks} isLoaded={isLoaded} />}
+          />
           <Route path="/works/:id" element={<BookPage books={allBooks} />} />
           <Route path="*" element={<Error />} />
         </Routes>

@@ -5,10 +5,11 @@ import type { Author, Book } from "../Types/Books";
 
 interface HomeProps {
   allBooks: Book[];
+  isLoaded: boolean;
   //setAllBooks: React.Dispatch<React.SetStateAction<Book[]>>;
 }
 
-const Home: React.FC<HomeProps> = ({ allBooks }) => {
+const Home: React.FC<HomeProps> = ({ allBooks, isLoaded }) => {
   const [inputText, setInputText] = useState("");
 
   const navigate = useNavigate();
@@ -31,16 +32,24 @@ const Home: React.FC<HomeProps> = ({ allBooks }) => {
 
   return (
     <Page>
-      <input
-        type="text"
-        placeholder="Search books..."
-        value={inputText}
-        onChange={inputHandler}
-      />
-      <br />
+      {isLoaded && allBooks.length > 0 ? (
+        <>
+          <input
+            type="text"
+            placeholder="Search books..."
+            value={inputText}
+            onChange={inputHandler}
+          />
+          <br />
+        </>
+      ) : (
+        <>
+          <p className="text-gray-700 text-center">Loading</p>
+        </>
+      )}
 
-      {filteredBooks.length === 0 ? (
-        <p className="text-gray-700 text-center">Nothing but chickens here!</p>
+      {isLoaded && allBooks.length > 0 && filteredBooks.length === 0 ? (
+        <p className="text-gray-700 text-center">No books found</p>
       ) : (
         <div className="Books">
           {filteredBooks.map((book) => (
