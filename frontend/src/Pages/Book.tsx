@@ -1,9 +1,9 @@
-import Page from "../Components/Page";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import type { Book, Author } from "@bookwebapp/types";
 import { HarvardReference } from "../Components/Reference";
-import type { Book, Author } from "../Types/Books";
-import ErrorPage from "./Error";
+import ErrorPage from "./Error.js";
+import Page from "../Components/Page";
 
 interface BookPageProps {
   books: Book[];

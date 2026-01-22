@@ -1,4 +1,4 @@
-import type { Page } from "../Types/Pages.ts";
+import type { Page } from "@bookwebapp/types";
 import Home from "../Pages/Home";
 
 export const pages: Page[] = [

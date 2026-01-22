@@ -1,0 +1,14 @@
+{
+  "name": "@bookwebapp/types",
+  "version": "1.0.0",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/react": "^19.2.9",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^5.9.3"
+  }
+}

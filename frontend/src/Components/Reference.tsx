@@ -1,4 +1,4 @@
-import type { Book, Author } from "../Types/Books";
+import type { Book, Author } from "@bookwebapp/types";
 import { useState } from "react";
 
 interface HarvardReferenceProps {

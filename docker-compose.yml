@@ -5,11 +5,15 @@ services:
       - "3000:3000"
     volumes:
       - ./backend:/app
+      - ./types:/app/node_modules/@bookwebapp/types
 
   frontend:
     build: ./frontend
     ports:
       - "5173:80"
+    volumes:
+      - ./frontend:/app
+      - ./types:/app/node_modules/@bookwebapp/types
     depends_on:
       - backend
     environment:

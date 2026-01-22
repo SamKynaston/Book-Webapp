@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "@bookwebapp/backend",
   "version": "1.0.0",
   "description": "",
   "license": "ISC",
@@ -12,7 +12,8 @@
     "start": "node ./dist/server.js"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "@bookwebapp/types": "file:../types"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",

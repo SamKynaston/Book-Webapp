@@ -2,12 +2,17 @@
   "compilerOptions": {
     "target": "ES2022",
     "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "Node",
+    "jsx": "react-jsx",
     "outDir": "dist",
     "rootDir": "src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@bookwebapp/types": ["node_modules/@bookwebapp/types/dist"],
+    },
   },
 
   "include": ["src/**/*"],

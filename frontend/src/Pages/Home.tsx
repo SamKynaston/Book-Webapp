@@ -1,7 +1,7 @@
 import Page from "../Components/Page";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import type { Author, Book } from "../Types/Books";
+import type { Book, Author } from "@bookwebapp/types";
 
 interface HomeProps {
   allBooks: Book[];

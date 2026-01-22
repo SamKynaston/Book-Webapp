@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import type { NavigationProps } from "../Types/Pages.ts";
+import type { NavigationProps } from "@bookwebapp/types";
 
 function Navigation({ pages }: NavigationProps) {
   return (
