@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "NodeNext",
+    "module": "ESNext",
     "moduleResolution": "Node",
     "jsx": "react-jsx",
     "outDir": "dist",
@@ -15,5 +15,5 @@
     },
   },
 
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "vite-env.d.ts"],
 }

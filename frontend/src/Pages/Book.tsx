@@ -21,7 +21,7 @@ const BookPage: React.FC<BookPageProps> = ({ books }) => {
     return <Page>Loading...</Page>;
   }
 
-  const book = books.find((book: Book) => book.key === `/works/${id}`);
+  const book = books.find((book: Book) => book.key === `${id}`);
   if (!book) {
     return <ErrorPage />;
   }

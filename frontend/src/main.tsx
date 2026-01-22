@@ -14,16 +14,27 @@ const App: React.FC = () => {
   const [isLoaded, setLoadedStatus] = useState(false);
 
   useEffect(() => {
-    fetch("https://openlibrary.org/subjects/programming.json?details=true")
+    const apiUrl = import.meta.env.VITE_API_URL;
+    console.log(apiUrl);
+
+    fetch(`${apiUrl}/v1/test`)
       .then((response) => response.json())
 
       .then((response) => {
-        if (response && response.works) {
-          setAllBooks(response.works);
+        console.log(response);
+        if (response && response.body) {
+          setAllBooks(response.body);
+        } else {
+          setLoadedStatus(true);
         }
       })
+
       .finally(() => {
         setLoadedStatus(true);
+      })
+
+      .catch((error) => {
+        console.log(error.message);
       });
   }, []);
 

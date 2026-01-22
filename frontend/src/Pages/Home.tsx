@@ -15,7 +15,7 @@ const Home: React.FC<HomeProps> = ({ allBooks, isLoaded }) => {
   const navigate = useNavigate();
 
   const routeToBook = (id: string) => {
-    navigate(`${id}`);
+    navigate(`/works/${id}`);
   };
 
   const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
