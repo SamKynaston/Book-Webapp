@@ -14,11 +14,11 @@ nav {
 }
 
 nav a {
-    @apply no-underline;
+    @apply no-underline cursor-pointer;
 }
 
 nav .Navigation-Button {
-    @apply p-4;
+    @apply p-4 cursor-pointer;
 }
 
 nav .Navigation-Button:hover {
