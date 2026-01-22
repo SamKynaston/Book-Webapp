@@ -1,27 +1,23 @@
 @import "tailwindcss";
 @tailwind utilities;
 
-body {
-    @apply bg-white;
-}
-
 .Content {
-    @apply w-full px-4 py-4 mx-auto flex flex-col items-center bg-black text-white;
+    @apply w-full px-4 py-4 mx-auto flex flex-col items-center bg-gray-200 text-white;
 }
 
-nav {
-    @apply flex text-black bg-white;
+.Navigation {
+    @apply flex bg-gray-950;
 }
 
-nav a {
+.Navigation a {
     @apply no-underline cursor-pointer;
 }
 
-nav .Navigation-Button {
+.Navigation .Navigation-Button {
     @apply p-4 cursor-pointer;
 }
 
-nav .Navigation-Button:hover {
+.Navigation .Navigation-Button:hover {
     @apply bg-black text-white;
 }
 
@@ -50,7 +46,7 @@ div .Books {
 }
 
 div .Books .Book {
-    @apply bg-gray-100 p-4 gap-4 rounded shadow flex items-start cursor-pointer lg:w-100;
+    @apply bg-gray-300 p-3 gap-4 rounded-xl shadow flex items-start cursor-pointer lg:w-100;
 }
 
 div .Books .Book:hover {
@@ -66,11 +62,19 @@ div .Book p {
 }
 
 div .Book .BookCover {
-    @apply w-24 h-32 object-cover mb-2 flex-shrink-0 rounded;
+    @apply w-24 h-32 object-cover shrink-0 rounded-xl;
 }
 
 div .Book .BookDetails {
     @apply flex flex-col;
+}
+
+div .Book .BookDetails h2 {
+    @apply text-base lg:mb-2;
+}
+
+div .Book .BookDetails p {
+    @apply text-xs;
 }
 
 div .reference {
@@ -90,5 +94,5 @@ div .reference .subtitle {
 }
 
 input {
-    @apply p-2 bg-gray-200 rounded w-full lg:w-100;
+    @apply p-2 bg-gray-300 rounded-xl w-full lg:w-100 text-center text-gray-700;
 }

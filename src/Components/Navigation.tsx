@@ -3,7 +3,7 @@ import type { NavigationProps } from "../Types/Pages.ts";
 
 function Navigation({ pages }: NavigationProps) {
   return (
-    <nav>
+    <span className="Navigation">
       {pages.map(
         (page) =>
           page.ignore !== true && (
@@ -12,7 +12,7 @@ function Navigation({ pages }: NavigationProps) {
             </Link>
           ),
       )}
-    </nav>
+    </span>
   );
 }
 
