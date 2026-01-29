@@ -18,10 +18,11 @@ body {
 }
 
 .Navigation .Navigation-Button {
-    @apply p-4 cursor-pointer;
+    @apply p-2 cursor-pointer w-full lg:w-auto;
 }
 
 .Navigation-Button img {
+    @apply w-full;
     max-height: 60px;
 }
 
