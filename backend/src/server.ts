@@ -1,11 +1,19 @@
 import Express from "express";
-import TestRoute from "./routes/test.route";
+import TestRoute from "./routes/book.route";
 import cors from "cors";
+import session from "express-session";
 
 export const Server = () => {
   const app: Express.Application = Express();
   const port: number = 3000;
 
+  app.use(
+    session({
+      secret: "secret",
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
   app.use(cors());
   app.use("/v1/", TestRoute);
 

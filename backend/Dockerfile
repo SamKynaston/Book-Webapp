@@ -2,10 +2,14 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm install
-
 COPY . .
+
+WORKDIR /app/types
+RUN npm install && npm run build
+
+WORKDIR /app/backend
+RUN npm install
+RUN npm run build
 
 EXPOSE 3000
 CMD ["npm", "start"]

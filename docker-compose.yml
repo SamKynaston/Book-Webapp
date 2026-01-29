@@ -1,11 +1,10 @@
 services:
   backend:
-    build: ./backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     ports:
       - "3000:3000"
-    volumes:
-      - ./backend:/app
-      - ./types:/app/node_modules/@bookwebapp/types
 
   frontend:
     build:

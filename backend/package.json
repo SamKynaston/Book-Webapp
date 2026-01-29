@@ -13,8 +13,10 @@
   },
   "dependencies": {
     "@bookwebapp/types": "file:../types",
+    "@types/express-session": "^1.18.2",
     "cors": "^2.8.5",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "express-session": "^1.19.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",

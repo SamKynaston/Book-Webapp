@@ -2,7 +2,7 @@ import Page from "../Components/Page";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Book } from "@bookwebapp/types";
-import { BookBtn } from "src/Components/BookBtn";
+import { BookBtn } from "../Components/BookBtn";
 
 interface HomeProps {
   allBooks: Book[];

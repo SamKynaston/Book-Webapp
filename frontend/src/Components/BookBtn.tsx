@@ -1,14 +1,19 @@
 import { Author, Book } from "@bookwebapp/types";
 
+interface BookBtnProps {
+  book: Book;
+  isRecommended: boolean;
+  routeToBook: (key: string) => void;
+}
 
-export const BookBtn = (
-  book: Book,
-  isRecommended: boolean,
-  routeToBook: (key: string) => void,
-) => {
+export const BookBtn: React.FC<BookBtnProps> = ({
+  book,
+  isRecommended,
+  routeToBook,
+}) => {
   return (
     <div
-      className="Book"
+      className={`Book ${isRecommended ? "Recommended" : ""}`}
       key={book.key}
       onClick={() => {
         routeToBook(book.key);
