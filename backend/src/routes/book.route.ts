@@ -9,7 +9,8 @@ import {
 const router = Express.Router();
 
 router.get("/works", getAllBooks);
+router.post("/works", createBook);
 router.get("/works/:id", getBook);
-router.post("/works/:id", isAuthenticated, createBook);
+router.put("/works/:id", isAuthenticated, createBook);
 
 export default router;
