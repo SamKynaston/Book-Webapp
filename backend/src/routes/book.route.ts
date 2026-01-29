@@ -4,6 +4,7 @@ import {
   createBook,
   getBook,
   getAllBooks,
+  updateBook,
 } from "../controllers/book.controller";
 
 const router = Express.Router();
@@ -11,6 +12,6 @@ const router = Express.Router();
 router.get("/", getAllBooks);
 router.post("/", createBook);
 router.get("/:id", getBook);
-router.put("/:id", isAuthenticated, createBook);
+router.put("/:id", updateBook);
 
 export default router;

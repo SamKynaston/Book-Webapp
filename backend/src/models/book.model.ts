@@ -10,7 +10,6 @@ import AuthorModel from "./author.model";
 
 export class BookModel extends Model implements Book {
   declare id: CreationOptional<number>;
-  declare key: string;
   declare title: string;
   declare first_publish_year: number;
   declare authors: Author[];
@@ -25,11 +24,6 @@ BookModel.init(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
-    },
-
-    key: {
-      type: DataTypes.STRING,
-      allowNull: false,
     },
 
     title: {

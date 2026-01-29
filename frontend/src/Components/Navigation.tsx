@@ -8,7 +8,15 @@ function Navigation({ pages }: NavigationProps) {
         (page) =>
           page.ignore !== true && (
             <Link to={page.path} key={page.path} className="Navigation-Button">
-              {page.title ?? page.path}
+              {page.image ? (
+                <img
+                  src={page.image}
+                  alt={page.title ?? page.path}
+                  className="Navigation-Icon"
+                />
+              ) : (
+                <span>{page.title ?? page.path}</span>
+              )}
             </Link>
           ),
       )}

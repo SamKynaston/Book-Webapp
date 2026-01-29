@@ -5,7 +5,6 @@ export interface Author {
 
 export interface Book {
   id: number;
-  key: string;
   title: string;
   cover_id?: number;
   authors: Author[];
@@ -14,7 +13,6 @@ export interface Book {
 }
 
 export interface CreateBookInput {
-  key: string;
   title: string;
   cover_id?: number;
   first_publish_year: number;

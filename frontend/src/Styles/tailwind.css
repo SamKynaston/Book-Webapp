@@ -21,6 +21,10 @@ body {
     @apply p-4 cursor-pointer;
 }
 
+.Navigation-Button img {
+    max-height: 60px;
+}
+
 .Navigation .Navigation-Button:hover {
     @apply bg-neutral-700 text-white;
 }

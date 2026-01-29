@@ -51,3 +51,27 @@ export const createAuthor = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const updateAuthor = async (req: Request, res: Response) => {
+  const authorKey = req.params.id as string;
+  const updatedAuthor = req.body;
+
+  try {
+    const existingAuthor = await AuthorModel.findOne({
+      where: { id: authorKey },
+    });
+
+    if (!existingAuthor) {
+      return res.status(404).json({ error: "Author not found" });
+    }
+
+    await existingAuthor.update(updatedAuthor);
+    res.send({ body: existingAuthor });
+  } catch (error) {
+    res.status(500).json({
+      message: "Author update failed",
+      error: error,
+      body: req.body,
+    });
+  }
+};

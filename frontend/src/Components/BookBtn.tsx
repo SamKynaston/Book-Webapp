@@ -3,7 +3,7 @@ import { Author, Book } from "@bookwebapp/types";
 interface BookBtnProps {
   book: Book;
   isRecommended: boolean;
-  routeToBook: (key: string) => void;
+  routeToBook: (id: string) => void;
 }
 
 export const BookBtn: React.FC<BookBtnProps> = ({
@@ -14,9 +14,9 @@ export const BookBtn: React.FC<BookBtnProps> = ({
   return (
     <div
       className={`Book ${isRecommended ? "Recommended" : ""}`}
-      key={book.key}
+      key={book.id}
       onClick={() => {
-        routeToBook(book.key);
+        routeToBook(book.id.toString());
       }}
     >
       {book.cover_id && (
