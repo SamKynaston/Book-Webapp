@@ -1,15 +1,22 @@
-import { DataTypes, Model, CreationOptional } from "sequelize";
+import {
+  DataTypes,
+  Model,
+  CreationOptional,
+  BelongsToManyAddAssociationsMixin,
+} from "sequelize";
 import { sequelize } from "../database";
 import { Book, Author } from "@bookwebapp/types";
+import AuthorModel from "./author.model";
 
 export class BookModel extends Model implements Book {
   declare id: CreationOptional<number>;
   declare key: string;
   declare title: string;
   declare first_publish_year: number;
+  declare authors: Author[];
   declare cover_id?: number | undefined;
-  declare authors?: Author[];
   declare isRecommended?: boolean;
+  declare setAuthors: BelongsToManyAddAssociationsMixin<AuthorModel, number>;
 }
 
 BookModel.init(
@@ -40,11 +47,6 @@ BookModel.init(
       allowNull: true,
     },
 
-    authors: {
-      type: DataTypes.JSONB,
-      allowNull: false,
-    },
-
     isRecommended: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
@@ -55,5 +57,19 @@ BookModel.init(
     modelName: "Book",
   },
 );
+
+BookModel.belongsToMany(AuthorModel, {
+  through: "AuthorBook",
+  foreignKey: "bookId",
+  otherKey: "authorId",
+  as: "authors",
+});
+
+AuthorModel.belongsToMany(BookModel, {
+  through: "AuthorBook",
+  foreignKey: "authorId",
+  otherKey: "bookId",
+  as: "books",
+});
 
 export default BookModel;

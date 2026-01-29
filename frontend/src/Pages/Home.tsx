@@ -56,7 +56,7 @@ const Home: React.FC<HomeProps> = ({ allBooks, isLoaded }) => {
           {filteredBooks.map((book) => (
             <BookBtn
               book={book}
-              isRecommended={book.isRecommended}
+              isRecommended={book.isRecommended || false}
               routeToBook={routeToBook}
             />
           ))}

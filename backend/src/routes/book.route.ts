@@ -8,9 +8,9 @@ import {
 
 const router = Express.Router();
 
-router.get("/works", getAllBooks);
-router.post("/works", createBook);
-router.get("/works/:id", getBook);
-router.put("/works/:id", isAuthenticated, createBook);
+router.get("/", getAllBooks);
+router.post("/", createBook);
+router.get("/:id", getBook);
+router.put("/:id", isAuthenticated, createBook);
 
 export default router;

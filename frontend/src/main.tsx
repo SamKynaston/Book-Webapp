@@ -17,7 +17,7 @@ const App: React.FC = () => {
     const apiUrl = import.meta.env.VITE_API_URL;
     console.log(apiUrl);
 
-    fetch(`${apiUrl}/v1/works`)
+    fetch(`${apiUrl}/v1/books`)
       .then((response) => response.json())
 
       .then((response) => {

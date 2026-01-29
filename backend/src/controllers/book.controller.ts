@@ -1,12 +1,20 @@
 import { Request, Response } from "express";
-import { Book } from "@bookwebapp/types";
-import { SampleBooks } from "../SampleData";
+import { CreateBookInput } from "@bookwebapp/types";
 import { BookModel } from "../models/book.model";
-import e from "cors";
+import { AuthorModel } from "../models/author.model";
 
 export const getAllBooks = async (req: Request, res: Response) => {
   try {
-    const books = await BookModel.findAll();
+    const books = await BookModel.findAll({
+      include: [
+        {
+          model: AuthorModel,
+          as: "authors",
+          attributes: ["id", "name"],
+          through: { attributes: [] },
+        },
+      ],
+    });
     res.send({ body: books });
   } catch (error) {
     res.status(500).json({ error: "Failed to retrieve books" });
@@ -19,6 +27,14 @@ export const getBook = async (req: Request, res: Response) => {
   try {
     const book = await BookModel.findOne({
       where: { key: bookKey },
+      include: [
+        {
+          model: AuthorModel,
+          as: "authors",
+          attributes: ["id", "name"],
+          through: { attributes: [] },
+        },
+      ],
     });
     if (!book) {
       return res.status(404).json({ error: "Book not found" });
@@ -32,7 +48,7 @@ export const getBook = async (req: Request, res: Response) => {
 
 export const createBook = async (req: Request, res: Response) => {
   console.log("req.body:", req.body);
-  const newBook: Omit<Book, "id"> = req.body;
+  const newBook: CreateBookInput = req.body;
 
   try {
     const existingBook = await BookModel.findOne({
@@ -43,8 +59,31 @@ export const createBook = async (req: Request, res: Response) => {
       return res.status(409).json({ error: "Book already exists" });
     }
 
-    const createdBook = await BookModel.create(newBook);
-    res.status(201).json(createdBook);
+    const createdBook = await BookModel.create({
+      key: newBook.key,
+      title: newBook.title,
+      first_publish_year: newBook.first_publish_year,
+      cover_id: newBook.cover_id,
+      isRecommended: newBook.isRecommended,
+    });
+
+    if (newBook.authors && newBook.authors.length > 0) {
+      await createdBook.setAuthors(newBook.authors);
+    }
+
+    const bookWithAuthors = await BookModel.findOne({
+      where: { id: createdBook.id },
+      include: [
+        {
+          model: AuthorModel,
+          as: "authors",
+          attributes: ["id", "name"],
+          through: { attributes: [] },
+        },
+      ],
+    });
+
+    res.status(201).json(bookWithAuthors);
   } catch (error) {
     res
       .status(500)
