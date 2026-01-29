@@ -3,6 +3,7 @@ export interface Author {
 }
 
 export interface Book {
+  id: number;
   key: string;
   title: string;
   cover_id?: number;
