@@ -15,7 +15,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const apiUrl = import.meta.env.VITE_API_URL;
-    console.log(apiUrl);
 
     fetch(`${apiUrl}/v1/books`)
       .then((response) => response.json())
