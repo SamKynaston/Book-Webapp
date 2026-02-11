@@ -20,6 +20,10 @@ function Navigation({ pages }: NavigationProps) {
             </Link>
           ),
       )}
+
+      <Link to="/account" className="Navigation-Button">
+        Account
+      </Link>
     </span>
   );
 }
