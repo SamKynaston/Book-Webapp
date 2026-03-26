@@ -3,10 +3,10 @@ import { UserModel } from "../models/user.model";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-export const createUser = async (req: Request, res: Response) => {
+export const CREATE_USER = async (req: Request, res: Response) => {
   try {
-    const { Username, Password, Email } = req.body;
-    const user = await UserModel.create({ Username, Password, Email });
+    const { username, password, email } = req.body;
+    const user = await UserModel.create({ username, password, email });
     res.status(201).json(user);
   } catch (error) {
     console.error(error);
@@ -14,16 +14,24 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
-export const loginUser = async (req: Request, res: Response) => {
+export const AUTHENTICATE_USER = async (req: Request, res: Response) => {
   try {
-    const { Password, Email } = req.body;
-    const user = await UserModel.findOne({ where: { Email } });
+    const { username, password, email } = req.body;
+    let user = null
+
+    if (username) {
+      user = await UserModel.findOne({ where: { username } });
+    } else if (email) {
+      user = await UserModel.findOne({ where: { email } });
+    } else {
+      return res.status(400).json({ error: "Username or email required" });
+    }
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const isPasswordValid = await bcrypt.compare(Password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
       return res.status(401).json({ error: "Invalid password" });
@@ -40,5 +48,5 @@ export const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-export const getUser = async (req: Request, res: Response) => {};
-export const updateUser = async (req: Request, res: Response) => {};
+export const GET_USER = async (req: Request, res: Response) => {};
+export const UPDATE_USER = async (req: Request, res: Response) => {};

@@ -1,5 +1,5 @@
 import Express, { Request, Response } from "express";
-import { isAuthenticated } from "../middleware/authentication.middleware";
+import { IS_AUTHENTICATED } from "../middleware/authentication.middleware";
 import {
   createAuthor,
   getAuthor,
@@ -10,8 +10,8 @@ import {
 const router = Express.Router();
 
 router.get("/", getAllAuthors);
-router.post("/", createAuthor);
+router.post("/", IS_AUTHENTICATED, createAuthor);
 router.get("/:id", getAuthor);
-router.put("/:id", updateAuthor);
+router.put("/:id", IS_AUTHENTICATED, updateAuthor);
 
 export default router;

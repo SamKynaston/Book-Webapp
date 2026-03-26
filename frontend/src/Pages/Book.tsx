@@ -1,24 +1,50 @@
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Book, Author } from "@bookwebapp/types";
 import { HarvardReference } from "../Components/Reference";
 import ErrorPage from "./Error.js";
 import Page from "../Components/Page";
 
 interface BookPageProps {
-  books: Book[];
+
 }
 
-const BookPage: React.FC<BookPageProps> = ({ books }) => {
+const BookPage: React.FC<BookPageProps> = ({ }) => {
   const { id } = useParams();
   const [coverLoaded, setCoverLoaded] = useState(false);
+  const [book, setBook] = useState();
+  const [error, setError] = useState(false);
 
   if (!id) {
     return <ErrorPage />;
   }
 
-  const book = books.find((book: Book) => book.id === parseInt(id));
-  if (!book) {
+  useEffect(() => {
+    const apiUrl = import.meta.env.VITE_API_URL;
+
+    fetch(`${apiUrl}/v1/books/${id}`)
+      .then((response) => response.json())
+
+      .then((response) => {
+        console.log(response);
+        if (response && response.body) {
+          setBook(response.body)
+        } else {
+          setError(true)
+        }
+      })
+
+      .catch((error) => {
+        setError(true)
+        console.log(error.message);
+      });
+  }, []);
+
+  if (!id || !book) {
+    return <p>Please wait...</p>
+  }
+
+  if (error) {
     return <ErrorPage />;
   }
 

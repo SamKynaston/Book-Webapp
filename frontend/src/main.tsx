@@ -1,4 +1,4 @@
-import { StrictMode, useState, useEffect } from "react";
+import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navigation from "./Components/Navigation";
@@ -10,33 +10,6 @@ import Error from "./Pages/Error";
 import Footer from "./Components/Footer";
 
 const App: React.FC = () => {
-  const [allBooks, setAllBooks] = useState([]);
-  const [isLoaded, setLoadedStatus] = useState(false);
-
-  useEffect(() => {
-    const apiUrl = import.meta.env.VITE_API_URL;
-
-    fetch(`${apiUrl}/v1/books`)
-      .then((response) => response.json())
-
-      .then((response) => {
-        console.log(response);
-        if (response && response.body) {
-          setAllBooks(response.body);
-        } else {
-          setLoadedStatus(true);
-        }
-      })
-
-      .finally(() => {
-        setLoadedStatus(true);
-      })
-
-      .catch((error) => {
-        console.log(error.message);
-      });
-  }, []);
-
   return (
     <StrictMode>
       <BrowserRouter>
@@ -44,9 +17,9 @@ const App: React.FC = () => {
         <Routes>
           <Route
             path="/"
-            element={<Home allBooks={allBooks} isLoaded={isLoaded} />}
+            element={<Home />}
           />
-          <Route path="/works/:id" element={<BookPage books={allBooks} />} />
+          <Route path="/works/:id" element={<BookPage />} />
           <Route path="*" element={<Error />} />
         </Routes>
         <Footer />

@@ -1,19 +1,42 @@
 import Page from "../Components/Page";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Book } from "@bookwebapp/types";
 import { BookBtn } from "../Components/BookBtn";
 
 interface HomeProps {
-  allBooks: Book[];
-  isLoaded: boolean;
   //setAllBooks: React.Dispatch<React.SetStateAction<Book[]>>;
 }
 
-const Home: React.FC<HomeProps> = ({ allBooks, isLoaded }) => {
+const Home: React.FC<HomeProps> = ({ }) => {
   const [inputText, setInputText] = useState("");
-
+  const [allBooks, setAllBooks] = useState([]);
+  const [isLoaded, setLoadedStatus] = useState(false)
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const apiUrl = import.meta.env.VITE_API_URL;
+
+    fetch(`${apiUrl}/v1/books`)
+      .then((response) => response.json())
+
+      .then((response) => {
+        console.log(response);
+        if (response && response.body) {
+          setAllBooks(response.body);
+        } else {
+          setLoadedStatus(true);
+        }
+      })
+
+      .finally(() => {
+        setLoadedStatus(true);
+      })
+
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, []);
 
   const routeToBook = (id: string) => {
     navigate(`/works/${id}`);
@@ -23,7 +46,7 @@ const Home: React.FC<HomeProps> = ({ allBooks, isLoaded }) => {
     setInputText(event.target.value);
   };
 
-  const filteredBooks = allBooks.filter((book) => {
+  const filteredBooks = allBooks.filter((book: Book) => {
     if (!inputText) {
       return book;
     } else {
@@ -53,7 +76,7 @@ const Home: React.FC<HomeProps> = ({ allBooks, isLoaded }) => {
         <p className="text-gray-300 text-center">No books found</p>
       ) : (
         <div className="Books">
-          {filteredBooks.map((book) => (
+          {filteredBooks.map((book: Book) => (
             <BookBtn
               book={book}
               isRecommended={book.isRecommended || false}

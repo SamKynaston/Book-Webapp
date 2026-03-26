@@ -12,3 +12,6 @@ export const sequelize = new Sequelize(
     logging: console.log,
   }
 );
+
+process.env.POSTGRES_USER = "null"
+process.env.POSTGRES_PASSWORD = "null"

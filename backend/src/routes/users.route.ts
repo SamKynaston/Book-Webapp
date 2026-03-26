@@ -1,22 +1,22 @@
 import Express, { Request, Response } from "express";
 
 import {
-  isAuthenticated,
-  hashPass,
+  IS_AUTHENTICATED,
+  HASH_PASSWORD,
 } from "../middleware/authentication.middleware";
 
 import {
-  createUser,
-  updateUser,
-  getUser,
-  loginUser,
+  CREATE_USER,
+  AUTHENTICATE_USER,
+  GET_USER,
+  UPDATE_USER,
 } from "../controllers/users.controller";
 
 const router = Express.Router();
 
-router.post("/", hashPass, createUser);
-router.post("/login", loginUser);
-router.get("/:id", getUser);
-router.put("/:id", isAuthenticated, updateUser);
+router.post("/", HASH_PASSWORD, CREATE_USER);
+router.post("/login", AUTHENTICATE_USER);
+router.get("/:id", GET_USER);
+router.put("/:id", IS_AUTHENTICATED, UPDATE_USER);
 
 export default router;

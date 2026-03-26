@@ -3,6 +3,8 @@ import UserModel from "./models/user.model";
 import AuthorModel from "./models/author.model";
 import BookModel from "./models/book.model";
 
+import { hashPassword } from "./utils/password";
+
 export async function seedSampleData() {
     await UserModel.sync({ force: true });
     await AuthorModel.sync({ force: true });
@@ -10,7 +12,7 @@ export async function seedSampleData() {
     await sequelize.model("AuthorBook").sync({ force: true });
     
     const sampleUsers = await UserModel.bulkCreate([
-        { username: "Admin", password: "debug", email: "sam.kynaston@kynno.co.uk" }
+        { username: "Admin", password: await hashPassword("debug"), email: "sam.kynaston@kynno.co.uk" }
     ])
 
     const sampleAuthors = await AuthorModel.bulkCreate([

@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import bcrypt from "bcrypt";
+import { hashPassword } from "../utils/password";
 
-export const isAuthenticated = (
+export const IS_AUTHENTICATED = (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -14,21 +15,19 @@ export const isAuthenticated = (
   next();
 };
 
-const saltRounds = 10;
-export const hashPass = async (
+export const HASH_PASSWORD = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ) => {
   try {
-    if (!req.body.Password) {
+    if (!req.body.password) {
       return res.status(400).json({ error: "Password is required" });
     }
 
-    req.body.Password = await bcrypt.hash(req.body.Password, saltRounds);
+    req.body.password = await hashPassword(req.body.password);
     next();
   } catch (err) {
-    res.status(501);
     res.status(500).json({ error: "Failed to hash password" });
   }
 };
