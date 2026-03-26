@@ -10,7 +10,7 @@ body {
 }
 
 .Navigation {
-    @apply flex bg-neutral-800 text-gray-300 shadow-xl sticky top-0 z-100;
+    @apply lg:flex bg-neutral-800 text-gray-300 shadow-xl lg:sticky lg:top-0 lg:z-100;
 }
 
 .Navigation a {
@@ -18,7 +18,7 @@ body {
 }
 
 .Navigation .Navigation-Button {
-    @apply p-2 cursor-pointer w-full lg:w-auto;
+    @apply p-2 cursor-pointer w-full lg:w-auto block;
 }
 
 .Navigation-Button img {

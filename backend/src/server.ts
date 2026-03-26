@@ -4,10 +4,16 @@ import AuthorRoute from "./routes/author.route";
 import cors from "cors";
 import session from "express-session";
 import { sequelize } from "./database";
+import { seedSampleData } from "./sample"
 
 export const Server = () => {
   const app: Express.Application = Express();
   const port: number = 3000;
+
+  if (process.env.ENVIRONMENT === "DEVELOPMENT") {
+    console.log("Inside of development environment, inserting sample data.")
+    seedSampleData();
+  }
 
   app.use(
     session({
