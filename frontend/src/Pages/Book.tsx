@@ -12,7 +12,7 @@ interface BookPageProps {
 const BookPage: React.FC<BookPageProps> = ({ }) => {
   const { id } = useParams();
   const [coverLoaded, setCoverLoaded] = useState(false);
-  const [book, setBook] = useState();
+  const [book, setBook] = useState<Book | undefined>(undefined);
   const [error, setError] = useState(false);
 
   if (!id) {
@@ -39,51 +39,53 @@ const BookPage: React.FC<BookPageProps> = ({ }) => {
         console.log(error.message);
       });
   }, []);
-
-  if (!id || !book) {
-    return <p>Please wait...</p>
-  }
-
+  
   if (error) {
     return <ErrorPage />;
   }
 
-  const coverUrl = book.cover_id
-    ? `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
-    : null;
+  const coverUrl = book?.cover_id
+  ? `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
+  : null;
 
   return (
     <Page>
-      <div className="md:flex md:items-start md:gap-4 pt-5">
-        {coverUrl && !coverLoaded && (
-          <p className="text-gray-400">Loading cover...</p>
-        )}
+        {book ? (
+          <>
+            <div className="md:flex md:items-start md:gap-4 pt-5">
+              {coverUrl && !coverLoaded && (
+                <p className="text-gray-400">Loading cover...</p>
+              )}
 
-        {coverUrl && (
-          <img
-            className="h-75 justify-center transition hover:scale-[1.1]"
-            src={coverUrl}
-            alt={book.title}
-            onLoad={() => setCoverLoaded(true)}
-          />
-        )}
+              {coverUrl && (
+                <img
+                  className="h-75 justify-center transition hover:scale-[1.1]"
+                  src={coverUrl}
+                  alt={book.title}
+                  onLoad={() => setCoverLoaded(true)}
+                />
+              )}
 
-        <br />
-        <div className="md:flex md:flex-col md:grid-cols-1 md:gap-6 h-75">
-          <span>
-            <h3>{book.title}</h3>
-            <p>
-              {book.authors &&
-                book.authors.map((author: Author) => author.name).join(", ")}
-            </p>
-          </span>
-          <span>
-            <h3>Harvard Reference</h3>
-            <HarvardReference book={book} />
-          </span>
-        </div>
-      </div>
-      <br />
+              <br />
+              <div className="md:flex md:flex-col md:grid-cols-1 md:gap-6 h-75">
+                <span>
+                  <h3>{book.title}</h3>
+                  <p>
+                    {book.authors &&
+                      book.authors.map((author: Author) => author.name).join(", ")}
+                  </p>
+                </span>
+                <span>
+                  <h3>Harvard Reference</h3>
+                  <HarvardReference book={book} />
+                </span>
+              </div>
+            </div>
+            <br />
+          </>
+        ): (
+          <p>Please wait...</p>
+        )}
     </Page>
   );
 };
