@@ -2,15 +2,15 @@
 @tailwind utilities;
 
 body {
-    @apply bg-neutral-800 text-gray-300 text-left;
+    @apply text-gray-300 bg-stone-900 text-left;
 }
 
 .Content {
-    @apply w-full px-4 py-4 mx-auto flex flex-col items-center bg-neutral-700 text-white;
+    @apply w-full px-4 py-4 mx-auto flex flex-col items-center bg-stone-700 text-white;
 }
 
 .Navigation {
-    @apply lg:flex bg-neutral-800 text-gray-300 shadow-xl lg:sticky lg:top-0 lg:z-100;
+    @apply lg:flex bg-stone-900 text-gray-300 shadow-xl lg:sticky lg:top-0 lg:z-100;
 }
 
 .Navigation a {
@@ -27,7 +27,7 @@ body {
 }
 
 .Navigation .Navigation-Button:hover {
-    @apply bg-neutral-700 text-white;
+    @apply bg-neutral-800 text-white;
 }
 
 .Footer {
@@ -55,11 +55,11 @@ h3 {
 }
 
 div .Books {
-    @apply grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 lg:gap-8 items-center w-full lg:w-auto;
+    @apply grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 lg:gap-8 items-center w-full lg:w-auto;
 }
 
 div .Books .Book {
-    @apply bg-neutral-600 border border-gray-500 p-3 gap-4 rounded-xl shadow-xl flex items-start cursor-pointer lg:w-100 transition;
+    @apply bg-stone-900 p-3 gap-4 rounded-xl shadow-xl flex items-start cursor-pointer lg:w-100 transition;
 }
 
 div .Books .Book:hover {
@@ -95,7 +95,7 @@ div .Book .BookDetails p {
 }
 
 div .reference {
-    @apply p-4 bg-neutral-600 rounded shadow mb-4 cursor-pointer lg:transition w-full lg:w-150;
+    @apply p-4 bg-neutral-800 rounded shadow mb-4 cursor-pointer lg:transition w-full lg:w-150;
 }
 
 div .reference:hover {
@@ -111,7 +111,7 @@ div .reference .subtitle {
 }
 
 input {
-    @apply p-2 bg-neutral-600 shadow-xl rounded-xl w-full lg:w-100 text-gray-300 text-lg pl-4;
+    @apply p-2 bg-stone-900 shadow-xl rounded-xl w-full lg:w-100 text-gray-300 text-lg pl-4;
 }
 
 div .RecommendedBadge {
