@@ -7,7 +7,10 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "ignoreDeprecations": "6.0",
+    
     "baseUrl": ".",
+
     "paths": {
       "@bookwebapp/types": ["node_modules/@bookwebapp/types/dist"],
     },
