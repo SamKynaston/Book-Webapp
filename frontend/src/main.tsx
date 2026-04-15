@@ -1,25 +1,37 @@
-import { StrictMode } from "react";
+import { StrictMode, use } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navigation from "./Components/Navigation";
+import { useState, useEffect } from "react";
+
+// Styling
 import "./Styles/tailwind.css";
+
+// Components
+import Navigation from "./Components/Navigation";
 import { pages } from "./Components/Routes";
+
+// Pages
 import Home from "./Pages/Home";
 import BookPage from "./Pages/Book";
 import Error from "./Pages/Error";
 import Footer from "./Components/Footer";
+import AccountPage from "./Pages/Account";
+import AuthenticationPage from "./Pages/Authentication";
 
 const App: React.FC = () => {
+  const [allCookies, setAllCookies] = useState<string>("");
+  const [isAuthenticated, setAuthenticatedStatus] = useState(false);
+  const [accountToken, setAccountToken] = useState<string>("");
+
   return (
     <StrictMode>
       <BrowserRouter>
         <Navigation pages={pages} />
         <Routes>
-          <Route
-            path="/"
-            element={<Home />}
-          />
+          <Route path="/" element={<Home />} />
           <Route path="/works/:id" element={<BookPage />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/login" element={<AuthenticationPage />} />
           <Route path="*" element={<Error />} />
         </Routes>
         <Footer />

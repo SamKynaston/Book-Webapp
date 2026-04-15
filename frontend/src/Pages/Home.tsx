@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Book } from "@bookwebapp/types";
 import { BookBtn } from "../Components/BookBtn";
+import { GetAllBooks } from "../Helpers/Books";
 
 interface HomeProps {
   //setAllBooks: React.Dispatch<React.SetStateAction<Book[]>>;
@@ -10,31 +11,18 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ }) => {
   const [inputText, setInputText] = useState("");
-  const [allBooks, setAllBooks] = useState([]);
+  const [allBooks, setAllBooks] = useState<Book[]>([]);
   const [isLoaded, setLoadedStatus] = useState(false)
   const navigate = useNavigate();
 
   useEffect(() => {
-    const apiUrl = import.meta.env.VITE_API_URL;
-
-    fetch(`${apiUrl}/v1/books`)
-      .then((response) => response.json())
-
-      .then((response) => {
-        console.log(response);
-        if (response && response.body) {
-          setAllBooks(response.body);
-        } else {
-          setLoadedStatus(true);
-        }
-      })
-
-      .finally(() => {
+    GetAllBooks()
+      .then((fetchedBooks) => {
+        setAllBooks(fetchedBooks);
         setLoadedStatus(true);
       })
-
-      .catch((error) => {
-        console.log(error.message);
+      .catch(() => {
+        setLoadedStatus(false);
       });
   }, []);
 
