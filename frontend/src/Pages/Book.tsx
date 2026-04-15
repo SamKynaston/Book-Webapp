@@ -47,13 +47,12 @@ const BookPage: React.FC<BookPageProps> = ({ }) => {
     <Page>
         {book ? (
           <>
-            <div className="sm:flex sm:items-start sm:gap-4 pt-5">
+            <div className="BookDetails">
               {!coverLoaded ? (
                 <p className="text-gray-400">Loading cover...</p>
               ) : coverLoaded && coverUrl ? (
                 <>
                   <img
-                    className="h-75 justify-center transition hover:scale-[1.1]"
                     src={coverUrl}
                     alt={book.title}
                     onLoad={() => setCoverLoaded(true)}
@@ -64,16 +63,16 @@ const BookPage: React.FC<BookPageProps> = ({ }) => {
               )}
 
               <br />
-              <div className="md:flex md:flex-col md:grid-cols-1 md:gap-6 h-75">
+              <div className="BookInfo">
                 <span>
-                  <h3>{book.title}</h3>
+                  <h1>{book.title}</h1>
                   <p>
                     {book.authors &&
                       book.authors.map((author: Author) => author.name).join(", ")}
                   </p>
                 </span>
                 <span>
-                  <h3>Harvard Reference</h3>
+                  <h2>Harvard Reference</h2>
                   <HarvardReference book={book} />
                 </span>
               </div>
