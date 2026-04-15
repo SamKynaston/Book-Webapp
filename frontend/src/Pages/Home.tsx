@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Book } from "@bookwebapp/types";
 import { BookBtn } from "../Components/BookBtn";
-import { getAllBooks } from "../Helpers/Books";
+import { getAllBooks, getBookLink } from "../Helpers/Books";
 
 interface HomeProps {
   //setAllBooks: React.Dispatch<React.SetStateAction<Book[]>>;
@@ -48,7 +48,7 @@ const Home: React.FC<HomeProps> = ({ }) => {
   }, []);
 
   const routeToBook = (id: string) => {
-    navigate(`/works/${id}`);
+    navigate(getBookLink(id));
   };
 
   const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {

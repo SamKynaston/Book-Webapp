@@ -1,5 +1,7 @@
 import type { Book } from "@bookwebapp/types";
 
+const bookDirectory = import.meta.env.VITE_BOOK_DIRECTORY;
+
 export async function getBook(id: string | undefined): Promise<Book> {
     const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -33,3 +35,7 @@ export async function getAllBooks(): Promise<Book[]> {
         throw error;
     }
 }
+
+export function getBookLink(id: string) {
+    return `${bookDirectory}/${id}`;
+};

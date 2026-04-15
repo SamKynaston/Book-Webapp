@@ -18,6 +18,8 @@ import Footer from "./Components/Footer";
 import AccountPage from "./Pages/Account";
 import AuthenticationPage from "./Pages/Authentication";
 
+const bookDirectory = import.meta.env.VITE_BOOK_DIRECTORY || "/book";
+
 const App: React.FC = () => {
   const [allCookies, setAllCookies] = useState<string>("");
   const [isAuthenticated, setAuthenticatedStatus] = useState(false);
@@ -29,7 +31,7 @@ const App: React.FC = () => {
         <Navigation pages={pages} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/works/:id" element={<BookPage />} />
+          <Route path={`${bookDirectory}/:id`} element={<BookPage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/login" element={<AuthenticationPage />} />
           <Route path="*" element={<Error />} />
