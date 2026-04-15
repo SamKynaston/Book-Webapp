@@ -22,7 +22,7 @@ export const BookBtn: React.FC<BookBtnProps> = ({
       {book.cover_id && (
         <img
           className="BookCover"
-          src={`https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`}
+          src={`http://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`}
           alt={book.title}
         />
       )}

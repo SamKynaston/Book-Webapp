@@ -63,7 +63,7 @@ div .Books .Book {
 }
 
 div .Books .Book:hover {
-    @apply scale-[1.05] shadow-2xl z-10;
+    @apply lg:scale-[1.05] shadow-2xl z-10;
 }
 
 div .Books .Book.Recommended {

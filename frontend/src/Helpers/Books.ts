@@ -1,6 +1,6 @@
 import type { Book } from "@bookwebapp/types";
 
-export async function GetBook(id: string | undefined): Promise<Book> {
+export async function getBook(id: string | undefined): Promise<Book> {
     const apiUrl = import.meta.env.VITE_API_URL;
 
     try {
@@ -17,7 +17,7 @@ export async function GetBook(id: string | undefined): Promise<Book> {
     }
 }
 
-export async function GetAllBooks(): Promise<Book[]> {
+export async function getAllBooks(): Promise<Book[]> {
     const apiUrl = import.meta.env.VITE_API_URL;
 
     try {

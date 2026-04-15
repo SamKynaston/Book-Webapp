@@ -4,7 +4,7 @@ import type { Book, Author } from "@bookwebapp/types";
 import { HarvardReference } from "../Components/Reference";
 
 // Book Helper
-import { GetBook } from "../Helpers/Books";
+import { getBook } from "../Helpers/Books";
 
 // Pages
 import ErrorPage from "./Error.js";
@@ -25,7 +25,7 @@ const BookPage: React.FC<BookPageProps> = ({ }) => {
   }
 
   useEffect(() => {
-    GetBook(id)
+    getBook(id)
       .then((fetchedBook) => {
         setBook(fetchedBook);
         setError(false);
@@ -47,18 +47,20 @@ const BookPage: React.FC<BookPageProps> = ({ }) => {
     <Page>
         {book ? (
           <>
-            <div className="md:flex md:items-start md:gap-4 pt-5">
-              {coverUrl && !coverLoaded && (
+            <div className="sm:flex sm:items-start sm:gap-4 pt-5">
+              {!coverLoaded ? (
                 <p className="text-gray-400">Loading cover...</p>
-              )}
-
-              {coverUrl && (
-                <img
-                  className="h-75 justify-center transition hover:scale-[1.1]"
-                  src={coverUrl}
-                  alt={book.title}
-                  onLoad={() => setCoverLoaded(true)}
-                />
+              ) : coverLoaded && coverUrl ? (
+                <>
+                  <img
+                    className="h-75 justify-center transition hover:scale-[1.1]"
+                    src={coverUrl}
+                    alt={book.title}
+                    onLoad={() => setCoverLoaded(true)}
+                  />
+                </>
+              ) : (
+                <p className="text-gray-400">No cover available</p>
               )}
 
               <br />
