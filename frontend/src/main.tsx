@@ -43,7 +43,7 @@ const App: React.FC = () => {
   return (
     <StrictMode>      
       <BrowserRouter>
-        {!isMobileDevice && <Navigation pages={pages} />}
+        {!isMobileDevice && <Navigation pages={pages} isLoggedIn={isAuthenticated} />}
 
         <Routes>
           <Route path="/" element={<Home />} />
@@ -54,7 +54,7 @@ const App: React.FC = () => {
           <Route path="*" element={<Error />} />
         </Routes>
 
-        {isMobileDevice && <MobileNavigation pages={pages} />}
+        {isMobileDevice && <MobileNavigation pages={pages} isLoggedIn={isAuthenticated} />}
         {!isMobileDevice && <Footer />}
       </BrowserRouter>
     </StrictMode>

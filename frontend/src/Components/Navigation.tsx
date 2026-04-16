@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import type { NavigationProps } from "@bookwebapp/types";
 
-function Navigation({ pages }: NavigationProps) {
+function Navigation({ pages, isLoggedIn }: NavigationProps) {
   return (
     <div className="Navigation">
       <div className="Navigation-Start">
@@ -24,8 +24,8 @@ function Navigation({ pages }: NavigationProps) {
       </div>
 
       <div className="Navigation-End">
-        <Link to="/account" className="Navigation-Button">
-          Account
+        <Link to={isLoggedIn ? "/account" : "/login"} className="Navigation-Button">
+          {isLoggedIn ? "Account" : "Sign In"}
         </Link>
       </div>
     </div>

@@ -1,6 +1,15 @@
+import { Navigate } from "react-router-dom";
 import Page from "../Components/Page";
 
-function AuthenticationPage() {
+type AuthenticationPageProps = {
+  isLoggedIn: boolean; 
+}
+
+function AuthenticationPage({ isLoggedIn }: AuthenticationPageProps) {
+  if (isLoggedIn) {
+    return <Navigate to="/account" replace />;
+  }
+
   return (
     <Page>
       <br />

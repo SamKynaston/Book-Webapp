@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import type { NavigationProps } from "@bookwebapp/types";
 
-function MobileNavigation({ pages }: NavigationProps) {
+function MobileNavigation({ pages, isLoggedIn }: NavigationProps) {
   return (
     <div className="MobileNavigationWrapper">
       <div className="MobileNavigationBar">
@@ -17,9 +17,9 @@ function MobileNavigation({ pages }: NavigationProps) {
           <i className="fa-brands fa-github"></i>
           <p>Github</p>
         </Link>
-        <Link to="/account" className="Navigation-Button">
+        <Link to={isLoggedIn ? "/account" : "/login"} className="Navigation-Button">
           <i className="fa-solid fa-user"></i>
-          <p>Account</p>
+          <p>{isLoggedIn ? "Account" : "Sign In"}</p>
         </Link>
       </div>
     </div>

@@ -1,6 +1,15 @@
+import { Navigate } from "react-router-dom";
 import Page from "../Components/Page";
 
-function AccountPage() {
+type AccountManagementPageProps = {
+  isLoggedIn: boolean; 
+}
+
+function AccountManagementPage({ isLoggedIn }: AccountManagementPageProps) {
+  if (isLoggedIn) {
+    return <Navigate to="/account" replace />;
+  }
+
   return (
     <Page>
       <br />
@@ -13,4 +22,4 @@ function AccountPage() {
   );
 }
 
-export default AccountPage;
+export default AccountManagementPage;
