@@ -6,13 +6,20 @@ function MobileNavigation({ pages }: NavigationProps) {
     <div className="MobileNavigationWrapper">
       <div className="MobileNavigationBar">
         <Link to="/" className="Navigation-Button">
-          Home
+          <i className="fa-solid fa-house"></i>
+          <p>Home</p>
         </Link>
         <Link to="/search" className="Navigation-Button">
-          Search
+          <i className="fa-solid fa-magnifying-glass"></i>
+          <p>Search</p>
+        </Link>
+        <Link to="https://github.com/samkynaston" className="Navigation-Button">
+          <i className="fa-brands fa-github"></i>
+          <p>Github</p>
         </Link>
         <Link to="/account" className="Navigation-Button">
-          Account
+          <i className="fa-solid fa-user"></i>
+          <p>Account</p>
         </Link>
       </div>
     </div>

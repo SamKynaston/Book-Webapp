@@ -31,12 +31,17 @@ const App: React.FC = () => {
   const [isMobileDevice, setIsMobile] = useState(false);
   
   useEffect(() => {
-    const isMobileDevice = isMobile("(max-width: 768px)");
-    setIsMobile(isMobileDevice);
+    const query = window.matchMedia("(max-width: 768px)");
+
+    const update = () => setIsMobile(query.matches);
+    update();
+
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
   }, []);
 
   return (
-    <StrictMode>
+    <StrictMode>      
       <BrowserRouter>
         {!isMobileDevice && <Navigation pages={pages} />}
 
