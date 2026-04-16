@@ -1,4 +1,5 @@
 import { Author, Book } from "@bookwebapp/types";
+import { BookCover } from "../Components/BookCover";
 
 interface BookBtnProps {
   book: Book;
@@ -13,21 +14,17 @@ export const BookBtn: React.FC<BookBtnProps> = ({
 }) => {
   return (
     <div
-      className={`Book ${isRecommended ? "Recommended" : ""}`}
+      className={`Book${isRecommended ? " Recommended" : ""}`}
       key={book.id}
       onClick={() => {
         routeToBook(book.id.toString());
       }}
     >
       {book.cover_id && (
-        <img
-          className="BookCover"
-          src={`http://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`}
-          alt={`Book cover for ${book.title}`}
-        />
+        <BookCover src={`https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`} alt={book.title} className="LimitBookSize"/>
       )}
 
-      <div className="BookDetails">
+      <div className="BookContent">
         <h2>{book.title}</h2>
         <p>
           {book.authors &&

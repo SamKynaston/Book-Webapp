@@ -9,6 +9,7 @@ import { getBook } from "../Helpers/Books";
 // Pages
 import ErrorPage from "./Error.js";
 import Page from "../Components/Page";
+import { BookCover } from "../Components/BookCover";
 
 interface BookPageProps {
 
@@ -48,21 +49,8 @@ const BookPage: React.FC<BookPageProps> = ({ }) => {
         {book ? (
           <>
             <div className="BookDetails">
-              {!coverLoaded ? (
-                <p className="text-gray-400">Loading cover...</p>
-              ) : coverLoaded && coverUrl ? (
-                <>
-                  <img
-                    src={coverUrl}
-                    alt={book.title}
-                    onLoad={() => setCoverLoaded(true)}
-                  />
-                </>
-              ) : (
-                <p className="text-gray-400">No cover available</p>
-              )}
+              <BookCover src={coverUrl} alt={book.title} />
 
-              <br />
               <div className="BookInfo">
                 <span>
                   <h1>{book.title}</h1>
@@ -71,10 +59,10 @@ const BookPage: React.FC<BookPageProps> = ({ }) => {
                       book.authors.map((author: Author) => author.name).join(", ")}
                   </p>
                 </span>
-                <span>
+                {/* <span>
                   <h2>Harvard Reference</h2>
                   <HarvardReference book={book} />
-                </span>
+                </span> */}
               </div>
             </div>
             <br />
