@@ -15,7 +15,7 @@ import {
 const router = Express.Router();
 
 router.post("/", HASH_PASSWORD, CREATE_USER);
-router.post("/login", AUTHENTICATE_USER);
+router.post("/authenticate", AUTHENTICATE_USER);
 router.get("/:id", GET_USER);
 router.put("/:id", IS_AUTHENTICATED, UPDATE_USER);
 

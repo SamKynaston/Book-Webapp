@@ -25,7 +25,7 @@ export const Server = () => {
   app.use("/v1/books", BookRoute);
   app.use("/v1/authors", AuthorRoute);
   app.use("/v1/users", UserRoute);
-
+  
   sequelize.sync({ alter: true }).then(() => {
     if (process.env.ENVIRONMENT === "DEVELOPMENT") {
       console.log("Inside of development environment, inserting sample data.")

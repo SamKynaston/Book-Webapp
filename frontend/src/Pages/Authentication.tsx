@@ -1,5 +1,6 @@
-import { Navigate } from "react-router-dom";
+import { Form, Navigate } from "react-router-dom";
 import Page from "../Components/Page";
+import { AuthenticationForm } from "../Components/AuthenticationForm";
 
 type AuthenticationPageProps = {
   isLoggedIn: boolean; 
@@ -12,12 +13,8 @@ function AuthenticationPage({ isLoggedIn }: AuthenticationPageProps) {
 
   return (
     <Page>
-      <br />
-      <h1>PLACEHOLDER PAGE</h1>
-      <p>Placeholder page for authentication</p>
-      <br />
-      <a href="/">🏡 Go home</a>
-      <br />
+      <h1>Authentication</h1>
+      <AuthenticationForm />
     </Page>
   );
 }
