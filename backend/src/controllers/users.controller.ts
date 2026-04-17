@@ -3,6 +3,7 @@ import { UserModel } from "../models/user.model";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { RoleModel } from "../models/role.model";
+import { PermissionModel } from "../models/permission.model";
 
 export const CREATE_USER = async (req: Request, res: Response) => {
   try {
@@ -64,6 +65,14 @@ export const GET_USER = async (req: Request, res: Response) => {
         {
           model: RoleModel,
           as: "roles",
+          through: { attributes: [] },
+          include: [
+            {
+              model: PermissionModel,
+              as: "permissions",
+              through: { attributes: [] }
+            }
+          ]
         }
       ]
     });

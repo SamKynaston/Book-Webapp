@@ -15,4 +15,6 @@ export interface NavigationProps {
 
 export interface PageProps {
   children: React.ReactNode;
+  requiredPermission?: string;
+  requiresAccount?: boolean;
 }

@@ -22,20 +22,26 @@ export async function seedSampleData() {
     ]);
 
     const samplePermissions = await PermissionModel.bulkCreate([
-        { permission_string: "read" },
-        { permission_string: "write" },
-        { permission_string: "delete" }
+        { permission_string: "READ_BOOKS" },
+        { permission_string: "WRITE_BOOKS" },
+        { permission_string: "DELETE_BOOKS" },
+        { permission_string: "READ_USERS" },
+        { permission_string: "WRITE_USERS" },
+        { permission_string: "DELETE_USERS" },
+        { permission_string: "ADMINISTRATOR" },
     ]);
 
-    sampleRoles[0].setPermissions([samplePermissions[0], samplePermissions[1], samplePermissions[2]]);
-    sampleRoles[1].setPermissions([samplePermissions[0]]);
+    sampleRoles[0].setPermissions([samplePermissions[6]]);
+    sampleRoles[1].setPermissions([samplePermissions[0], samplePermissions[3]]);
 
     const sampleUsers = await UserModel.bulkCreate([
-        { username: "Admin", password: await hashPassword("debug"), email: "sam.kynaston@kynno.co.uk" }
+        { username: "Admin", password: await hashPassword("debug"), email: "sam.kynaston@kynno.co.uk" },
+        { username: "User", password: await hashPassword("debug"), email: "sam.kynaston2@kynno.co.uk" }
     ]);
 
     sampleUsers[0].setRoles([sampleRoles[0]]);
-    
+    sampleUsers[1].setRoles([sampleRoles[1]]);
+
     const sampleAuthors = await AuthorModel.bulkCreate([
         { name: "J.K. Rowling" },
         { name: "George Orwell" },

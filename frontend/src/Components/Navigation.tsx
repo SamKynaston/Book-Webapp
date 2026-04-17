@@ -3,7 +3,7 @@ import type { NavigationProps } from "@bookwebapp/types";
 import { useAuth } from "../Helpers/Authentication";
 
 function Navigation({ pages }: NavigationProps) {
-  const { authenticated } = useAuth() as any;
+  const { authenticated, hasPermission } = useAuth() as any;
 
   return (
     <div className="Navigation">
@@ -27,6 +27,14 @@ function Navigation({ pages }: NavigationProps) {
       </div>
 
       <div className="Navigation-End">
+        {
+          hasPermission("ADMINISTRATOR") && (
+            <Link to="https://github.com/samkynaston" className="Navigation-Button">
+              <p>Dashboard</p>
+            </Link>
+          )
+        }
+
         <Link to={authenticated ? "/account" : "/login"} className="Navigation-Button">
           {authenticated ? "Account" : "Sign In"}
         </Link>

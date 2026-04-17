@@ -8,6 +8,7 @@ export class UserModel extends Model implements User {
   declare username: string;
   declare password: string;
   declare email: string;
+  declare roles: RoleModel[];
   declare setRoles: BelongsToManyAddAssociationsMixin<RoleModel, number>; 
 }
 

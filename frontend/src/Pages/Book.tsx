@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import type { Book, Author } from "@bookwebapp/types";
 import { HarvardReference } from "../Components/Reference";
+import { useAuth } from "../Helpers/Authentication";
 
 // Book Helper
 import { getBook } from "../Helpers/Books";
@@ -17,9 +18,9 @@ interface BookPageProps {
 
 const BookPage: React.FC<BookPageProps> = ({ }) => {
   const { id } = useParams();
-  const [coverLoaded, setCoverLoaded] = useState(false);
   const [book, setBook] = useState<Book | undefined>(undefined);
   const [error, setError] = useState(true);
+  const { hasPermission } = useAuth();
 
   if (!id) {
     return <ErrorPage />;
@@ -45,7 +46,13 @@ const BookPage: React.FC<BookPageProps> = ({ }) => {
   : null;
 
   return (
-    <Page>
+    <Page requiredPermission="READ_BOOKS">
+        {hasPermission("ADMINISTRATOR") || hasPermission("WRITE_BOOKS") ? (
+          <>
+            PLACEHOLDER, ADMIN DASHBOARD LINK GOES HERE
+          </>
+        ) : null}
+
         {book ? (
           <>
             <div className="BookDetails">
@@ -70,7 +77,7 @@ const BookPage: React.FC<BookPageProps> = ({ }) => {
         ): (
           <p>Please wait...</p>
         )}
-    </Page>
+      </Page> 
   );
 };
 

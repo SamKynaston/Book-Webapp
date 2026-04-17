@@ -6,6 +6,7 @@ type AuthContextType = {
   authenticated: boolean;
   loading: boolean;
   login?: (email: string, password: string) => Promise<void>;
+  hasPermission: (permissionName: string) => boolean;
 };
 
 export async function checkAuth() {
@@ -25,12 +26,26 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   authenticated: false,
   loading: true,
+  hasPermission: () => false,
 });
 
 export const AuthProvider = ({ children }: any) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const isAdmin = user?.roles?.some((role: any) =>
+    role.permissions?.some((p: any) => p.permission_string === "ADMINISTRATOR")
+  );
+
+  const hasPermission = (permissionName: string) => {
+    if (!user || !user.roles) return false;
+    if (isAdmin) return true;
+
+    return user.roles.some((role: any) => 
+      role.permissions?.some((p: any) => p.permission_string === permissionName)
+    );
+  };
 
   const login = async (email: string, password: string) => {
     try {
@@ -54,7 +69,6 @@ export const AuthProvider = ({ children }: any) => {
           throw new Error("Login failed");
         }
     } catch (error) {
-        console.error("Authentication failed:", error);
         throw new Error("Authentication failed");
     }
   }
@@ -79,7 +93,7 @@ export const AuthProvider = ({ children }: any) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, authenticated, loading, login }}>
+    <AuthContext.Provider value={{ user, authenticated, loading, login, hasPermission }}>
       {children}
     </AuthContext.Provider>
   );

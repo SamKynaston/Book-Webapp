@@ -3,7 +3,7 @@ import type { NavigationProps } from "@bookwebapp/types";
 import { useAuth } from "../Helpers/Authentication";
 
 function MobileNavigation({ pages }: NavigationProps) {
-    const { authenticated, user } = useAuth() as any;
+    const { authenticated, hasPermission } = useAuth() as any;
   
   return (
     <div className="MobileNavigationWrapper">
@@ -16,10 +16,16 @@ function MobileNavigation({ pages }: NavigationProps) {
           <i className="fa-solid fa-magnifying-glass"></i>
           <p>Search</p>
         </Link>
-        <Link to="https://github.com/samkynaston" className="Navigation-Button">
-          <i className="fa-brands fa-github"></i>
-          <p>Github</p>
-        </Link>
+
+        {
+          hasPermission("ADMINISTRATOR") ? (
+            <Link to="https://github.com/samkynaston" className="Navigation-Button">
+              <i className="fa-solid fa-wrench"></i>
+              <p>Dashboard</p>
+            </Link>
+          ) : null
+        }
+
         <Link to={authenticated ? "/account" : "/login"} className="Navigation-Button">
           <i className="fa-solid fa-user"></i>
           <p>{authenticated ? "Account" : "Sign In"}</p>
