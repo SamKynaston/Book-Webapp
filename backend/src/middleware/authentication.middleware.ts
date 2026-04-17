@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { hashPassword } from "../utils/password";
+import jwt from "jsonwebtoken";
 
 export const IS_AUTHENTICATED = (
   req: Request,
@@ -7,13 +8,20 @@ export const IS_AUTHENTICATED = (
   next: NextFunction,
 ) => {
   try {
-    if (!req.headers.token) {
-      res.status(401).json({ message: "No authentication token provided" });
-    }
+    const token = req.cookies.AUTH_TOKEN;
+
+    if (!token) {
+      console.log(req.cookies)
+      return res.status(401).json({ error: "No cookie detected" });
+    };
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+    req.user = decoded as any;
 
     next();
   } catch (err) {
-    res.status(401).json({ error: "Unauthorized" });
+    console.error(err);
+    res.status(401).json({ error: "An error occured" });
   }
 };
 

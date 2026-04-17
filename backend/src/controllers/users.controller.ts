@@ -41,12 +41,35 @@ export const AUTHENTICATE_USER = async (req: Request, res: Response) => {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ token });
+    res.cookie("AUTH_TOKEN", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax", 
+      path: "/",
+    });
+
+    res.status(200).json({ message: "Authenticated" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
-export const GET_USER = async (req: Request, res: Response) => {};
+export const GET_USER = async (req: Request, res: Response) => {
+  try {
+    const user = await UserModel.findByPk(req.user!.id, {
+      attributes: { exclude: ["password"] },
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    
+    res.status(200).json({ authenticated: true, user });
+  } catch (error) {
+    console.error(error);
+    return res.status(401).json({ authenticated: false });
+  }
+};
+
 export const UPDATE_USER = async (req: Request, res: Response) => {};

@@ -1,22 +1,19 @@
 import { Navigate } from "react-router-dom";
-import Page from "../Components/Page";
+import Page from "../Components/ProtectedPage";
+import { useAuth } from "../Helpers/Authentication";
 
 type AccountManagementPageProps = {
-  isLoggedIn: boolean; 
+  //isLoggedIn: boolean; 
 }
 
-function AccountManagementPage({ isLoggedIn }: AccountManagementPageProps) {
-  if (isLoggedIn) {
-    return <Navigate to="/account" replace />;
-  }
+function AccountManagementPage({ }: AccountManagementPageProps) {
+  const { user } = useAuth();
 
   return (
     <Page>
       <br />
-      <h1>PLACEHOLDER PAGE</h1>
-      <p>Placeholder page for account management</p>
-      <br />
-      <a href="/">🏡 Go home</a>
+      <h1>Hello, {user?.username || "User"}!</h1>
+      <p>Welcome to your account page.</p>
       <br />
     </Page>
   );

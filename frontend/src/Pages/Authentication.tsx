@@ -3,14 +3,10 @@ import Page from "../Components/Page";
 import { AuthenticationForm } from "../Components/AuthenticationForm";
 
 type AuthenticationPageProps = {
-  isLoggedIn: boolean; 
+  //isLoggedIn: boolean; 
 }
 
-function AuthenticationPage({ isLoggedIn }: AuthenticationPageProps) {
-  if (isLoggedIn) {
-    return <Navigate to="/account" replace />;
-  }
-
+function AuthenticationPage({ }: AuthenticationPageProps) {
   return (
     <Page>
       <h1>Authentication</h1>

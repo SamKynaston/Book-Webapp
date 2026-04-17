@@ -7,11 +7,13 @@ import cors from "cors";
 import session from "express-session";
 import { sequelize } from "./database";
 import { seedSampleData } from "./sample"
+import cookieParser from "cookie-parser";
 
 export const Server = () => {
   const app: Express.Application = Express();
   const port: number = 3000;
-
+  
+  app.use(cookieParser());
   app.use(
     session({
       secret: "secret",
@@ -21,11 +23,30 @@ export const Server = () => {
   );
 
   app.use(Express.json());
-  app.use(cors());
+  
+  if (process.env.ENVIRONMENT === "DEVELOPMENT") {
+    app.use(cors({
+      // Allow requests with no origin (like mobile apps or curl requests)
+
+      origin: (origin, callback) => {
+        if (!origin) return callback(null, true);
+
+        return callback(null, origin);
+      },
+      credentials: true
+    }));
+  } else {
+    // Only allow requests from the frontend in production
+
+    app.use(cors({
+      origin: ["https://bookwebapp.com"],
+      credentials: true
+    }));
+  }
   app.use("/v1/books", BookRoute);
   app.use("/v1/authors", AuthorRoute);
   app.use("/v1/users", UserRoute);
-  
+
   sequelize.sync({ alter: true }).then(() => {
     if (process.env.ENVIRONMENT === "DEVELOPMENT") {
       console.log("Inside of development environment, inserting sample data.")
