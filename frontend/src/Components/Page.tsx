@@ -3,23 +3,27 @@ import type { PageProps } from "@bookwebapp/types";
 import { useAuth } from "../Helpers/Authentication";
 import { Navigate } from "react-router-dom";
 
-function Page({ children, requiresAccount, requiredPermission }: PageProps): JSX.Element {
+function Page({ children, requiresAccount, requiredPermission }: PageProps): JSX.Element | null {
 
-  const { user, hasPermission } = useAuth();
+  const { user, hasPermission, loading } = useAuth();
 
-  if (requiresAccount && !user) {
-    return <Navigate to="/login" />;
-  }
-
-  if (requiredPermission && !hasPermission(requiredPermission)) {
-    if (!user) {
+  if (!loading) {
+    if (requiresAccount && !user) {
       return <Navigate to="/login" />;
-    } else {
-      return <div className="Content">You do not have permission to view this content.</div>;
     }
+
+    if (requiredPermission && !hasPermission(requiredPermission)) {
+      if (!user) {
+        return <Navigate to="/login" />;
+      } else {
+        return <div className="Content">You do not have permission to view this content.</div>;
+      }
+    }
+    
+    return <div className="Content">{children}</div>;
   }
 
-  return <div className="Content">{children}</div>;
+  return null;
 }
 
 export default Page;

@@ -78,6 +78,7 @@ export const AuthProvider = ({ children }: any) => {
       if (!data) {
         setUser(null);
         setAuthenticated(false);
+        setLoading(false);
       } else {
         setUser(data.user);
         setAuthenticated(data.authenticated);
@@ -86,6 +87,7 @@ export const AuthProvider = ({ children }: any) => {
     .catch((err) => {
       setUser(null);
       setAuthenticated(false);
+      setLoading(false);
     })
     .finally(() => {
       setLoading(false);

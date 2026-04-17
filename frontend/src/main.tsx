@@ -21,9 +21,16 @@ import SearchPage from "./Pages/Search";
 import AdminDashboardPage from "./Pages/Dashboard";
 
 import MobileNavigation from "./Components/MobileNavigation";
-import { checkAuth, AuthProvider } from "./Helpers/Authentication";
+import { checkAuth, AuthProvider, useAuth } from "./Helpers/Authentication";
 
 const bookDirectory = import.meta.env.VITE_BOOK_DIRECTORY || "/book";
+
+const AuthGate = ({ children }: { children: React.ReactNode }) => {
+  const { loading } = useAuth();
+
+  if (loading) return <div className="bg-gray-900 h-screen w-screen" />; 
+  return <>{children}</>;
+};
 
 const App: React.FC = () => {
   const [isMobileDevice, setIsMobile] = useState(false);
@@ -40,20 +47,22 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>      
       <AuthProvider>
-        {!isMobileDevice && <Navigation pages={pages} />}
+        <AuthGate>
+          {!isMobileDevice && <Navigation pages={pages} />}
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path={`${bookDirectory}/:id`} element={<BookPage />} />
-          <Route path="/account" element={<AccountPage />} />
-          <Route path="/login" element={<AuthenticationPage />} />
-          <Route path="/dashboard" element={<AdminDashboardPage />} />
-          <Route path="*" element={<Error />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path={`${bookDirectory}/:id`} element={<BookPage />} />
+            <Route path="/account" element={<AccountPage />} />
+            <Route path="/login" element={<AuthenticationPage />} />
+            <Route path="/dashboard" element={<AdminDashboardPage />} />
+            <Route path="*" element={<Error />} />
+          </Routes>
 
-        {isMobileDevice && <MobileNavigation pages={pages} />}
-        {!isMobileDevice && <Footer />}
+          {isMobileDevice && <MobileNavigation pages={pages} />}
+          {!isMobileDevice && <Footer />}
+        </AuthGate>
       </AuthProvider>
     </BrowserRouter>
   );
