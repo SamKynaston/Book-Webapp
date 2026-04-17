@@ -29,7 +29,7 @@ function Navigation({ pages }: NavigationProps) {
       <div className="Navigation-End">
         {
           hasPermission("ADMINISTRATOR") && (
-            <Link to="https://github.com/samkynaston" className="Navigation-Button">
+            <Link to="/dashboard" className="Navigation-Button">
               <p>Dashboard</p>
             </Link>
           )

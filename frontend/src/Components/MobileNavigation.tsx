@@ -19,7 +19,7 @@ function MobileNavigation({ pages }: NavigationProps) {
 
         {
           hasPermission("ADMINISTRATOR") ? (
-            <Link to="https://github.com/samkynaston" className="Navigation-Button">
+            <Link to="/dashboard" className="Navigation-Button">
               <i className="fa-solid fa-wrench"></i>
               <p>Dashboard</p>
             </Link>

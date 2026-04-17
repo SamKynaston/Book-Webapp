@@ -17,7 +17,8 @@ import Error from "./Pages/Error";
 import Footer from "./Components/Footer";
 import AccountPage from "./Pages/Account";
 import AuthenticationPage from "./Pages/Authentication";
-import Search from "./Pages/Search";
+import SearchPage from "./Pages/Search";
+import AdminDashboardPage from "./Pages/Dashboard";
 
 import MobileNavigation from "./Components/MobileNavigation";
 import { checkAuth, AuthProvider } from "./Helpers/Authentication";
@@ -43,10 +44,11 @@ const App: React.FC = () => {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search />} />
+          <Route path="/search" element={<SearchPage />} />
           <Route path={`${bookDirectory}/:id`} element={<BookPage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/login" element={<AuthenticationPage />} />
+          <Route path="/dashboard" element={<AdminDashboardPage />} />
           <Route path="*" element={<Error />} />
         </Routes>
 
