@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import type { NavigationProps } from "@bookwebapp/types";
+import { useAuth } from "../Helpers/Authentication";
 
-function Navigation({ pages, isLoggedIn }: NavigationProps) {
+function Navigation({ pages }: NavigationProps) {
+  const { authenticated } = useAuth() as any;
+
   return (
     <div className="Navigation">
       <div className="Navigation-Start">
@@ -24,8 +27,8 @@ function Navigation({ pages, isLoggedIn }: NavigationProps) {
       </div>
 
       <div className="Navigation-End">
-        <Link to={isLoggedIn ? "/account" : "/login"} className="Navigation-Button">
-          {isLoggedIn ? "Account" : "Sign In"}
+        <Link to={authenticated ? "/account" : "/login"} className="Navigation-Button">
+          {authenticated ? "Account" : "Sign In"}
         </Link>
       </div>
     </div>

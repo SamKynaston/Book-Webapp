@@ -11,7 +11,6 @@ export type Page = {
 
 export interface NavigationProps {
   pages: Page[];
-  isLoggedIn: boolean;
 }
 
 export interface PageProps {

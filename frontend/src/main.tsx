@@ -25,24 +25,7 @@ import { checkAuth, AuthProvider } from "./Helpers/Authentication";
 const bookDirectory = import.meta.env.VITE_BOOK_DIRECTORY || "/book";
 
 const App: React.FC = () => {
-  const [isAuthenticated, setAuthenticatedStatus] = useState(false);
   const [isMobileDevice, setIsMobile] = useState(false);
-  
-  useEffect(() => {
-    const init = async () => {
-      const data = await checkAuth();
-
-      if (data?.authenticated) {
-        setAuthenticatedStatus(true);
-      } else {
-        setAuthenticatedStatus(false);
-      }
-
-      console.log(data);
-    };
-
-    init();
-  }, []);
 
   useEffect(() => {
     const query = window.matchMedia("(max-width: 768px)");
@@ -54,25 +37,23 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <StrictMode>      
+    <BrowserRouter>      
       <AuthProvider>
-        <BrowserRouter>
-          {!isMobileDevice && <Navigation pages={pages} isLoggedIn={isAuthenticated} />}
+        {!isMobileDevice && <Navigation pages={pages} />}
 
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/search" element={<Search />} />
-            <Route path={`${bookDirectory}/:id`} element={<BookPage />} />
-            <Route path="/account" element={<AccountPage />} />
-            <Route path="/login" element={<AuthenticationPage />} />
-            <Route path="*" element={<Error />} />
-          </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/search" element={<Search />} />
+          <Route path={`${bookDirectory}/:id`} element={<BookPage />} />
+          <Route path="/account" element={<AccountPage />} />
+          <Route path="/login" element={<AuthenticationPage />} />
+          <Route path="*" element={<Error />} />
+        </Routes>
 
-          {isMobileDevice && <MobileNavigation pages={pages} isLoggedIn={isAuthenticated} />}
-          {!isMobileDevice && <Footer />}
-        </BrowserRouter>
+        {isMobileDevice && <MobileNavigation pages={pages} />}
+        {!isMobileDevice && <Footer />}
       </AuthProvider>
-    </StrictMode>
+    </BrowserRouter>
   );
 };
 

@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { UserModel } from "../models/user.model";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+import { RoleModel } from "../models/role.model";
 
 export const CREATE_USER = async (req: Request, res: Response) => {
   try {
@@ -59,6 +60,12 @@ export const GET_USER = async (req: Request, res: Response) => {
   try {
     const user = await UserModel.findByPk(req.user!.id, {
       attributes: { exclude: ["password"] },
+      include: [
+        {
+          model: RoleModel,
+          as: "roles",
+        }
+      ]
     });
 
     if (!user) {

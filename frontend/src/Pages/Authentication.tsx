@@ -1,4 +1,3 @@
-import { Form, Navigate } from "react-router-dom";
 import Page from "../Components/Page";
 import { AuthenticationForm } from "../Components/AuthenticationForm";
 
@@ -9,7 +8,7 @@ type AuthenticationPageProps = {
 function AuthenticationPage({ }: AuthenticationPageProps) {
   return (
     <Page>
-      <h1>Authentication</h1>
+      <h1>Sign In</h1>
       <AuthenticationForm />
     </Page>
   );

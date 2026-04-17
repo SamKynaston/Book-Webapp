@@ -1,21 +1,32 @@
-import { AuthenticateUser } from "../Helpers/Authentication";
+import { useAuth } from "../Helpers/Authentication";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const AuthenticationForm = () => {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const { login } = useAuth() as any;
+    const navigate = useNavigate();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        console.log(true)
-        await AuthenticateUser(username, password)
+        try {
+            await login(email, password); 
+            console.log("navigating");
+            navigate("/account");
+        } catch (err) {
+            alert("Login failed.");
+        }
     }
     
     return (
         <form onSubmit={handleSubmit}>
-            <input className="loginInput" onChange= {(e) => setUsername(e.target.value)}></input>
-            <input className="loginInput" onChange= {(e) => setPassword(e.target.value)}></input>
+            <input onChange={(e) => setEmail(e.target.value)}></input>
+            <br />
+            <input onChange={(e) => setPassword(e.target.value)}></input>
+            <br />
             <button type="submit">Login</button>
         </form>
     );

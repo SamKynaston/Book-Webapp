@@ -2,6 +2,8 @@ import { sequelize } from "./database";
 import UserModel from "./models/user.model";
 import AuthorModel from "./models/author.model";
 import BookModel from "./models/book.model";
+import RoleModel from "./models/role.model";
+import PermissionModel from "./models/permission.model";
 
 import { hashPassword } from "./utils/password";
 
@@ -9,12 +11,31 @@ export async function seedSampleData() {
     await UserModel.sync({ force: true });
     await AuthorModel.sync({ force: true });
     await BookModel.sync({ force: true });
+    await RoleModel.sync({ force: true });
+    await PermissionModel.sync({ force: true });
+
     await sequelize.model("AuthorBook").sync({ force: true });
+
+    const sampleRoles = await RoleModel.bulkCreate([
+        { name: "Admin" },
+        { name: "User" }
+    ]);
+
+    const samplePermissions = await PermissionModel.bulkCreate([
+        { permission_string: "read" },
+        { permission_string: "write" },
+        { permission_string: "delete" }
+    ]);
+
+    sampleRoles[0].setPermissions([samplePermissions[0], samplePermissions[1], samplePermissions[2]]);
+    sampleRoles[1].setPermissions([samplePermissions[0]]);
 
     const sampleUsers = await UserModel.bulkCreate([
         { username: "Admin", password: await hashPassword("debug"), email: "sam.kynaston@kynno.co.uk" }
     ]);
 
+    sampleUsers[0].setRoles([sampleRoles[0]]);
+    
     const sampleAuthors = await AuthorModel.bulkCreate([
         { name: "J.K. Rowling" },
         { name: "George Orwell" },

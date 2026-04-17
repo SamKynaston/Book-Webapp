@@ -5,25 +5,8 @@ type AuthContextType = {
   user: User | null;
   authenticated: boolean;
   loading: boolean;
+  login?: (email: string, password: string) => Promise<void>;
 };
-
-export async function AuthenticateUser(email: string, password: string) {
-    try {
-        const apiUrl = import.meta.env.VITE_API_URL;
-        const res = await fetch(`${apiUrl}/v1/users/authenticate`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
-            credentials: "include"
-        });
-
-        if (!res.ok) return null;
-        return await res.json();
-    } catch (error) {
-        console.error("Authentication failed:", error);
-        throw new Error("Authentication failed");
-    }
-}
 
 export async function checkAuth() {
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -49,10 +32,35 @@ export const AuthProvider = ({ children }: any) => {
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
+  const login = async (email: string, password: string) => {
+    try {
+        const apiUrl = import.meta.env.VITE_API_URL;
+
+        const res = await fetch(`${apiUrl}/v1/users/authenticate`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+            credentials: "include"
+        });
+
+        if (res.ok) {
+          await checkAuth().then((data) => {
+            if (!data) return;
+
+            setUser(data.user);
+            setAuthenticated(data.authenticated);
+          });
+        } else {
+          throw new Error("Login failed");
+        }
+    } catch (error) {
+        console.error("Authentication failed:", error);
+        throw new Error("Authentication failed");
+    }
+  }
+
   useEffect(() => {
-    checkAuth()
-    .then((data) => {
-      console.log(data)
+    checkAuth().then((data) => {
       if (!data) {
         setUser(null);
         setAuthenticated(false);
@@ -62,7 +70,6 @@ export const AuthProvider = ({ children }: any) => {
       }
     })
     .catch((err) => {
-      console.error("Auth check failed:", err);
       setUser(null);
       setAuthenticated(false);
     })
@@ -72,7 +79,7 @@ export const AuthProvider = ({ children }: any) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, authenticated, loading }}>
+    <AuthContext.Provider value={{ user, authenticated, loading, login }}>
       {children}
     </AuthContext.Provider>
   );

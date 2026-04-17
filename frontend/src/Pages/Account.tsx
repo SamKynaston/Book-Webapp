@@ -11,10 +11,8 @@ function AccountManagementPage({ }: AccountManagementPageProps) {
 
   return (
     <Page>
-      <br />
       <h1>Hello, {user?.username || "User"}!</h1>
-      <p>Welcome to your account page.</p>
-      <br />
+      <p>Welcome to your hub.</p>
     </Page>
   );
 }
