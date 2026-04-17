@@ -88,4 +88,20 @@ export const GET_USER = async (req: Request, res: Response) => {
   }
 };
 
+export const LOGOUT_USER = async (req: Request, res: Response) => {
+  try {
+    res.clearCookie("AUTH_TOKEN", {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax", 
+      path: "/",
+    });
+    
+    res.status(200).json({ message: "Logged out" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "An error occured" });
+  }
+}
+
 export const UPDATE_USER = async (req: Request, res: Response) => {};

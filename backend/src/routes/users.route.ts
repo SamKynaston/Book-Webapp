@@ -10,12 +10,14 @@ import {
   AUTHENTICATE_USER,
   GET_USER,
   UPDATE_USER,
+  LOGOUT_USER,
 } from "../controllers/users.controller";
 
 const router = Express.Router();
 
 router.post("/", HASH_PASSWORD, CREATE_USER);
 router.post("/authenticate", AUTHENTICATE_USER);
+router.post("/logout", IS_AUTHENTICATED, LOGOUT_USER);
 router.put("/:id", IS_AUTHENTICATED, UPDATE_USER);
 router.get("/me", IS_AUTHENTICATED, GET_USER);
 

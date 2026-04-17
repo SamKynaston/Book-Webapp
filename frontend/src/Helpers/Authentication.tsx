@@ -7,6 +7,7 @@ type AuthContextType = {
   loading: boolean;
   login?: (email: string, password: string) => Promise<void>;
   hasPermission: (permissionName: string) => boolean;
+  logout?: () => Promise<void>;
 };
 
 export async function checkAuth() {
@@ -46,6 +47,18 @@ export const AuthProvider = ({ children }: any) => {
       role.permissions?.some((p: any) => p.permission_string === permissionName)
     );
   };
+
+  const logout = async () => {
+    const apiUrl = import.meta.env.VITE_API_URL;
+    
+    await fetch(`${apiUrl}/v1/users/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+    
+    setUser(null);
+    setAuthenticated(false);
+  }
 
   const login = async (email: string, password: string) => {
     try {
@@ -95,7 +108,7 @@ export const AuthProvider = ({ children }: any) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, authenticated, loading, login, hasPermission }}>
+    <AuthContext.Provider value={{ user, authenticated, loading, login, hasPermission, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -7,12 +7,13 @@ type AccountManagementPageProps = {
 }
 
 function AccountManagementPage({ }: AccountManagementPageProps) {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   return (
     <Page requiresAccount={true}>
       <h1>Hello, {user?.username || "User"}!</h1>
       <p>Welcome to your hub.</p>
+      <a onClick={logout}>Logout</a>
     </Page>
   );
 }
