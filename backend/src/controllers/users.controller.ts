@@ -9,6 +9,15 @@ export const CREATE_USER = async (req: Request, res: Response) => {
   try {
     const { username, password, email } = req.body;
     const user = await UserModel.create({ username, password, email });
+
+    const userRole = await RoleModel.findOne({
+      where: { name: "User" },
+    });
+
+    if (userRole) {
+      await user.setRoles([userRole]);
+    }
+
     res.status(201).json(user);
   } catch (error) {
     console.error(error);

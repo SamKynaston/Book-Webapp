@@ -8,6 +8,7 @@ type AuthContextType = {
   login?: (email: string, password: string) => Promise<void>;
   hasPermission: (permissionName: string) => boolean;
   logout?: () => Promise<void>;
+  signup?: (email: string, username: string, password: string) => Promise<void>;
 };
 
 export async function checkAuth() {
@@ -60,6 +61,36 @@ export const AuthProvider = ({ children }: any) => {
     setAuthenticated(false);
   }
 
+  const signup = async (email: string, username: string, password: string) => {
+    try {
+        const apiUrl = import.meta.env.VITE_API_URL;
+
+        const res = await fetch(`${apiUrl}/v1/users`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+              email: email, 
+              username: username, 
+              password: password 
+            }),
+            credentials: "include"
+        });
+
+        if (res.ok) {
+          await checkAuth().then((data) => {
+            if (!data) return;
+
+            setUser(data.user);
+            setAuthenticated(data.authenticated);
+          });
+        } else {
+          throw new Error("Login failed");
+        }
+    } catch (error) {
+        throw new Error("Authentication failed");
+    }
+  }
+
   const login = async (email: string, password: string) => {
     try {
         const apiUrl = import.meta.env.VITE_API_URL;
@@ -108,7 +139,7 @@ export const AuthProvider = ({ children }: any) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, authenticated, loading, login, hasPermission, logout }}>
+    <AuthContext.Provider value={{ user, authenticated, loading, login, hasPermission, logout, signup }}>
       {children}
     </AuthContext.Provider>
   );
