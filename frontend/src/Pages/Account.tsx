@@ -1,21 +1,30 @@
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Page from "../Components/Page";
-import { useAuth } from "../Helpers/Authentication";
+import { useAuth } from "../Context/Authentication";
 import { UpdateForm } from "../Components/UpdateForm";
+import { logout } from "../Services/Users.service";
 
 type AccountManagementPageProps = {
   //isLoggedIn: boolean; 
 }
 
 function AccountManagementPage({ }: AccountManagementPageProps) {
-  const { user, logout } = useAuth();
+  const { user, refreshUser } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignout = async () => {
+    if (await logout()) {
+      refreshUser();
+      navigate("/")
+    }
+  }
 
   return (
     <Page requiresAccount={true}>
       <h1>Hello, {user?.username || "User"}!</h1>
       <p>Welcome to your hub.</p>
-      <a onClick={logout}>Logout</a>
-      <UpdateForm id={null}/>
+      <a onClick={handleSignout}>Logout</a>
+      <UpdateForm id={undefined}/>
     </Page>
   );
 }

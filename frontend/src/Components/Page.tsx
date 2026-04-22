@@ -1,6 +1,6 @@
 import type { JSX } from "react";
 import type { PageProps } from "@bookwebapp/types";
-import { useAuth } from "../Helpers/Authentication";
+import { useAuth } from "../Context/Authentication";
 import { Navigate } from "react-router-dom";
 
 function Page({ children, requiresAccount, requiredPermission }: PageProps): JSX.Element | null {

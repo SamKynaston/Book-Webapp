@@ -139,7 +139,9 @@ export const UPDATE_USER = async (req: Request, res: Response) => {
     }
 
     const targetId = parseInt(idParam, 10);
-    const user = await UserModel.findByPk(targetId);
+    const user = await UserModel.findByPk(targetId, {
+      attributes: { exclude: ["password"] },
+    });
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });

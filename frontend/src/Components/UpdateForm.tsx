@@ -1,13 +1,14 @@
-import { useAuth } from "../Helpers/Authentication";
+import { useAuth } from "../Context/Authentication";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { updateUser } from "../Services/Users.service";
 
 interface UpdateFormType {
-    id: number | null;
+    id: number | undefined;
 }
 
 export const UpdateForm = ({ id }: UpdateFormType ) => {
-    const { update, user } = useAuth();
+    const { user, refreshUser } = useAuth();
 
     const [username, setUsername] = useState(user?.username || "");
     const [email, setEmail] = useState(user?.email || "");
@@ -19,10 +20,15 @@ export const UpdateForm = ({ id }: UpdateFormType ) => {
         event.preventDefault();
 
         try {
-            await update(email, username, password, id); 
-            console.log("navigating");
-            navigate("/account");
+            if (!id) {
+                id = user?.id
+            }
+            
+            if (await updateUser(email, username, password, id)) {
+                await refreshUser()
+            }; 
         } catch (err) {
+            console.log(err)
             alert("Login failed.");
         }
     }

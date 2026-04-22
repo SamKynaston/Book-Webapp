@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Book } from "@bookwebapp/types";
 import { BookBtn } from "../Components/BookBtn";
-import { getAllBooks, getBookLink } from "../Helpers/Books";
+import { getAllBooks, getBookLink } from "../Services/Books.service";
 
 interface SearchProps {
   //setAllBooks: React.Dispatch<React.SetStateAction<Book[]>>;

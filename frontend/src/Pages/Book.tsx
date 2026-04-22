@@ -2,10 +2,10 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import type { Book, Author } from "@bookwebapp/types";
 import { HarvardReference } from "../Components/Reference";
-import { useAuth } from "../Helpers/Authentication";
+import { useAuth } from "../Context/Authentication";
 
 // Book Helper
-import { getBook } from "../Helpers/Books";
+import { getBook } from "../Services/Books.service";
 
 // Pages
 import ErrorPage from "./Error.js";

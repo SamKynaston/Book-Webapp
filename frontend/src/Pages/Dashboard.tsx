@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import Page from "../Components/Page";
-import { useAuth } from "../Helpers/Authentication";
+import { useAuth } from "../Context/Authentication";
 
 type AdminDashboardPageProps = {
   //isLoggedIn: boolean; 

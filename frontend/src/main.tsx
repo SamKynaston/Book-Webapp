@@ -21,7 +21,7 @@ import SearchPage from "./Pages/Search";
 import AdminDashboardPage from "./Pages/Dashboard";
 
 import MobileNavigation from "./Components/MobileNavigation";
-import { checkAuth, AuthProvider, useAuth } from "./Helpers/Authentication";
+import { checkAuth, AuthProvider, useAuth } from "./Context/Authentication";
 
 const bookDirectory = import.meta.env.VITE_BOOK_DIRECTORY || "/book";
 

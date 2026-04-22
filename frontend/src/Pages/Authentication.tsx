@@ -7,9 +7,7 @@ type AuthenticationPageProps = {
   //isLoggedIn: boolean; 
 }
 
-function AuthenticationPage({ }: AuthenticationPageProps) {
-  const [newUser, setNewUser] = useState("");
-  
+function AuthenticationPage({ }: AuthenticationPageProps) {  
   return (
     <Page>
       <h1>Sign In</h1>

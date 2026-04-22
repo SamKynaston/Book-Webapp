@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import type { NavigationProps } from "@bookwebapp/types";
-import { useAuth } from "../Helpers/Authentication";
+import { useAuth } from "../Context/Authentication";
 
 function MobileNavigation({ pages }: NavigationProps) {
     const { authenticated, hasPermission } = useAuth() as any;
