@@ -5,10 +5,11 @@ type AuthContextType = {
   user: User | null;
   authenticated: boolean;
   loading: boolean;
-  login?: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
   hasPermission: (permissionName: string) => boolean;
-  logout?: () => Promise<void>;
-  signup?: (email: string, username: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
+  signup: (email: string, username: string, password: string) => Promise<void>;
+  update: (email: string, username: string, password: string, id: number | null) => Promise<void>;
 };
 
 export async function checkAuth() {
@@ -29,6 +30,10 @@ const AuthContext = createContext<AuthContextType>({
   authenticated: false,
   loading: true,
   hasPermission: () => false,
+  login: async () => {},
+  logout: async () => {},
+  signup: async () => {},
+  update: async () => {},
 });
 
 export const AuthProvider = ({ children }: any) => {
@@ -59,6 +64,38 @@ export const AuthProvider = ({ children }: any) => {
     
     setUser(null);
     setAuthenticated(false);
+  }
+
+  const update = async (email: string, username: string, password: string, id: number | null) => {
+    try {
+        const apiUrl = import.meta.env.VITE_API_URL;
+
+        if (id == null && user) {
+          id = user.id;
+        }
+
+        const res = await fetch(`${apiUrl}/v1/users/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+              email: email, 
+              username: username, 
+              password: password 
+            }),
+            credentials: "include"
+        });
+
+        if (res.ok) {
+          await checkAuth().then((data) => {
+            if (!data) return;
+            setUser(data.user);
+          });
+        } else {
+          throw new Error("Update failed");
+        }
+    } catch (error) {
+        throw new Error("Update failed");
+    }
   }
 
   const signup = async (email: string, username: string, password: string) => {
@@ -139,7 +176,7 @@ export const AuthProvider = ({ children }: any) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, authenticated, loading, login, hasPermission, logout, signup }}>
+    <AuthContext.Provider value={{ user, authenticated, loading, login, hasPermission, logout, signup, update }}>
       {children}
     </AuthContext.Provider>
   );

@@ -47,7 +47,6 @@ export const getBook = async (req: Request, res: Response) => {
 };
 
 export const createBook = async (req: Request, res: Response) => {
-  console.log("req.body:", req.body);
   const newBook: CreateBookInput = req.body;
 
   try {

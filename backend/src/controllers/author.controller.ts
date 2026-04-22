@@ -29,7 +29,6 @@ export const getAuthor = async (req: Request, res: Response) => {
 };
 
 export const createAuthor = async (req: Request, res: Response) => {
-  console.log("req.body:", req.body);
   const newAuthor = req.body;
 
   try {

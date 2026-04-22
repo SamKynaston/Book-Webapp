@@ -130,4 +130,31 @@ export const LOGOUT_USER = async (req: Request, res: Response) => {
   }
 }
 
-export const UPDATE_USER = async (req: Request, res: Response) => {};
+export const UPDATE_USER = async (req: Request, res: Response) => {
+  try {
+     const idParam = req.params.id;
+
+    if (Array.isArray(idParam)) {
+        return res.status(400).send("Invalid format");
+    }
+
+    const targetId = parseInt(idParam, 10);
+    const user = await UserModel.findByPk(targetId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const { email, username, password } = req.body;
+    if (email) user.email = email;
+    if (username) user.username = username;
+    if (password !== null && password.trim() !== "") user.password = password;
+
+    await user.save();
+
+    res.status(200).json({ message: "Updated successfully", user: user })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: "An error occured" });
+  }
+};

@@ -23,9 +23,9 @@ export const AuthenticationForm = () => {
     
     return (
         <form onSubmit={handleSubmit}>
-            <input onChange={(e) => setEmail(e.target.value)}></input>
+            <input onChange={(e) => setEmail(e.target.value)} placeholder="Email" required={true}></input>
             <br />
-            <input onChange={(e) => setPassword(e.target.value)}></input>
+            <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" required={true}></input>
             <br />
             <button type="submit">Login</button>
         </form>

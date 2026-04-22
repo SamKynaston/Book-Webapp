@@ -24,11 +24,11 @@ export const SignupForm = () => {
     
     return (
         <form onSubmit={handleSubmit}>
-            <input onChange={(e) => setUsername(e.target.value)} placeholder="Username"></input>
+            <input onChange={(e) => setUsername(e.target.value)} placeholder="Username" required={true}></input>
             <br />
-            <input onChange={(e) => setEmail(e.target.value)} placeholder="Email"></input>
+            <input onChange={(e) => setEmail(e.target.value)} placeholder="Email" required={true}></input>
             <br />
-            <input onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password"></input>
+            <input onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" required={true}></input>
             <br />
             <button type="submit">Signup</button>
         </form>

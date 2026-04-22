@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import Page from "../Components/Page";
 import { useAuth } from "../Helpers/Authentication";
+import { UpdateForm } from "../Components/UpdateForm";
 
 type AccountManagementPageProps = {
   //isLoggedIn: boolean; 
@@ -14,6 +15,7 @@ function AccountManagementPage({ }: AccountManagementPageProps) {
       <h1>Hello, {user?.username || "User"}!</h1>
       <p>Welcome to your hub.</p>
       <a onClick={logout}>Logout</a>
+      <UpdateForm id={null}/>
     </Page>
   );
 }

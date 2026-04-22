@@ -11,6 +11,8 @@ declare global {
 
       role?: any;
       permissions: string[];
+
+      ID?: any;
     }
   }
 }
