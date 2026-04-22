@@ -1,6 +1,8 @@
+import { PERMISSIONS_STRING } from "./Permissions";
+
 export interface RolePermission {
     permissionId: number;
-    permission_string: string;
+    permission_string: PERMISSIONS_STRING;
 }
 
 export interface Role {

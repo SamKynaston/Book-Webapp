@@ -1,17 +1,15 @@
 import { Response, Request, NextFunction } from "express";
-import RoleModel from "../models/role.model";
-import UserModel from "../models/user.model";
-import PermissionModel from "../models/permission.model";
+import { PERMISSIONS_STRING, Role, RolePermission } from "@bookwebapp/types";
 
-export const REQUIRE_PERMISSION = (permissionName: string) => {
+export const REQUIRE_PERMISSION = (permissionName: PERMISSIONS_STRING) => {
     return(req: Request, res: Response, next: NextFunction) => {
         try {
             if (!req.user) {
                 return res.status(401).json({error: "Not authenticated"})
             }
 
-            const hasAccess = req.user.roles?.some((role: any) => 
-                role.permissions?.some((p: any) => 
+            const hasAccess = req.user.roles.some((role: Role) => 
+                role.permissions?.some((p: RolePermission) => 
                     p.permission_string === permissionName ||
                     p.permission_string === "ADMINISTRATOR"
                 )
@@ -43,8 +41,8 @@ export const OWNERSHIP_CHECK = async (req: Request, res: Response, next: NextFun
             return next();
         }
 
-        const isAdmin = user.roles.some((role: any) => 
-            role.permissions?.some((p: any) => p.permission_string === "ADMINISTRATOR")
+        const isAdmin = user.roles.some((role: Role) => 
+            role.permissions?.some((p: RolePermission) => p.permission_string === "ADMINISTRATOR")
         );
 
         if (isAdmin) {

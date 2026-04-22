@@ -1,11 +1,11 @@
 import { DataTypes, Model, CreationOptional } from "sequelize";
 import { sequelize } from "../database";
-import { RolePermission } from "@bookwebapp/types";
+import { PERMISSIONS_STRING, RolePermission } from "@bookwebapp/types";
 import RoleModel from "./role.model";
 
 export class PermissionModel extends Model implements RolePermission {
   declare permissionId: CreationOptional<number>;
-  declare permission_string: string;
+  declare permission_string: PERMISSIONS_STRING;
 }
 
 PermissionModel.init(

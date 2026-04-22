@@ -1,5 +1,6 @@
 import React from "react";
 import type { ReactNode } from "react";
+import { PERMISSIONS_STRING } from "./Permissions";
 
 export type Page = {
   title: string;
@@ -15,6 +16,6 @@ export interface NavigationProps {
 
 export interface PageProps {
   children: React.ReactNode;
-  requiredPermission?: string;
+  requiredPermission?: PERMISSIONS_STRING;
   requiresAccount?: boolean;
 }

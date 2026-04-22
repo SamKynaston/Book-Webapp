@@ -1,5 +1,3 @@
-import { useAuth } from "../Context/Authentication";
-
 export async function updateUser(email: string, username: string, password: string, id: number | undefined): Promise<Boolean> {
     try {
         const apiUrl = import.meta.env.VITE_API_URL;

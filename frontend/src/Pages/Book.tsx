@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import type { Book, Author } from "@bookwebapp/types";
 import { HarvardReference } from "../Components/Reference";
@@ -19,8 +19,9 @@ interface BookPageProps {
 const BookPage: React.FC<BookPageProps> = ({ }) => {
   const { id } = useParams();
   const [book, setBook] = useState<Book | undefined>(undefined);
-  const [error, setError] = useState(true);
-  const { hasPermission } = useAuth();
+  const [error, setError] = useState(false);
+  const { hasPermission, user } = useAuth();
+  const navigate = useNavigate();
 
   if (!id) {
     return <ErrorPage />;
@@ -29,11 +30,19 @@ const BookPage: React.FC<BookPageProps> = ({ }) => {
   useEffect(() => {
     getBook(id)
       .then((fetchedBook) => {
-        setBook(fetchedBook);
-        setError(false);
+        if (!fetchedBook) {
+          setError(true)
+        }
+
+        setBook(fetchedBook as Book)
+        setError(false)
       })
-      .catch(() => {
-        setError(true);
+      .catch((err) => {
+        if (err.message === "UNAUTHORISED") {
+          navigate("/login")
+        } else {
+          setError(true)
+        }
       });
   }, [id]);
 

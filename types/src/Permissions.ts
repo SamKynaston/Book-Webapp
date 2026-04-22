@@ -1,0 +1,8 @@
+export type PERMISSIONS_STRING = 
+    "READ_BOOKS" |
+    "WRITE_BOOKS" | 
+    "DELETE_BOOKS" | 
+    "READ_USERS" | 
+    "WRITE_USERS" | 
+    "DELETE_USERS" |
+    "ADMINISTRATOR" 

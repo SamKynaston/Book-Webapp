@@ -26,8 +26,6 @@ export const Server = () => {
   
   if (process.env.ENVIRONMENT === "DEVELOPMENT") {
     app.use(cors({
-      // Allow requests with no origin (like mobile apps or curl requests)
-
       origin: (origin, callback) => {
         if (!origin) return callback(null, true);
 
@@ -36,8 +34,6 @@ export const Server = () => {
       credentials: true
     }));
   } else {
-    // Only allow requests from the frontend in production
-
     app.use(cors({
       origin: ["https://bookwebapp.com"],
       credentials: true
