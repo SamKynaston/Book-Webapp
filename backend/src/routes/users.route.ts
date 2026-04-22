@@ -2,7 +2,6 @@ import Express, { Request, Response } from "express";
 
 import {
   IS_AUTHENTICATED,
-  HASH_PASSWORD,
 } from "../middleware/authentication.middleware";
 
 import {
@@ -15,7 +14,7 @@ import {
 
 const router = Express.Router();
 
-router.post("/", HASH_PASSWORD, CREATE_USER);
+router.post("/", CREATE_USER);
 router.post("/authenticate", AUTHENTICATE_USER);
 router.post("/logout", IS_AUTHENTICATED, LOGOUT_USER);
 router.put("/:id", IS_AUTHENTICATED, UPDATE_USER);

@@ -1,6 +1,8 @@
 import { DataTypes, Model, CreationOptional, BelongsToManyAddAssociationsMixin } from "sequelize";
 import { sequelize } from "../database";
 import { User } from "@bookwebapp/types";
+import { hashPassword } from "../utils/password";
+
 import RoleModel from "./role.model";
 
 export class UserModel extends Model implements User {
@@ -40,6 +42,20 @@ UserModel.init(
   {
     sequelize,
     modelName: "User",
+
+    hooks: {
+      beforeCreate: async (user: UserModel) => {
+        if (user.password) {
+          user.password = await hashPassword(user.password);
+        }
+      },
+      
+      beforeUpdate: async (user: UserModel) => {
+        if (user.changed("password")) {
+          user.password = await hashPassword(user.password);
+        }
+      },
+    },
   },
 );
 

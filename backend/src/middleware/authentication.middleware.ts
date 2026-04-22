@@ -10,7 +10,7 @@ export const IS_AUTHENTICATED = (
   next: NextFunction,
 ) => {
   try {
-    const token = req.cookies.AUTH_TOKEN;
+    const token = req.cookies[process.env.SESSION_TOKEN_NAME || "SESSION_TOKEN"];
 
     if (!token) {
       console.log(req.cookies)
@@ -27,24 +27,6 @@ export const IS_AUTHENTICATED = (
   }
 };
 
-export const HASH_PASSWORD = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) : Promise<void> => {
-  try {
-    if (!req.body.password) {
-      res.status(400).json({ error: "Password is required" });
-    }
-
-    req.body.password_plain = req.body.password;
-    req.body.password = await hashPassword(req.body.password);
-    next();
-  } catch (err) {
-    res.status(500).json({ error: "Failed to hash password" });
-  }
-};
-
 export const GET_PERMISSIONS = async (
   req: Request,
   res: Response,
@@ -52,14 +34,12 @@ export const GET_PERMISSIONS = async (
 ) => {
   try {
     if (!req.user) {
-      req.role = RoleModel.findOne({ where: { name: "Guest" }, include: ["permissions"]});
+      req.role = await RoleModel.findOne({ where: { name: "Guest" }, include: ["permissions"]});
     } else {
       req.role = [req.user.roles];
     }
 
-    req.permissions = req.role.permissions.map((p: any) => p.permission_string);
-    console.log("Permissions:", req.permissions);
-    
+    req.permissions = req.role.permissions.map((p: any) => p.permission_string);    
     next();
   } catch (err) {
     res.status(500).json({ error: "Failed to get permissions" });

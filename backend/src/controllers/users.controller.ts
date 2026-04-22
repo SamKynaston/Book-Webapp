@@ -20,23 +20,23 @@ const createUser = async (username: string, password: string, email: string) => 
   return user;
 };
 
-const authenticateUser = async (password: string, email: string) => {
+const authenticateUser = async (email: string, password: string) => {
   let user = null
   
   if (email) {
     user = await UserModel.findOne({ where: { email } });
   } else {
-    throw new Error("Username or email required");
+    throw new Error("Invalid credentials");
   }
 
   if (!user) {
-    throw new Error("User not found");
+    throw new Error("Invalid credentials");
   }
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
-    throw new Error("Invalid password");
+    throw new Error("Invalid credentials");
   }
 
   const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
@@ -48,14 +48,14 @@ const authenticateUser = async (password: string, email: string) => {
 
 export const CREATE_USER = async (req: Request, res: Response) => {
   try {
-    const { username, password, password_plain, email } = req.body;
+    const { username, password, email } = req.body;
 
     const user = await createUser(username, password, email);
-    const token = await authenticateUser(password_plain, email);
+    const token = await authenticateUser(email, password)
 
-    res.cookie("AUTH_TOKEN", token, {
+    res.cookie(process.env.SESSION_TOKEN_NAME || "SESSION_TOKEN", token, {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax", 
       path: "/",
     });
@@ -68,13 +68,13 @@ export const CREATE_USER = async (req: Request, res: Response) => {
 
 export const AUTHENTICATE_USER = async (req: Request, res: Response) => {
   try {
-    const { username, password, email } = req.body;
+    const { password, email } = req.body;
     
-    let token = await authenticateUser(password, email);
+    let token = await authenticateUser(email, password);
 
-    res.cookie("AUTH_TOKEN", token, {
+    res.cookie(process.env.SESSION_TOKEN_NAME || "SESSION_TOKEN", token, {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "lax", 
       path: "/",
     });
@@ -117,7 +117,7 @@ export const GET_USER = async (req: Request, res: Response) => {
 
 export const LOGOUT_USER = async (req: Request, res: Response) => {
   try {
-    res.clearCookie("AUTH_TOKEN", {
+    res.clearCookie(process.env.SESSION_TOKEN_NAME || "SESSION_TOKEN", {
       httpOnly: true,
       secure: false,
       sameSite: "lax", 
