@@ -57,7 +57,7 @@ const App: React.FC = () => {
             <Route path="/account" element={<AccountPage />} />
             <Route path="/login" element={<AuthenticationPage />} />
             <Route path="/dashboard" element={<AdminDashboardPage />} />
-            <Route path="*" element={<Error />} />
+            <Route path="*" element={<Error code={404} />} />
           </Routes>
 
           {isMobileDevice && <MobileNavigation pages={pages} />}

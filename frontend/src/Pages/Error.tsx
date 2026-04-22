@@ -1,12 +1,20 @@
 import Page from "../Components/Page";
+import { errorMessages } from "../Utilities/Error.utilities";
 
-function Error() {
+type ErrorPageProps = {
+  code: number
+}
+
+function Error({ code }: ErrorPageProps) {
+  const error = errorMessages[code || 0]
+
   return (
     <Page>
       <br />
-      <h1>404</h1>
-      <p>Page not found</p>
-      <br />
+      <h1>{code}</h1>
+      <h2>{error.title}</h2>
+      <p>{error.message}</p>
+
       <a href="/">🏡 Go home</a>
       <br />
     </Page>

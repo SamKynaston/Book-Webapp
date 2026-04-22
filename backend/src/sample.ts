@@ -8,13 +8,7 @@ import PermissionModel from "./models/permission.model";
 import { hashPassword } from "./utils/password";
 
 export async function seedSampleData() {
-    await UserModel.sync({ force: true });
-    await AuthorModel.sync({ force: true });
-    await BookModel.sync({ force: true });
-    await RoleModel.sync({ force: true });
-    await PermissionModel.sync({ force: true });
-
-    await sequelize.model("AuthorBook").sync({ force: true });
+    await sequelize.sync({ force: true });
 
     const sampleRoles = await RoleModel.bulkCreate([
         { name: "Admin" },
@@ -32,17 +26,17 @@ export async function seedSampleData() {
         { permission_string: "ADMINISTRATOR" },
     ]);
 
-    sampleRoles[0].setPermissions([samplePermissions[6]]);
-    sampleRoles[1].setPermissions([samplePermissions[0], samplePermissions[3]]);
-    //sampleRoles[2].setPermissions([samplePermissions[0]]);
+    await sampleRoles[0].setPermissions([samplePermissions[6]]);
+    await sampleRoles[1].setPermissions([samplePermissions[0], samplePermissions[3]]);
+    //await sampleRoles[2].setPermissions([samplePermissions[0]]);
 
     const sampleUsers = await UserModel.bulkCreate([
         { username: "Admin", password: await hashPassword("debug"), email: "sam.kynaston@kynno.co.uk" },
         { username: "User", password: await hashPassword("debug"), email: "sam.kynaston2@kynno.co.uk" }
     ]);
 
-    sampleUsers[0].setRoles([sampleRoles[0]]);
-    sampleUsers[1].setRoles([sampleRoles[1]]);
+    await sampleUsers[0].setRoles([sampleRoles[0]]);
+    await sampleUsers[1].setRoles([sampleRoles[1]]);
 
     const sampleAuthors = await AuthorModel.bulkCreate([
         { name: "J.K. Rowling" },

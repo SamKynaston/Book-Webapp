@@ -80,6 +80,14 @@ const Search: React.FC<SearchProps> = ({ }) => {
     }
   });
 
+  if (hasFailed) {
+    return <p className="text-center">Failed to load. Try again later.</p>;
+  }
+
+  if (!isLoaded) {
+    return <p className="text-center">Loading</p>;
+  }
+
   return (
     <Page>
       <div className="HomeLayout">
@@ -92,16 +100,6 @@ const Search: React.FC<SearchProps> = ({ }) => {
               onChange={inputHandler}
             />
           </div>
-
-          {hasFailed ? (
-            <>
-              <p className="text-center">Failed to load. Try again later.</p>
-            </>
-          ) : !isLoaded ? (
-            <>
-              <p className="text-center">Loading</p>
-            </>
-          ) : null}
 
           {isLoaded && allBooks.length > 0 && filteredBooks.length === 0 ? (
             <p className="text-center">No books found</p>

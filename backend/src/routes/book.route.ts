@@ -13,7 +13,7 @@ const router = Express.Router();
 
 router.get("/", getAllBooks);
 router.post("/", IS_AUTHENTICATED, REQUIRE_PERMISSION("WRITE_BOOKS"), createBook);
-router.get("/:id", REQUIRE_PERMISSION("READ_BOOKS"), getBook);
+router.get("/:id", IS_AUTHENTICATED, REQUIRE_PERMISSION("READ_BOOKS"), getBook);
 router.put("/:id", IS_AUTHENTICATED, REQUIRE_PERMISSION("WRITE_BOOKS"), updateBook);
 
 export default router;

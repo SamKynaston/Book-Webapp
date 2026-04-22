@@ -16,11 +16,12 @@ export const REQUIRE_PERMISSION = (permissionName: PERMISSIONS_STRING) => {
             )
 
             if (!hasAccess) {
-                return res.status(403).json({ error: "Forbidden: You do not have permission" });
+                return res.status(403).json({ error: "You do not have permission" });
             }
 
             next();
         } catch (err) {
+            console.error(err)
             return res.status(500).json({error: "An error occured."})
         }
     }

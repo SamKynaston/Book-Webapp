@@ -19,35 +19,36 @@ interface BookPageProps {
 const BookPage: React.FC<BookPageProps> = ({ }) => {
   const { id } = useParams();
   const [book, setBook] = useState<Book | undefined>(undefined);
-  const [error, setError] = useState(false);
+  const [errorCode, setErrorCode] = useState<number | null>(null);
+
   const { hasPermission, user } = useAuth();
   const navigate = useNavigate();
 
-  if (!id) {
-    return <ErrorPage />;
-  }
-
   useEffect(() => {
+    if (!id) {
+      setErrorCode(404);
+    }
+    
     getBook(id)
       .then((fetchedBook) => {
         if (!fetchedBook) {
-          setError(true)
+          setErrorCode(404)
         }
 
         setBook(fetchedBook as Book)
-        setError(false)
+        setErrorCode(null)
       })
       .catch((err) => {
-        if (err.message === "UNAUTHORISED") {
+        if (err.status === 401) {
           navigate("/login")
         } else {
-          setError(true)
+          setErrorCode(err.status || -1);
         }
       });
-  }, [id]);
+  }, [id, navigate]);
 
-  if (error) {
-    return <ErrorPage />;
+  if (errorCode) {
+    return <ErrorPage code={errorCode || -1}/>;
   }
 
   const coverUrl = book?.cover_id
