@@ -60,9 +60,9 @@ export const CREATE_USER = async (req: Request, res: Response) => {
       path: "/",
     });
 
-    res.status(201).json({ message: "User created" });
+    res.status(201).json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ success: false });
   }
 };
 
@@ -79,9 +79,9 @@ export const AUTHENTICATE_USER = async (req: Request, res: Response) => {
       path: "/",
     });
 
-    res.status(200).json({ message: "Authenticated" });
+    res.status(200).json({ success: true });
   } catch (error) {
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({ success: false });
   }
 };
 
@@ -106,12 +106,12 @@ export const GET_USER = async (req: Request, res: Response) => {
     });
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ success: false });
     }
     
-    res.status(200).json({ authenticated: true, user });
+    res.status(200).json({ user: user, success: true });
   } catch (error) {
-    return res.status(401).json({ authenticated: false });
+    return res.status(401).json({ success: false });
   }
 };
 
@@ -124,9 +124,9 @@ export const LOGOUT_USER = async (req: Request, res: Response) => {
       path: "/",
     });
     
-    res.status(200).json({ message: "Logged out" });
+    res.status(200).json({ success: true });
   } catch (err) {
-    res.status(500).json({ error: "An error occured" });
+    res.status(500).json({ success: false });
   }
 }
 
@@ -135,7 +135,7 @@ export const UPDATE_USER = async (req: Request, res: Response) => {
      const idParam = req.params.id;
 
     if (Array.isArray(idParam)) {
-        return res.status(400).send("Invalid format");
+        return res.status(400).send({ success: false });
     }
 
     const targetId = parseInt(idParam, 10);
@@ -144,7 +144,7 @@ export const UPDATE_USER = async (req: Request, res: Response) => {
     });
 
     if (!user) {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ success: false });
     }
 
     const { email, username, password } = req.body;
@@ -154,9 +154,9 @@ export const UPDATE_USER = async (req: Request, res: Response) => {
 
     await user.save();
 
-    res.status(200).json({ message: "Updated successfully", user: user })
+    res.status(200).json({ success: true, user: user })
   } catch (err) {
     console.error(err)
-    res.status(500).json({ error: "An error occured" });
+    res.status(500).json({ success: false });
   }
 };

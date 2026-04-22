@@ -48,7 +48,7 @@ const Search: React.FC<SearchProps> = ({ }) => {
         if (!isMounted) return;
 
         clearTimeout(timeout);
-        setAllBooks(fetchedBooks);
+        setAllBooks(fetchedBooks.body);
         setLoadedStatus(true);
       })
       .catch(() => {
@@ -78,15 +78,7 @@ const Search: React.FC<SearchProps> = ({ }) => {
     } else {
       return book.title.toLowerCase().includes(inputText.toLowerCase());
     }
-  });
-
-  if (hasFailed) {
-    return <p className="text-center">Failed to load. Try again later.</p>;
-  }
-
-  if (!isLoaded) {
-    return <p className="text-center">Loading</p>;
-  }
+  })
 
   return (
     <Page>
@@ -100,6 +92,16 @@ const Search: React.FC<SearchProps> = ({ }) => {
               onChange={inputHandler}
             />
           </div>
+
+          {hasFailed ? (
+            <>
+              <p className="text-center">Failed to load. Try again later.</p>
+            </>
+          ) : !isLoaded ? (
+            <>
+              <p className="text-center">Loading</p>
+            </>
+          ) : null}
 
           {isLoaded && allBooks.length > 0 && filteredBooks.length === 0 ? (
             <p className="text-center">No books found</p>

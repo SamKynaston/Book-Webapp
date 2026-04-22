@@ -35,7 +35,7 @@ const BookPage: React.FC<BookPageProps> = ({ }) => {
           setErrorCode(404)
         }
 
-        setBook(fetchedBook as Book)
+        setBook(fetchedBook.body as Book)
         setErrorCode(null)
       })
       .catch((err) => {

@@ -11,6 +11,7 @@ type AuthContextType = {
 
 export async function checkAuth() {
   const apiUrl = import.meta.env.VITE_API_URL;
+  
   const res = await fetch(`${apiUrl}/v1/users/me`, {
     credentials: "include",
   });
@@ -57,7 +58,7 @@ export const AuthProvider = ({ children }: any) => {
     }
 
     setUser(data.user);
-    setAuthenticated(data.authenticated);
+    setAuthenticated(data.success);
   };
 
   useEffect(() => {
@@ -68,7 +69,7 @@ export const AuthProvider = ({ children }: any) => {
         setLoading(false);
       } else {
         setUser(data.user);
-        setAuthenticated(data.authenticated);
+        setAuthenticated(data.success);
       }
     })
     .catch((err) => {
