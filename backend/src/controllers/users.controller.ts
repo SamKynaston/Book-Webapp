@@ -5,22 +5,63 @@ import bcrypt from "bcrypt";
 import { RoleModel } from "../models/role.model";
 import { PermissionModel } from "../models/permission.model";
 
+// Local Functions
+const createUser = async (username: string, password: string, email: string) => {
+  const user = await UserModel.create({ username, password, email });
+  
+  const userRole = await RoleModel.findOne({
+    where: { name: "User" },
+  });
+
+  if (userRole) {
+    await user.setRoles([userRole]);
+  }
+
+  return user;
+};
+
+const authenticateUser = async (password: string, email: string) => {
+  let user = null
+  
+  if (email) {
+    user = await UserModel.findOne({ where: { email } });
+  } else {
+    throw new Error("Username or email required");
+  }
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordValid) {
+    throw new Error("Invalid password");
+  }
+
+  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
+    expiresIn: "1h",
+  });
+
+  return token;
+}
+
 export const CREATE_USER = async (req: Request, res: Response) => {
   try {
-    const { username, password, email } = req.body;
-    const user = await UserModel.create({ username, password, email });
+    const { username, password, password_plain, email } = req.body;
 
-    const userRole = await RoleModel.findOne({
-      where: { name: "User" },
+    const user = await createUser(username, password, email);
+    const token = await authenticateUser(password_plain, email);
+
+    res.cookie("AUTH_TOKEN", token, {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax", 
+      path: "/",
     });
 
-    if (userRole) {
-      await user.setRoles([userRole]);
-    }
-
-    res.status(201).json(user);
+    res.status(201).json({ message: "User created" });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -28,29 +69,8 @@ export const CREATE_USER = async (req: Request, res: Response) => {
 export const AUTHENTICATE_USER = async (req: Request, res: Response) => {
   try {
     const { username, password, email } = req.body;
-    let user = null
-
-    if (username) {
-      user = await UserModel.findOne({ where: { username } });
-    } else if (email) {
-      user = await UserModel.findOne({ where: { email } });
-    } else {
-      return res.status(400).json({ error: "Username or email required" });
-    }
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordValid) {
-      return res.status(401).json({ error: "Invalid password" });
-    }
-
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
-      expiresIn: "1h",
-    });
+    
+    let token = await authenticateUser(password, email);
 
     res.cookie("AUTH_TOKEN", token, {
       httpOnly: true,
@@ -61,7 +81,6 @@ export const AUTHENTICATE_USER = async (req: Request, res: Response) => {
 
     res.status(200).json({ message: "Authenticated" });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
@@ -92,7 +111,6 @@ export const GET_USER = async (req: Request, res: Response) => {
     
     res.status(200).json({ authenticated: true, user });
   } catch (error) {
-    console.error(error);
     return res.status(401).json({ authenticated: false });
   }
 };
@@ -108,7 +126,6 @@ export const LOGOUT_USER = async (req: Request, res: Response) => {
     
     res.status(200).json({ message: "Logged out" });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ error: "An error occured" });
   }
 }

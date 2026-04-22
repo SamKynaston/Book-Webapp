@@ -18,7 +18,8 @@ export async function seedSampleData() {
 
     const sampleRoles = await RoleModel.bulkCreate([
         { name: "Admin" },
-        { name: "User" }
+        { name: "User" },
+        { name: "Guest" }
     ]);
 
     const samplePermissions = await PermissionModel.bulkCreate([
@@ -33,6 +34,7 @@ export async function seedSampleData() {
 
     sampleRoles[0].setPermissions([samplePermissions[6]]);
     sampleRoles[1].setPermissions([samplePermissions[0], samplePermissions[3]]);
+    //sampleRoles[2].setPermissions([samplePermissions[0]]);
 
     const sampleUsers = await UserModel.bulkCreate([
         { username: "Admin", password: await hashPassword("debug"), email: "sam.kynaston@kynno.co.uk" },

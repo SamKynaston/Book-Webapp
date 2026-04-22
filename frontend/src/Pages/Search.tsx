@@ -83,15 +83,6 @@ const Search: React.FC<SearchProps> = ({ }) => {
   return (
     <Page>
       <div className="HomeLayout">
-        {hasFailed ? (
-          <>
-            <p className="text-gray-300 text-center">Failed to load. Try again later.</p>
-          </>
-        ) : !isLoaded ? (
-          <>
-            <p className="text-gray-300 text-center">Loading</p>
-          </>
-        ) : null}
           <div className={`SearchWrapper`}>
             <input
               className="SearchInput"
@@ -101,6 +92,16 @@ const Search: React.FC<SearchProps> = ({ }) => {
               onChange={inputHandler}
             />
           </div>
+
+          {hasFailed ? (
+            <>
+              <p>Failed to load. Try again later.</p>
+            </>
+          ) : !isLoaded ? (
+            <>
+              <p className="text-gray-300 text-center">Loading</p>
+            </>
+          ) : null}
 
           {isLoaded && allBooks.length > 0 && filteredBooks.length === 0 ? (
             <p>No books found</p>

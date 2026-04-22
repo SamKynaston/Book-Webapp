@@ -1,4 +1,4 @@
-import { User } from "@bookwebapp/types";
+import { Role, User } from "@bookwebapp/types";
 import "express";
 import { JwtPayload } from "jsonwebtoken";
 
@@ -8,6 +8,9 @@ declare global {
       user: User | JwtPayload & {
         id: number;
       }
+
+      role?: any;
+      permissions: string[];
     }
   }
 }
