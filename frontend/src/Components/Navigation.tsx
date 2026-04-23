@@ -28,15 +28,15 @@ function Navigation({ pages }: NavigationProps) {
 
       <div className="Navigation-End">
         {
-          hasPermission("ADMINISTRATOR") && (
+          hasPermission("ADMINISTRATOR") ? (
             <Link to="/dashboard" className="Navigation-Button">
-              <p>Dashboard</p>
+              <i className="fa-solid fa-wrench"></i>
             </Link>
-          )
+          ) : null
         }
 
         <Link to={authenticated ? "/account" : "/login"} className="Navigation-Button">
-          {authenticated ? "Account" : "Sign In"}
+          {authenticated ? <i className="fa-solid fa-user"></i> : <i className="fa-regular fa-user"></i>}
         </Link>
       </div>
     </div>
