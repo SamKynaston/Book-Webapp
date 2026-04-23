@@ -5,7 +5,7 @@ export const REQUIRE_PERMISSION = (permissionName: PERMISSIONS_STRING) => {
     return(req: Request, res: Response, next: NextFunction) => {
         try {
             if (!req.user) {
-                return res.status(401).json({error: "Not authenticated"})
+                return res.status(401).json({ success: false, error: "Not authenticated" })
             }
 
             const hasAccess = req.user.roles.some((role: Role) => 
@@ -16,13 +16,13 @@ export const REQUIRE_PERMISSION = (permissionName: PERMISSIONS_STRING) => {
             )
 
             if (!hasAccess) {
-                return res.status(403).json({ error: "You do not have permission" });
+                return res.status(403).json({ success: false, error: "You do not have permission" });
             }
 
             next();
         } catch (err) {
             console.error(err)
-            return res.status(500).json({error: "An error occured."})
+            return res.status(500).json({ success: false, error: "An error occured."})
         }
     }
 }
@@ -33,7 +33,7 @@ export const OWNERSHIP_CHECK = async (req: Request, res: Response, next: NextFun
         const idParam = req.params.id;
 
         if (Array.isArray(idParam)) {
-            return res.status(400).send("Invalid format");
+            return res.status(400).json({ success: false, error: "Invalid format" });
         }
 
         const targetId = parseInt(idParam, 10)
@@ -50,8 +50,8 @@ export const OWNERSHIP_CHECK = async (req: Request, res: Response, next: NextFun
             return next();
         }
 
-        return res.status(403).json({error: "Unauthorised."})
+        return res.status(403).json({success: false, error: "Unauthorised."})
     } catch(err) {
-        return res.status(500).json({error: "An error occured."})
+        return res.status(500).json({success: false, error: "An error occured."})
     }
 }

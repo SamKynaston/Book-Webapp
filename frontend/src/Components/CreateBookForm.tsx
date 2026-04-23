@@ -35,13 +35,6 @@ export const CreateBookForm = () => {
     
     return (
         <>
-            <select value={author} onChange={(e) => setAuthor(Number(e.target.value))}>
-                {authors.map((a: Author) => (
-                    <option key={a.id} value={a.id}>
-                    {a.name}
-                    </option>
-                ))}
-            </select>
             <form onSubmit={handleSubmit}>
                 <input onChange={(e) => setTitle(e.target.value)} placeholder="Title" required={true}></input>
                 <br />
@@ -52,6 +45,14 @@ export const CreateBookForm = () => {
                 </label>
                 <br />
                 <input onChange={(e) => setCoverId(e.target.value)} placeholder="Cover ID" required={true}></input>
+                <br />
+                <select value={author} onChange={(e) => setAuthor(Number(e.target.value))}>
+                    {authors.map((a: Author) => (
+                        <option key={a.id} value={a.id}>
+                        {a.name}
+                        </option>
+                    ))}
+                </select>
                 <br />
                 <button type="submit">Signup</button>
             </form>

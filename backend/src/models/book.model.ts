@@ -14,7 +14,7 @@ export class BookModel extends Model implements Book {
   declare first_publish_year: number;
   declare authors: Author[];
   declare cover_id?: number | undefined;
-  declare isRecommended?: boolean;
+  declare is_recommended?: boolean;
   declare setAuthors: BelongsToManyAddAssociationsMixin<AuthorModel, number>;
 }
 
@@ -41,7 +41,7 @@ BookModel.init(
       allowNull: true,
     },
 
-    isRecommended: {
+    is_recommended: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
     },

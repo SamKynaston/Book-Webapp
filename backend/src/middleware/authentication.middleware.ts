@@ -13,7 +13,7 @@ export const IS_AUTHENTICATED = async (
     const token = req.cookies[process.env.SESSION_TOKEN_NAME || "SESSION_TOKEN"];
 
     if (!token) {
-      return res.status(401).json({ error: "No cookie detected" });
+      return res.status(401).json({ success: false, error: "No cookie detected" });
     };
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: number };
@@ -39,6 +39,6 @@ export const IS_AUTHENTICATED = async (
     req.user = user;
     next();
   } catch (err) {
-    res.status(401).json({ error: "Authentication failed." });
+    res.status(401).json({ success: false, error: "Authentication failed." });
   }
 };
