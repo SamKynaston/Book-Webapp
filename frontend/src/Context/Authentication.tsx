@@ -16,7 +16,7 @@ export async function checkAuth(): Promise<{ body: User, success: boolean  } | n
     credentials: "include",
   });
 
-  const data = await res.json().catch(() => null);
+  const data = await res.json()
   if (!res.ok) return null;
   
   return data;

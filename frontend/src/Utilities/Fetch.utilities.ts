@@ -15,7 +15,7 @@ export const apiFetch = async (endPoint: string, parameters: RequestInit = {} ):
 }
 
 export const handleResponse = async <T = any>(res: Response): Promise<T> => {
-    const data = await res.json().catch(() => null);
+    const data = await res.json()
 
     if (res.ok) {
         console.log(data)
