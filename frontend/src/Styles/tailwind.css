@@ -42,20 +42,19 @@ body {
 }
 
 .Navigation .Navigation-Button {
-    @apply p-2 cursor-pointer w-full md:w-auto h-full md:flex items-center block;
+    @apply p-2 cursor-pointer h-full md:flex items-center block;
 }
 
 .Navigation .Navigation-Start {
-    @apply flex gap-4;
+    @apply flex gap-4 w-1/2;
 }
 
 .Navigation .Navigation-End {
-    @apply flex;
+    @apply flex w-1/2 justify-end;
 }
 
 .Navigation-Button img {
-    @apply w-full;
-    max-height: 40px;
+    @apply w-full h-10;
 }
 
 .Navigation .Navigation-Button:hover {

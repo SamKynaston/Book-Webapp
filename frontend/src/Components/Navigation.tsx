@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import type { NavigationProps } from "@bookwebapp/types";
 import { useAuth } from "../Context/Authentication";
+import icon from "../../public/logo.svg";
 
 function Navigation({ pages }: NavigationProps) {
   const { authenticated, hasPermission } = useAuth() as any;
@@ -8,22 +9,17 @@ function Navigation({ pages }: NavigationProps) {
   return (
     <div className="Navigation">
       <div className="Navigation-Start">
-        {pages.map(
-          (page) =>
-            page.ignore !== true && (
-              <Link to={page.path} key={page.path} className="Navigation-Button">
-                {page.image ? (
-                  <img
-                    src={page.image}
-                    alt={page.title ?? page.path}
-                    className="Navigation-Icon"
-                  />
-                ) : (
-                  <span>{page.title ?? page.path}</span>
-                )}
-              </Link>
-            ),
-        )}
+        <Link to={"/"} key={"/"} className="Navigation-Button">
+          <img
+              src={icon}
+              alt="Library"
+              className="Navigation-Icon"
+            />
+        </Link>
+
+        {/*<div className="Navigation-Button w-full justify-start">
+          <button className="w-full"></button>
+        </div>*/}
       </div>
 
       <div className="Navigation-End">
