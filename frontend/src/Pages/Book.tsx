@@ -16,7 +16,7 @@ interface BookPageProps {
 
 }
 
-const BookPage: React.FC<BookPageProps> = ({ }) => {
+function BookPage({ }: BookPageProps) {
   const { id } = useParams();
   const [book, setBook] = useState<Book | null>(null);
   const [errorCode, setErrorCode] = useState<number | null>(null);
@@ -40,7 +40,11 @@ const BookPage: React.FC<BookPageProps> = ({ }) => {
       })
       .catch((err) => {
         if (err.status === 401) {
-          navigate("/login")
+          if (!user) {
+            navigate("/login")
+          } else {
+            setErrorCode(401)
+          }
         } else {
           setErrorCode(err.status || -1);
         }

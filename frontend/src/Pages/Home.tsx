@@ -9,7 +9,7 @@ interface HomeProps {
   //setAllBooks: React.Dispatch<React.SetStateAction<Book[]>>;
 }
 
-const Home: React.FC<HomeProps> = ({ }) => {
+function Home({ }: HomeProps) {
   return (
     <Page>
       DEBUG

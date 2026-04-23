@@ -9,7 +9,7 @@ interface SearchProps {
   //setAllBooks: React.Dispatch<React.SetStateAction<Book[]>>;
 }
 
-const Search: React.FC<SearchProps> = ({ }) => {
+function Search({ }: SearchProps) {
   const [inputText, setInputText] = useState("");
   const [allBooks, setAllBooks] = useState<Book[]>([]);
   const [isLoaded, setLoadedStatus] = useState(false)
@@ -110,7 +110,7 @@ const Search: React.FC<SearchProps> = ({ }) => {
               {filteredBooks.map((book: Book) => (
                 <BookBtn
                   book={book}
-                  isRecommended={book.isRecommended || false}
+                  isRecommended={book.is_recommended || false}
                   routeToBook={routeToBook}
                 />
               ))}

@@ -3,7 +3,7 @@ import { CreateBookInput } from "@bookwebapp/types";
 import { BookModel } from "../models/book.model";
 import { AuthorModel } from "../models/author.model";
 
-export const getAllBooks = async (req: Request, res: Response) => {
+export const GET_ALL_BOOKS = async (req: Request, res: Response) => {
   try {
     const books = await BookModel.findAll({
       include: [
@@ -21,7 +21,7 @@ export const getAllBooks = async (req: Request, res: Response) => {
   }
 };
 
-export const getBook = async (req: Request, res: Response) => {
+export const GET_BOOK = async (req: Request, res: Response) => {
   const bookId = req.params.id as string;
 
   try {
@@ -46,7 +46,7 @@ export const getBook = async (req: Request, res: Response) => {
   }
 };
 
-export const createBook = async (req: Request, res: Response) => {
+export const CREATE_BOOK = async (req: Request, res: Response) => {
   const newBook: CreateBookInput = req.body;
 
   try {
@@ -62,7 +62,7 @@ export const createBook = async (req: Request, res: Response) => {
       title: newBook.title,
       first_publish_year: newBook.first_publish_year,
       cover_id: newBook.cover_id,
-      isRecommended: newBook.isRecommended,
+      isRecommended: newBook.is_recommended,
     });
 
     if (newBook.authors && newBook.authors.length > 0) {
@@ -89,7 +89,7 @@ export const createBook = async (req: Request, res: Response) => {
   }
 };
 
-export const updateBook = async (req: Request, res: Response) => {
+export const UPDATE_BOOK = async (req: Request, res: Response) => {
   const bookId = req.params.id as string;
   const updatedBook: CreateBookInput = req.body;
 
@@ -106,7 +106,7 @@ export const updateBook = async (req: Request, res: Response) => {
       title: updatedBook.title,
       first_publish_year: updatedBook.first_publish_year,
       cover_id: updatedBook.cover_id,
-      isRecommended: updatedBook.isRecommended,
+      isRecommended: updatedBook.is_recommended,
     });
 
     if (updatedBook.authors && updatedBook.authors.length > 0) {

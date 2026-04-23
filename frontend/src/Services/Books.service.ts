@@ -17,6 +17,20 @@ export async function getAllBooks(): Promise<{ body: Book[] }> {
     return await handleResponse<{ body: Book[] }>(res)
 }
 
+export async function createNewBook(title: string, authors: number[], firstPublishYear: number, isRecommended: boolean): Promise<{ success: boolean }> {
+    const res = await apiFetch(`v1/books`, {
+        method: "POST",
+        body: JSON.stringify({ 
+            title: title,
+            first_publish_year: firstPublishYear,
+            authors: authors,
+            is_recommended: isRecommended
+        }),
+    });
+
+    return await handleResponse<{ success: boolean }>(res)
+}
+
 export function getBookLink(id: string) {
     return `${bookDirectory}/${id}`;
 };

@@ -9,13 +9,13 @@ export interface Book {
   cover_id?: number;
   authors: Author[];
   first_publish_year: number;
-  isRecommended?: boolean;
+  is_recommended?: boolean;
 }
 
 export interface CreateBookInput {
   title: string;
   cover_id?: number;
   first_publish_year: number;
-  isRecommended?: boolean;
+  is_recommended?: boolean;
   authors?: number[];
 }
