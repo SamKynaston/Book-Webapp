@@ -3,7 +3,7 @@ import { User } from "@bookwebapp/types";
 import { RoleSchema } from "./roles.schema";
 
 export const UserSchema = zod.object({
-  username: zod.string(),
-  password: zod.string(),
-  email: zod.string(),
+  username: zod.string().regex(/^\S+$/),
+  password: zod.string().min(8).max(32),
+  email: zod.email(),
 }).strict();

@@ -49,7 +49,7 @@ export const CreateBookForm = () => {
                 <select value={author} onChange={(e) => setAuthor(Number(e.target.value))}>
                     {authors.map((a: Author) => (
                         <option key={a.id} value={a.id}>
-                        {a.name}
+                            {a.name}
                         </option>
                     ))}
                 </select>
