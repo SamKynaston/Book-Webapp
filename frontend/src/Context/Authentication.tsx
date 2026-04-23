@@ -9,7 +9,7 @@ type AuthContextType = {
   refreshUser: () => Promise<void>;
 };
 
-export async function checkAuth() {
+export async function checkAuth(): Promise<{ body: User, success: boolean  } | null> {
   const apiUrl = import.meta.env.VITE_API_URL;
   
   const res = await fetch(`${apiUrl}/v1/users/me`, {
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }: any) => {
       return;
     }
 
-    setUser(data.user);
+    setUser(data.body);
     setAuthenticated(data.success);
   };
 
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }: any) => {
         setAuthenticated(false);
         setLoading(false);
       } else {
-        setUser(data.user);
+        setUser(data.body);
         setAuthenticated(data.success);
       }
     })

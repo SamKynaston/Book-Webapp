@@ -109,7 +109,7 @@ export const GET_USER = async (req: Request, res: Response) => {
       return res.status(404).json({ success: false });
     }
     
-    res.status(200).json({ user: user, success: true });
+    res.status(200).json({ body: user, success: true });
   } catch (error) {
     return res.status(401).json({ success: false });
   }
@@ -154,7 +154,7 @@ export const UPDATE_USER = async (req: Request, res: Response) => {
 
     await user.save();
 
-    res.status(200).json({ success: true, user: user })
+    res.status(200).json({ success: true, body: user })
   } catch (err) {
     console.error(err)
     res.status(500).json({ success: false });

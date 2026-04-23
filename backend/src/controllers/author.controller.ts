@@ -5,9 +5,9 @@ import { AuthorModel } from "../models/author.model";
 export const getAllAuthors = async (req: Request, res: Response) => {
   try {
     const authors = await AuthorModel.findAll();
-    res.send({ body: authors });
+    res.send({ body: authors, success: true });
   } catch (error) {
-    res.status(500).json({ error: "Failed to retrieve authors" });
+    res.status(500).json({ error: "Failed to retrieve authors", success: false });
   }
 };
 
@@ -19,12 +19,12 @@ export const getAuthor = async (req: Request, res: Response) => {
       where: { id: authorKey },
     });
     if (!author) {
-      return res.status(404).json({ error: "Author not found" });
+      return res.status(404).json({ error: "Author not found", success: false });
     }
 
-    res.send({ body: author });
+    res.send({ body: author, success: true });
   } catch (error) {
-    res.status(500).json({ error: "Failed to retrieve author" });
+    res.status(500).json({ error: "Failed to retrieve author", success: false });
   }
 };
 
@@ -37,17 +37,13 @@ export const createAuthor = async (req: Request, res: Response) => {
     });
 
     if (existingAuthor) {
-      return res.status(409).json({ error: "Author already exists" });
+      return res.status(409).json({ error: "Author already exists", success: false });
     }
 
     const createdAuthor = await AuthorModel.create(newAuthor);
-    res.status(201).json(createdAuthor);
+    res.status(201).json({ body: createdAuthor, success: true });
   } catch (error) {
-    res.status(500).json({
-      message: "Author creation failed",
-      error: error,
-      body: req.body,
-    });
+    res.status(500).json({ success: false });
   }
 };
 
@@ -61,16 +57,12 @@ export const updateAuthor = async (req: Request, res: Response) => {
     });
 
     if (!existingAuthor) {
-      return res.status(404).json({ error: "Author not found" });
+      return res.status(404).json({ error: "Author not found", success: false });
     }
 
     await existingAuthor.update(updatedAuthor);
-    res.send({ body: existingAuthor });
+    res.send({ body: existingAuthor, success: true });
   } catch (error) {
-    res.status(500).json({
-      message: "Author update failed",
-      error: error,
-      body: req.body,
-    });
+    res.status(500).json({ success: false });
   }
 };

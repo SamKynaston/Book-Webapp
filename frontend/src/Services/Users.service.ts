@@ -2,7 +2,7 @@ import { User } from "@bookwebapp/types";
 import { apiFetch, handleResponse } from "../Utilities/Fetch.utilities";
 
 export async function updateUser(email: string, username: string, password: string, id: number | undefined): Promise<boolean> {
-    const data = await handleResponse<{ success: boolean, user: User }>(
+    const data = await handleResponse<{ success: boolean, body: User }>(
         await apiFetch(`v1/users/${id}`, {
             method: "PUT",
             body: JSON.stringify({ 

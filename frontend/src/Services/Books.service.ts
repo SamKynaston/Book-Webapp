@@ -9,13 +9,11 @@ export async function getBook(id: string | undefined): Promise<{ body: Book }> {
     }
 
     const res = await apiFetch(`v1/books/${id}`, {});
-
     return await handleResponse<{ body: Book }>(res)
 }
 
 export async function getAllBooks(): Promise<{ body: Book[] }> {
     const res = await apiFetch(`v1/books`);
-
     return await handleResponse<{ body: Book[] }>(res)
 }
 

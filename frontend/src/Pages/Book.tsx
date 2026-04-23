@@ -18,7 +18,7 @@ interface BookPageProps {
 
 const BookPage: React.FC<BookPageProps> = ({ }) => {
   const { id } = useParams();
-  const [book, setBook] = useState<Book | undefined>(undefined);
+  const [book, setBook] = useState<Book | null>(null);
   const [errorCode, setErrorCode] = useState<number | null>(null);
 
   const { hasPermission, user } = useAuth();
