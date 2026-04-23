@@ -17,11 +17,12 @@ export async function getAllBooks(): Promise<{ body: Book[] }> {
     return await handleResponse<{ body: Book[] }>(res)
 }
 
-export async function createNewBook(title: string, authors: number[], firstPublishYear: number, isRecommended: boolean): Promise<{ success: boolean }> {
+export async function createNewBook(title: string, coverId: number, authors: number[], firstPublishYear: number, isRecommended: boolean): Promise<{ success: boolean }> {
     const res = await apiFetch(`v1/books`, {
         method: "POST",
         body: JSON.stringify({ 
             title: title,
+            cover_id: coverId,
             first_publish_year: firstPublishYear,
             authors: authors,
             is_recommended: isRecommended

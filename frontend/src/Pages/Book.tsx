@@ -40,11 +40,7 @@ function BookPage({ }: BookPageProps) {
       })
       .catch((err) => {
         if (err.status === 401) {
-          if (!user) {
-            navigate("/login")
-          } else {
-            setErrorCode(401)
-          }
+          navigate("/login")
         } else {
           setErrorCode(err.status || -1);
         }
