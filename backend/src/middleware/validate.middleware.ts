@@ -6,6 +6,7 @@ export const VALIDATE_INPUT = (schema: ZodObject) => {
         const result = schema.safeParse(req.body);
 
         if (!result.success) {
+            console.log(result.error)
             return res.status(400).json({ success: false, message: "Validation failed" })
         }
 

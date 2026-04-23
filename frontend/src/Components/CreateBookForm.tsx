@@ -7,7 +7,7 @@ import { Author } from "@bookwebapp/types";
 
 export const CreateBookForm = () => {
     const [title, setTitle] = useState("");
-    const [author, setAuthor] = useState(0);
+    const [author, setAuthor] = useState(1);
     const [publishYear, setPublishYear] = useState("");
     const [isRecommended, setRecommended] = useState(false);
     const [coverId, setCoverId] = useState("");
@@ -24,7 +24,7 @@ export const CreateBookForm = () => {
         event.preventDefault();
 
         try { 
-            if (await createNewBook(title, parseInt(coverId, 10), [author], parseInt(publishYear, 10), isRecommended)) {
+            if (await createNewBook(title, parseInt(coverId, 10), [author], parseInt(publishYear, 10), isRecommended || false)) {
                 await refreshUser();
                 navigate("/account")
             };

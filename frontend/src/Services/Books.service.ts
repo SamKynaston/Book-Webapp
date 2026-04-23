@@ -25,7 +25,7 @@ export async function createNewBook(title: string, coverId: number, authors: num
             cover_id: coverId,
             first_publish_year: firstPublishYear,
             authors: authors,
-            is_recommended: isRecommended
+            is_recommended: isRecommended || false
         }),
     });
 
