@@ -7,3 +7,8 @@ export const UserSchema = zod.object({
   password: zod.string().min(8).max(32),
   email: zod.email(),
 }).strict();
+
+export const UserAuthenticationSchema = zod.object({
+    password: zod.string().min(8).max(32),
+    email: zod.email(),
+})

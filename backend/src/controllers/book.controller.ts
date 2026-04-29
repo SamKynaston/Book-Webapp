@@ -15,9 +15,9 @@ export const GET_ALL_BOOKS = async (req: Request, res: Response) => {
         },
       ],
     });
-    res.send({ body: books });
+    res.status(200).json({ body: books, success: true });
   } catch (error) {
-    res.status(500).json({ error: "Failed to retrieve books" });
+    res.status(500).json({ error: "Failed to retrieve books", message: error, success: false });
   }
 };
 
@@ -37,12 +37,12 @@ export const GET_BOOK = async (req: Request, res: Response) => {
       ],
     });
     if (!book) {
-      return res.status(404).json({ error: "Book not found" });
+      return res.status(404).json({ error: "Book not found", success: false });
     }
 
-    res.send({ body: book });
+    res.status(200).json({ body: book, success: true });
   } catch (error) {
-    res.status(500).json({ error: "Failed to retrieve book" });
+    res.status(500).json({ error: "Failed to retrieve book", success: false });
   }
 };
 
@@ -55,7 +55,7 @@ export const CREATE_BOOK = async (req: Request, res: Response) => {
     });
 
     if (existingBook) {
-      return res.status(409).json({ error: "Book already exists" });
+      return res.status(409).json({ message: "Book already exists", success: false });
     }
 
     const createdBook = await BookModel.create({
@@ -81,11 +81,9 @@ export const CREATE_BOOK = async (req: Request, res: Response) => {
       ],
     });
 
-    res.status(201).json(bookWithAuthors);
+    res.status(201).json({ body: bookWithAuthors, success: true });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Book creation failed", error: error, body: req.body });
+    res.status(500).json({ error: "Book creation failed", success: false });
   }
 };
 

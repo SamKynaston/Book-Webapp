@@ -9,6 +9,8 @@
     "skipLibCheck": true,    
     "baseUrl": ".",
 
+    "types": ["jest", "node"],
+    
     "paths": {
       "@bookwebapp/types": ["node_modules/@bookwebapp/types/dist"],
     },
