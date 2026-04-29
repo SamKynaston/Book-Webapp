@@ -35,3 +35,31 @@ export async function createNewBook(title: string, coverId: number, authors: num
 export function getBookLink(id: string) {
     return `${bookDirectory}/${id}`;
 };
+
+export async function getFavourites(): Promise<Book[]> {
+    const data = await handleResponse<{ success: boolean, body: Book[] }>(
+        await apiFetch(`v1/users/favourites`)
+    )
+
+    return data.body
+}
+
+export async function favouriteBook(id: number | undefined): Promise<Boolean> {
+   const data = await handleResponse<{ success: boolean }>(
+    await apiFetch(`v1/books/${id}/favourite`, {
+        method: "POST"
+    })
+   )
+
+   return data.success
+}
+
+export async function unFavouriteBook(id: number | undefined): Promise<Boolean> {
+   const data = await handleResponse<{ success: boolean }>(
+    await apiFetch(`v1/books/${id}/unfavourite`, {
+        method: "POST"
+    })
+   )
+
+   return data.success
+}

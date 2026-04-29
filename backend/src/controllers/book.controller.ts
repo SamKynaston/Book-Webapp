@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { CreateBookInput } from "@bookwebapp/types";
 import { BookModel } from "../models/book.model";
 import { AuthorModel } from "../models/author.model";
+import UserModel from "../models/user.model";
 
 export const GET_ALL_BOOKS = async (req: Request, res: Response) => {
   try {
@@ -130,3 +131,46 @@ export const UPDATE_BOOK = async (req: Request, res: Response) => {
       .json({ message: "Book update failed", success: false });
   }
 };
+
+export const FAVOURITE_BOOK = async (req: Request, res: Response) => {
+  const bookId = req.params.id as string;
+  const userId = req.user.id as string;
+
+  try {
+    const user = await UserModel.findOne({
+      where: { id: userId }
+    })  
+
+    const book = await BookModel.findOne({
+      where: { id: bookId }
+    })
+
+    if (!book) {
+      return res.status(404).json({ error: "Book not found" });
+    }
+
+    user?.addFavourite(book)
+
+    return res.status(200).json({ success: true })
+  } catch(err) {
+    res.status(500).json({ success: false})  
+  }
+}
+
+
+export const UNFAVOURITE_BOOK = async (req: Request, res: Response) => {
+  const bookId = parseInt(req.params.id as string, 10);
+  const userId = req.user.id as number;
+
+  try {
+    const user = await UserModel.findOne({
+      where: { id: userId }
+    })  
+
+    await user?.removeFavourite(bookId)
+
+    return res.status(200).json({ success: true })
+  } catch(err) {
+    res.status(500).json({ success: false})  
+  }
+}

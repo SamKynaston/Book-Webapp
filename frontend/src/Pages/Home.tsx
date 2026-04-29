@@ -1,7 +1,6 @@
 import { Book } from "@bookwebapp/types";
 import Page from "../Components/Page";
-import { getFavourites } from "../Services/Users.service";
-import { getBookLink } from "../Services/Books.service";
+import { getBookLink, getFavourites } from "../Services/Books.service";
 import { useAuth } from "../Context/Authentication";
 import { Link, useNavigate } from "react-router-dom";
 import { BookBtn } from "../Components/BookBtn";
@@ -22,14 +21,14 @@ function Home({ }: HomeProps) {
     navigate(getBookLink(id));
   };
 
+  const loadFavourites = async () => {
+    const books = await getFavourites();
+    setAllBooks(books);
+  };
+
   useEffect(() => {
     if (!user) return;
-
-    getFavourites()
-      .then((books) => {
-        console.log(books)
-        setAllBooks(books);
-      });
+    loadFavourites();
   }, [user]);
 
   return (
@@ -39,7 +38,7 @@ function Home({ }: HomeProps) {
           <h1>Your Favourites</h1>
           <div className="Books">
             {allBooks.map((book: Book) => (
-              <BookBtn book={book} isRecommended={book.is_recommended || false} routeToBook={routeToBook} />
+              <BookBtn book={book} isRecommended={book.is_recommended || false} routeToBook={routeToBook} refresh={loadFavourites} />
             ))}
           </div>
         </>

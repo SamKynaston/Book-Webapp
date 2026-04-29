@@ -19,6 +19,7 @@ export const AuthenticationForm = () => {
                 navigate("/account")
             }
         } catch (err: any) {
+            console.log(err)
             alert(err.message);
         }
     }

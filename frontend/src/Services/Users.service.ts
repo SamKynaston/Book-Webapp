@@ -51,11 +51,3 @@ export async function signup(email: string, username: string, password: string):
 
     return data.success; 
 }
-
-export async function getFavourites(): Promise<Book[]> {
-    const data = await handleResponse<{ success: boolean, body: Book[] }>(
-        await apiFetch(`v1/users/favourites`)
-    )
-
-    return data.body
-}
