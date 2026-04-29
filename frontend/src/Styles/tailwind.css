@@ -74,7 +74,7 @@ a:hover {
 }
 
 h1 {
-    @apply text-4xl mb-2;
+    @apply text-4xl mb-4;
 }
 
 h2 {
@@ -90,7 +90,7 @@ div .Books {
 }
 
 div .Books .Book {
-    @apply bg-stone-900 text-gray-300 p-1 md:p-3 gap-1 md:gap-4 rounded-xl shadow-xl flex items-start cursor-pointer w-full transition;
+    @apply bg-stone-900 text-gray-300 p-1 md:p-3 gap-1 md:gap-4 rounded-xl shadow-xl flex items-start cursor-pointer w-full h-full transition;
 }
 
 div .Books .Book p {
@@ -110,7 +110,11 @@ div .Book p {
 }
 
 div .Book .BookContent {
-    @apply flex flex-col w-full;
+    @apply flex flex-col w-full h-full justify-between;
+}
+
+div .Book .BookContent a {
+    @apply mt-auto self-end w-full text-right no-underline;
 }
 
 div .Book .BookContent h2 {

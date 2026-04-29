@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import { RoleModel } from "../models/role.model";
 import { PermissionModel } from "../models/permission.model";
 import BookModel from "../models/book.model";
+import AuthorModel from "../models/author.model";
 
 // Local Functions
 const createUser = async (username: string, password: string, email: string) => {
@@ -124,6 +125,12 @@ export const GET_FAVOURITES = async (req: Request, res: Response) => {
         {
           model: BookModel,
           as: "favourites",
+          include: [
+            {
+              model: AuthorModel,
+              as: "authors"
+            }
+          ]
         }
       ]
     });
@@ -134,7 +141,6 @@ export const GET_FAVOURITES = async (req: Request, res: Response) => {
 
     res.status(200).json({ success: true, body: user.favourites })
   } catch (err) {
-    console.log(err)
     return res.status(500).json({ success: false })
   }
 }

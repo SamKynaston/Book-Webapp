@@ -44,7 +44,7 @@ export const BookBtn: React.FC<BookBtnProps> = ({ book, isRecommended, routeToBo
     try {
       await unFavouriteBook(book.id);
       isFavouriteBook();
-      
+
       if (refresh) { refresh(); };
     } catch (err: any) {
       alert(err.message);
@@ -70,7 +70,7 @@ export const BookBtn: React.FC<BookBtnProps> = ({ book, isRecommended, routeToBo
             book.authors.map((author: Author) => author.name).join(", ")}
         </p>
 
-        {!isFavourite ? (<a onClick={ handleFavouriteClick }>Favourite</a>) : (<a onClick={ handleUnfavouriteClick }>Unfavourite</a>)}
+        {!isFavourite ? (<a onClick={ handleFavouriteClick }><i className="fa-regular fa-star"></i></a>) : (<a onClick={ handleUnfavouriteClick }><i className="fa-solid fa-star"></i></a>)}
       </div>
     </div>
   );
