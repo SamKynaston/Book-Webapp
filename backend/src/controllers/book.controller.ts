@@ -157,7 +157,6 @@ export const FAVOURITE_BOOK = async (req: Request, res: Response) => {
   }
 }
 
-
 export const UNFAVOURITE_BOOK = async (req: Request, res: Response) => {
   const bookId = parseInt(req.params.id as string, 10);
   const userId = req.user.id as number;
@@ -171,6 +170,23 @@ export const UNFAVOURITE_BOOK = async (req: Request, res: Response) => {
 
     return res.status(200).json({ success: true })
   } catch(err) {
-    res.status(500).json({ success: false})  
+    res.status(500).json({ success: false })  
   }
+}
+
+export const IS_FAVOURITE_BOOK = async (req: Request, res: Response) => {
+    const bookId = parseInt(req.params.id as string, 10);
+    const userId = req.user.id as number;
+
+    try {
+      const user = await UserModel.findOne({
+        where: { id: userId }
+      })  
+
+      const isFavourite = await user?.hasFavourite(bookId);
+
+      res.status(200).json({ success: true, favourited: isFavourite || false })
+    } catch (err) {
+      res.status(500).json({ success: false })  
+    }
 }

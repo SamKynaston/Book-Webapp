@@ -9,9 +9,9 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "baseUrl": ".",
+    
     "paths": {
-      "@bookwebapp/types": ["node_modules/@bookwebapp/types/dist"],
+      "@bookwebapp/types": ["./node_modules/@bookwebapp/types/dist"],
     },
   },
 

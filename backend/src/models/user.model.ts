@@ -1,4 +1,4 @@
-import { DataTypes, Model, CreationOptional, BelongsToManyAddAssociationsMixin, BelongsToManyRemoveAssociationMixin, BelongsToManyAddAssociationMixin } from "sequelize";
+import { DataTypes, Model, CreationOptional, BelongsToManyHasAssociationMixin, BelongsToManyAddAssociationsMixin, BelongsToManyRemoveAssociationMixin, BelongsToManyAddAssociationMixin } from "sequelize";
 import { sequelize } from "../database";
 import { User } from "@bookwebapp/types";
 import { hashPassword } from "../utils/password";
@@ -13,10 +13,18 @@ export class UserModel extends Model implements User {
   declare email: string;
   declare roles: RoleModel[];
   declare favourites: BookModel[];
+
+  // Role Management
   declare setRoles: BelongsToManyAddAssociationsMixin<RoleModel, number>; 
+  declare addRole: BelongsToManyAddAssociationMixin<RoleModel, number>;
+  declare removeRole: BelongsToManyAddAssociationMixin<RoleModel, number>;
+  declare hasRole: BelongsToManyHasAssociationMixin<RoleModel, number>;
+
+  // Favourite Management
   declare setFavourites: BelongsToManyAddAssociationsMixin<BookModel, number>;
   declare removeFavourite: BelongsToManyRemoveAssociationMixin<BookModel, number>;
   declare addFavourite: BelongsToManyAddAssociationMixin<BookModel, number>;
+  declare hasFavourite: BelongsToManyHasAssociationMixin<BookModel, number>;
 }
 
 UserModel.init(

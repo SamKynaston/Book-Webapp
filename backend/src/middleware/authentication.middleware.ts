@@ -16,11 +16,12 @@ export const IS_AUTHENTICATED = async (
       return res.status(401).json({ success: false, error: "No cookie detected" });
     };
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: number };
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as { username: string, email: string, };
 
-    const user = await UserModel.findByPk(decoded.id, {
-        attributes: { exclude: ["password"] },
-        include: [
+    const user = await UserModel.findOne({
+      where: { username: decoded.username, email: decoded.email },
+      attributes: { exclude: ["password"] },
+      include: [
         {
             model: RoleModel,
             as: "roles",
@@ -34,7 +35,7 @@ export const IS_AUTHENTICATED = async (
             ]
         }
         ]
-    });
+    })
 
     req.user = user;
     next();

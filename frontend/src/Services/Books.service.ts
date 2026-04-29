@@ -44,6 +44,14 @@ export async function getFavourites(): Promise<Book[]> {
     return data.body
 }
 
+export async function isFavourited(id: number | undefined): Promise<Boolean> {
+    const data = await handleResponse<{ success: boolean, favourited: boolean }>(
+        await apiFetch(`v1/books/${id}/favourited`)
+    )
+
+    return data.favourited
+}
+
 export async function favouriteBook(id: number | undefined): Promise<Boolean> {
    const data = await handleResponse<{ success: boolean }>(
     await apiFetch(`v1/books/${id}/favourite`, {

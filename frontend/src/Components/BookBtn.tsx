@@ -1,6 +1,8 @@
 import { Author, Book } from "@bookwebapp/types";
 import { BookCover } from "../Components/BookCover";
-import { favouriteBook, unFavouriteBook } from "../Services/Books.service";
+import { favouriteBook, unFavouriteBook, isFavourited } from "../Services/Books.service";
+import { useEffect, useState } from "react";
+import { useAuth } from "../Context/Authentication";
 
 interface BookBtnProps {
   book: Book;
@@ -9,18 +11,26 @@ interface BookBtnProps {
   refresh?: () => void;
 }
 
-export const BookBtn: React.FC<BookBtnProps> = ({
-  book,
-  isRecommended,
-  routeToBook,
-  refresh
-}) => {
+export const BookBtn: React.FC<BookBtnProps> = ({ book, isRecommended, routeToBook, refresh }) => {
+  const { user } = useAuth();
+  const [isFavourite, setFavouritedStatus] = useState<Boolean>(false)
+
+  const isFavouriteBook = async () => {
+    const status = await isFavourited(book.id);
+    setFavouritedStatus(status);
+  };
+
+  useEffect(() => {
+    if (!user) return;
+    isFavouriteBook()
+  })
+
   const handleFavouriteClick = async (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
 
     try {
         await favouriteBook(book.id);
-        if (refresh) { refresh() };
+        if (refresh) { refresh(); isFavouriteBook(); };
     } catch (err: any) {
         alert(err.message);
     }
@@ -31,7 +41,7 @@ export const BookBtn: React.FC<BookBtnProps> = ({
 
     try {
       await unFavouriteBook(book.id);
-      if (refresh) { refresh() };
+      if (refresh) { refresh(); isFavouriteBook(); };
     } catch (err: any) {
       alert(err.message);
     }
@@ -55,8 +65,8 @@ export const BookBtn: React.FC<BookBtnProps> = ({
           {book.authors &&
             book.authors.map((author: Author) => author.name).join(", ")}
         </p>
-        <a onClick={ handleFavouriteClick }>Favourite</a>
-        <a onClick={ handleUnfavouriteClick }>Unfavourite</a>
+
+        {!isFavourite ? (<a onClick={ handleFavouriteClick }>Favourite</a>) : (<a onClick={ handleUnfavouriteClick }>Unfavourite</a>)}
       </div>
     </div>
   );
