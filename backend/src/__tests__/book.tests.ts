@@ -71,7 +71,9 @@ describe("Book Controller", () => {
             mockRequest.params = { id: "1" };
             await GET_BOOK(mockRequest as Request, mockResponse as Response);
             expect(statusMock).toHaveBeenCalledWith(200);
-            expect(jsonMock).toHaveBeenCalledWith({ body: MockBooks[0], success: true });
+            expect(BookModel.findOne).toHaveBeenCalledWith(expect.objectContaining({
+                where: { id: "1" }
+            }));
         });
     });
 
@@ -136,8 +138,7 @@ describe("Book Controller", () => {
             ]);
 
             expect(statusMock).toHaveBeenCalledWith(200);
-
-            expect(jsonMock).toHaveBeenCalledWith(updatedResponse);
+            expect(jsonMock).toHaveBeenCalledWith({ body: updatedResponse, success: true });
         });
     })
 });

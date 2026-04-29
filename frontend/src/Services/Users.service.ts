@@ -27,7 +27,7 @@ export async function logout(): Promise<boolean> {
 }
 
 export async function login(email: string, password: string): Promise<boolean> {
-    const data = await handleResponse<{ success: boolean }>(
+    const data = await handleResponse<{ success: boolean, message: string }>(
         await apiFetch(`v1/users/authenticate`, {
             method: "POST",
             body: JSON.stringify({ email, password }),

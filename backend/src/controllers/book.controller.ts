@@ -62,7 +62,7 @@ export const CREATE_BOOK = async (req: Request, res: Response) => {
       title: newBook.title,
       first_publish_year: newBook.first_publish_year,
       cover_id: newBook.cover_id,
-      isRecommended: newBook.is_recommended,
+      is_recommended: newBook.is_recommended,
     });
 
     if (newBook.authors && newBook.authors.length > 0) {
@@ -123,10 +123,10 @@ export const UPDATE_BOOK = async (req: Request, res: Response) => {
       ],
     });
 
-    res.status(200).json(bookWithAuthors);
+    res.status(200).json({ body: bookWithAuthors, success: true });
   } catch (error) {
     res
       .status(500)
-      .json({ message: "Book update failed", error: error, body: req.body });
+      .json({ message: "Book update failed", success: false });
   }
 };

@@ -58,8 +58,12 @@ describe("Author Controller", () => {
            (AuthorModel.findOne as jest.Mock).mockResolvedValue(MockAuthors[0]);
 
             mockRequest.params = { id: "1" };
+            
             await GET_AUTHOR(mockRequest as Request, mockResponse as Response);
             expect(statusMock).toHaveBeenCalledWith(200);
+            expect(AuthorModel.findOne).toHaveBeenCalledWith(expect.objectContaining({
+                where: { id: "1" }
+            }));
             expect(jsonMock).toHaveBeenCalledWith({ body: MockAuthors[0], success: true });
         });
     });

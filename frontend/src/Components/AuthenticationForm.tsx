@@ -18,8 +18,8 @@ export const AuthenticationForm = () => {
                 await refreshUser();
                 navigate("/account")
             }
-        } catch (err) {
-            alert("Login failed.");
+        } catch (err: any) {
+            alert(err.message);
         }
     }
     

@@ -18,13 +18,22 @@ export const handleResponse = async <T = any>(res: Response): Promise<T> => {
     const data = await res.json()
 
     if (res.ok) {
-        console.log(data)
         return data as T;
     }
 
-    const error = errorMessages[res.status] ?? {
-        message: "Unknown error"
-    };
+    let error = { message: "undefined" }
+
+    if (res.status !== 400) {
+        if (data.message) {
+            error = { message: data.message }
+        } else {
+            error = errorMessages[res.status] ?? {
+                message: "Unknown error"
+            };
+        }
+    } else {
+        error = { message: data.message }
+    }
 
     throw { status: res.status, message: error.message };
 }
