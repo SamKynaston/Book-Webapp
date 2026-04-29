@@ -23,14 +23,16 @@ export const BookBtn: React.FC<BookBtnProps> = ({ book, isRecommended, routeToBo
   useEffect(() => {
     if (!user) return;
     isFavouriteBook()
-  })
+  }, [user, book.id])
 
   const handleFavouriteClick = async (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
 
     try {
         await favouriteBook(book.id);
-        if (refresh) { refresh(); isFavouriteBook(); };
+        isFavouriteBook();
+
+        if (refresh) { refresh(); };
     } catch (err: any) {
         alert(err.message);
     }
@@ -41,7 +43,9 @@ export const BookBtn: React.FC<BookBtnProps> = ({ book, isRecommended, routeToBo
 
     try {
       await unFavouriteBook(book.id);
-      if (refresh) { refresh(); isFavouriteBook(); };
+      isFavouriteBook();
+      
+      if (refresh) { refresh(); };
     } catch (err: any) {
       alert(err.message);
     }
