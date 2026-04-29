@@ -4,6 +4,7 @@ import { User } from "@bookwebapp/types";
 import { hashPassword } from "../utils/password";
 
 import RoleModel from "./role.model";
+import BookModel from "./book.model";
 
 export class UserModel extends Model implements User {
   declare id: CreationOptional<number>;
@@ -11,7 +12,9 @@ export class UserModel extends Model implements User {
   declare password: string;
   declare email: string;
   declare roles: RoleModel[];
+  declare favourites: BookModel[];
   declare setRoles: BelongsToManyAddAssociationsMixin<RoleModel, number>; 
+  declare setFavourites: BelongsToManyAddAssociationsMixin<BookModel, number>;
 }
 
 UserModel.init(
@@ -71,6 +74,20 @@ RoleModel.belongsToMany(UserModel, {
   foreignKey: "roleId",
   otherKey: "userId",
   as: "users",
+});
+
+BookModel.belongsToMany(UserModel, {
+  through: "UserFavourites",
+  foreignKey: "bookId",
+  otherKey: "userId",
+  as: "favourites"
+})
+
+UserModel.belongsToMany(BookModel, {
+  through: "UserFavourites",
+  foreignKey: "userId",
+  otherKey: "bookId",
+  as: "favourites"
 });
 
 export default UserModel;

@@ -79,6 +79,8 @@ export async function seedSampleData() {
         { title: "War and Peace", first_publish_year: 1869, cover_id: 110, is_recommended: false }
     ]);
 
+    await sampleUsers[0].setFavourites([sampleBooks[0], sampleBooks[1], sampleBooks[3]])
+
     await sampleBooks[0].setAuthors([sampleAuthors[0]]);
     await sampleBooks[1].setAuthors([sampleAuthors[0]]);
 

@@ -18,9 +18,9 @@ export const SignupForm = () => {
             if (await signup(email, username, password)) {
                 await refreshUser();
                 navigate("/account")
-            };
-        } catch (err) {
-            alert("Sign up failed.");
+            }
+        } catch (err: any) {
+            alert(err.message);
         }
     }
     

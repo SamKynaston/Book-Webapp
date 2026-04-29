@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { RoleModel } from "../models/role.model";
 import { PermissionModel } from "../models/permission.model";
+import BookModel from "../models/book.model";
 
 // Local Functions
 const createUser = async (username: string, password: string, email: string) => {
@@ -114,6 +115,29 @@ export const GET_USER = async (req: Request, res: Response) => {
     return res.status(401).json({ success: false });
   }
 };
+
+export const GET_FAVOURITES = async (req: Request, res: Response) => {
+  try {
+    const user = await UserModel.findByPk(req.user!.id, {
+      attributes: { exclude: ["password"] },
+      include: [
+        {
+          model: BookModel,
+          as: "favourites",
+        }
+      ]
+    });
+
+    if (!user) {
+      return res.status(404).json({ success: false });
+    }
+
+    res.status(200).json({ success: true, body: user.favourites })
+  } catch (err) {
+    console.log(err)
+    return res.status(500).json({ success: false })
+  }
+}
 
 export const LOGOUT_USER = async (req: Request, res: Response) => {
   try {

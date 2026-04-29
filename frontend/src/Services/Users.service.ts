@@ -1,4 +1,4 @@
-import { User } from "@bookwebapp/types";
+import { User, Book } from "@bookwebapp/types";
 import { apiFetch, handleResponse } from "../Utilities/Fetch.utilities";
 
 export async function updateUser(email: string, username: string, password: string, id: number | undefined): Promise<boolean> {
@@ -50,4 +50,12 @@ export async function signup(email: string, username: string, password: string):
     );
 
     return data.success; 
+}
+
+export async function getFavourites(): Promise<Book[]> {
+    const data = await handleResponse<{ success: boolean, body: Book[] }>(
+        await apiFetch(`v1/users/favourites`)
+    )
+
+    return data.body
 }

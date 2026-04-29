@@ -3,18 +3,17 @@ import { AuthenticationForm } from "../Components/AuthenticationForm";
 import { SignupForm } from "../Components/SignupForm";
 import { useState } from "react";
 
-type AuthenticationPageProps = {
+type CreateAccountPageProps = {
   //isLoggedIn: boolean; 
 }
 
-function AuthenticationPage({ }: AuthenticationPageProps) {  
+function CreateAccountPage({ }: CreateAccountPageProps) {  
   return (
     <Page>
-      <h1>Sign In</h1>
-      <AuthenticationForm />
-      <p>Don't have an account? Sign up <a href="/newaccount">here!</a></p>
+      <h1>Sign Up</h1>
+      <SignupForm />
     </Page>
   );
 }
 
-export default AuthenticationPage;
+export default CreateAccountPage;

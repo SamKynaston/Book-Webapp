@@ -142,7 +142,11 @@ div .reference .subtitle {
 }
 
 input, button {
-    @apply mb-0 p-2 bg-stone-900 border border-stone-700 placeholder-gray-400 text-gray-100 shadow-none rounded-xl w-full lg:max-w-3/4 text-lg pl-4;
+    @apply mb-0 p-2 bg-stone-900 border border-stone-700 placeholder-gray-400 text-gray-100 shadow-none rounded-xl text-lg pl-4;
+}
+
+.SearchWrapper input, button {
+    @apply w-full lg:max-w-3/4
 }
 
 .HomeLayout {
