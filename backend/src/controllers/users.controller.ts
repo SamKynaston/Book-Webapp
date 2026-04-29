@@ -135,7 +135,7 @@ export const UPDATE_USER = async (req: Request, res: Response) => {
      const idParam = req.params.id;
 
     if (Array.isArray(idParam)) {
-        return res.status(400).send({ success: false });
+        return res.status(400).json({ success: false });
     }
 
     const targetId = parseInt(idParam, 10);

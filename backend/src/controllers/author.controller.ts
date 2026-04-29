@@ -2,16 +2,16 @@ import { Request, Response } from "express";
 import { Author } from "@bookwebapp/types";
 import { AuthorModel } from "../models/author.model";
 
-export const getAllAuthors = async (req: Request, res: Response) => {
+export const GET_ALL_AUTHORS = async (req: Request, res: Response) => {
   try {
     const authors = await AuthorModel.findAll();
-    res.send({ body: authors, success: true });
+    res.status(200).json({ body: authors, success: true });
   } catch (error) {
     res.status(500).json({ error: "Failed to retrieve authors", success: false });
   }
 };
 
-export const getAuthor = async (req: Request, res: Response) => {
+export const GET_AUTHOR = async (req: Request, res: Response) => {
   const authorKey = req.params.id as string;
 
   try {
@@ -22,13 +22,13 @@ export const getAuthor = async (req: Request, res: Response) => {
       return res.status(404).json({ error: "Author not found", success: false });
     }
 
-    res.send({ body: author, success: true });
+    res.status(200).json({ body: author, success: true });
   } catch (error) {
     res.status(500).json({ error: "Failed to retrieve author", success: false });
   }
 };
 
-export const createAuthor = async (req: Request, res: Response) => {
+export const CREATE_AUTHOR = async (req: Request, res: Response) => {
   const newAuthor = req.body;
 
   try {
@@ -47,7 +47,7 @@ export const createAuthor = async (req: Request, res: Response) => {
   }
 };
 
-export const updateAuthor = async (req: Request, res: Response) => {
+export const UPDATE_AUTHOR = async (req: Request, res: Response) => {
   const authorKey = req.params.id as string;
   const updatedAuthor = req.body;
 
@@ -61,7 +61,7 @@ export const updateAuthor = async (req: Request, res: Response) => {
     }
 
     await existingAuthor.update(updatedAuthor);
-    res.send({ body: existingAuthor, success: true });
+    res.status(200).json({ body: existingAuthor, success: true });
   } catch (error) {
     res.status(500).json({ success: false });
   }

@@ -1,7 +1,6 @@
-import { GET_ALL_BOOKS, GET_BOOK, CREATE_BOOK } from "../controllers/book.controller";
+import { GET_ALL_BOOKS, GET_BOOK, CREATE_BOOK, UPDATE_BOOK } from "../controllers/book.controller";
 import { Request, Response } from "express";
 import { BookModel } from "../models/book.model";
-import { AuthorModel } from "../models/author.model";
 
 jest.mock("../models/book.model", () => ({
     __esModule: true,
@@ -94,4 +93,51 @@ describe("Book Controller", () => {
             expect(jsonMock).toHaveBeenCalledWith({ body: MockBooks[0], success: true });
         });
     });
+
+    describe("UPDATE_BOOK", () => {
+        it("Backend should update a book", async () => {
+            const mockBook = {
+                id: "1",
+                update: jest.fn(),
+                setAuthors: jest.fn()
+            };
+
+            const updatedResponse = {
+                id: "1",
+                title: "Updated Book",
+                authors: [{ id: 1, name: "Author 1" }]
+            };
+
+            (BookModel.findOne as jest.Mock)
+                .mockResolvedValueOnce(mockBook)
+                .mockResolvedValueOnce(updatedResponse);
+
+            mockRequest.params = { id: "1" };
+
+            mockRequest.body = {
+                title: "Updated Book",
+                first_publish_year: 2020,
+                cover_id: 123,
+                is_recommended: true,
+                authors: [{ id: 1, name: "Author 1" }]
+            };
+
+            await UPDATE_BOOK(mockRequest as Request, mockResponse as Response);
+
+            expect(mockBook.update).toHaveBeenCalledWith({
+                title: "Updated Book",
+                first_publish_year: 2020,
+                cover_id: 123,
+                isRecommended: true
+            });
+
+            expect(mockBook.setAuthors).toHaveBeenCalledWith([
+                { id: 1, name: "Author 1" }
+            ]);
+
+            expect(statusMock).toHaveBeenCalledWith(200);
+
+            expect(jsonMock).toHaveBeenCalledWith(updatedResponse);
+        });
+    })
 });
