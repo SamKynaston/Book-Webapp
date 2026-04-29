@@ -13,6 +13,8 @@ then
     exit 1
 fi
 
+export LOCAL_IP=$(ipconfig getifaddr en0)
+
 # This script will build the Docker images for the frontend and backend, and then start the containers using Docker Compose.
 echo "Building and starting the Docker containers..."
 docker compose up --build

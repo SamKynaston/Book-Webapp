@@ -53,30 +53,30 @@ export async function seedSampleData() {
 
     const sampleBooks = await BookModel.bulkCreate([
         { title: "Harry Potter and the Sorcerer's Stone", first_publish_year: 1997, cover_id: 101, is_recommended: true },
-        { title: "Harry Potter and the Prisoner of Azkaban", first_publish_year: 1999, cover_id: 111, is_recommended: true },
+        { title: "Harry Potter and the Prisoner of Azkaban", first_publish_year: 1999, cover_id: 101, is_recommended: true },
 
-        { title: "1984", first_publish_year: 1949, cover_id: 102, is_recommended: true },
-        { title: "Animal Farm", first_publish_year: 1945, cover_id: 112, is_recommended: false },
+        { title: "1984", first_publish_year: 1949, cover_id: 101, is_recommended: true },
+        { title: "Animal Farm", first_publish_year: 1945, cover_id: 101, is_recommended: false },
 
-        { title: "The Hobbit", first_publish_year: 1937, cover_id: 103, is_recommended: true },
-        { title: "The Lord of the Rings", first_publish_year: 1954, cover_id: 113, is_recommended: true },
+        { title: "The Hobbit", first_publish_year: 1937, cover_id: 101, is_recommended: true },
+        { title: "The Lord of the Rings", first_publish_year: 1954, cover_id: 101, is_recommended: true },
 
-        { title: "Murder on the Orient Express", first_publish_year: 1934, cover_id: 104, is_recommended: false },
-        { title: "And Then There Were None", first_publish_year: 1939, cover_id: 114, is_recommended: true },
+        { title: "Murder on the Orient Express", first_publish_year: 1934, cover_id: 101, is_recommended: false },
+        { title: "And Then There Were None", first_publish_year: 1939, cover_id: 101, is_recommended: true },
 
-        { title: "Dune", first_publish_year: 1965, cover_id: 105, is_recommended: true },
-        { title: "Dune Messiah", first_publish_year: 1969, cover_id: 115, is_recommended: false },
+        { title: "Dune", first_publish_year: 1965, cover_id: 101, is_recommended: true },
+        { title: "Dune Messiah", first_publish_year: 1969, cover_id: 101, is_recommended: false },
 
-        { title: "Foundation", first_publish_year: 1951, cover_id: 106, is_recommended: true },
-        { title: "I, Robot", first_publish_year: 1950, cover_id: 116, is_recommended: false },
+        { title: "Foundation", first_publish_year: 1951, cover_id: 101, is_recommended: true },
+        { title: "I, Robot", first_publish_year: 1950, cover_id: 101, is_recommended: false },
 
-        { title: "2001: A Space Odyssey", first_publish_year: 1968, cover_id: 107, is_recommended: true },
+        { title: "2001: A Space Odyssey", first_publish_year: 1968, cover_id: 101, is_recommended: true },
 
-        { title: "Frankenstein", first_publish_year: 1818, cover_id: 108, is_recommended: true },
+        { title: "Frankenstein", first_publish_year: 1818, cover_id: 101, is_recommended: true },
 
-        { title: "The Great Gatsby", first_publish_year: 1925, cover_id: 109, is_recommended: false },
+        { title: "The Great Gatsby", first_publish_year: 1925, cover_id: 101, is_recommended: false },
 
-        { title: "War and Peace", first_publish_year: 1869, cover_id: 110, is_recommended: false }
+        { title: "War and Peace", first_publish_year: 1869, cover_id: 101, is_recommended: false }
     ]);
 
     await sampleUsers[0].setFavourites([sampleBooks[0], sampleBooks[1], sampleBooks[3]])

@@ -90,7 +90,7 @@ div .Books {
 }
 
 div .Books .Book {
-    @apply bg-stone-900 text-gray-300 p-1 md:p-3 gap-1 md:gap-4 rounded-xl shadow-xl flex items-start cursor-pointer w-full h-full transition;
+    @apply bg-stone-900 text-gray-300 p-3 gap-4 rounded-xl shadow-xl flex items-start cursor-pointer w-full h-full transition;
 }
 
 div .Books .Book p {
@@ -118,7 +118,7 @@ div .Book .BookContent a {
 }
 
 div .Book .BookContent h2 {
-    @apply font-black text-xl mb-1 leading-tight;
+    @apply font-black text-lg mb-1 leading-tight;
 }
 
 div .Book .BookContent p {
