@@ -10,7 +10,7 @@ type CreateAccountPageProps = {
 function CreateAccountPage({ }: CreateAccountPageProps) {  
   return (
     <Page>
-      <h1>Sign Up</h1>
+      <h1 className="mb-2">Sign Up</h1>
       <SignupForm />
     </Page>
   );

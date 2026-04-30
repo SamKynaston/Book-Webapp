@@ -28,7 +28,7 @@ function UnauthenticatedHome({ }: HomeProps) {
   return (
     <Page>
       <h1 className="mb-1">Welcome to your brand new digital library!</h1>
-      <h2>The place to discover your next book, just start below</h2>
+      <h2 className="mb-4">The place to discover your next book, just start below</h2>
       { booksReady ? (
         randomBooks.length > 0 ? (
           <div className="Books">

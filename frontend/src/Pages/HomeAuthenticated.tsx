@@ -35,7 +35,7 @@ function Home({ }: HomeProps) {
     <Page>
       {user ? (
         <>
-          <h1>Your Favourites</h1>
+          <h1 className="mb-4">Your Favourites</h1>
           <>
             {allBooks && allBooks.length > 0 ? (
               <div className="Books">

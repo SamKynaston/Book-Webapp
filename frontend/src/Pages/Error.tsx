@@ -11,9 +11,9 @@ function Error({ code }: ErrorPageProps) {
   return (
     <Page>
       <br />
-      <h1>{code}</h1>
-      <h2>{error.title}</h2>
-      <p>{error.message}</p>
+      <h1 className="mb-1">{code}</h1>
+      <h2 className="mb-1">{error.title}</h2>
+      <p className="mb-4">{error.message}</p>
 
       <a href="/">🏡 Go home</a>
       <br />
