@@ -37,9 +37,37 @@ export const IS_AUTHENTICATED = async (
         ]
     })
 
+    if (user?.must_reset_password && !req.allowPasswordResetBypass) {
+      return res.status(403).json({
+        success: false,
+        body: user,
+        forceReset: true,
+      });
+    }
+
     req.user = user;
+
+    if (user) {
+      req.user = user;
+
+      req.auth = {
+        skipOldPasswordCheck: req.user.must_reset_password
+      };
+    } else {
+      res.status(401).json({ success: false, error: "Authentication failed." });
+    }
+
     next();
   } catch (err) {
     res.status(401).json({ success: false, error: "Authentication failed." });
   }
 };
+
+export const BYPASS_PASSWORD_RESET = async ( req: Request, res: Response, next: NextFunction ) => {
+  try {
+    req.allowPasswordResetBypass = true;
+    next()
+  } catch (err) {
+    res.status(500).json({ success: false });
+  }
+}

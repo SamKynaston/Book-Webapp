@@ -11,6 +11,11 @@ declare global {
 
       role?: any;
       permissions: string[];
+      allowPasswordResetBypass: boolean,
+
+      auth?: {
+        skipOldPasswordCheck?: boolean;
+      };
 
       ID?: any;
     }

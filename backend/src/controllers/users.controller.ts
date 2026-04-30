@@ -186,7 +186,7 @@ export const UPDATE_USER = async (req: Request, res: Response) => {
     if (Array.isArray(idParam)) {
         return res.status(400).json({ success: false });
     }
-
+    
     const targetId = parseInt(idParam, 10);
     const user = await UserModel.findByPk(targetId, {
       attributes: { exclude: ["password"] },
@@ -205,7 +205,7 @@ export const UPDATE_USER = async (req: Request, res: Response) => {
     const token = jwt.sign({ id: user.id, username: user.username, email: user.email }, process.env.JWT_SECRET!, {
       expiresIn: "24h",
     });
-    
+
     res.cookie(process.env.SESSION_TOKEN_NAME || "SESSION_TOKEN", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -217,5 +217,67 @@ export const UPDATE_USER = async (req: Request, res: Response) => {
   } catch (err) {
     console.error(err)
     res.status(500).json({ success: false });
+  }
+};
+
+export const FORCE_PASSWORD_RESET = async (req: Request, res: Response) => {
+  try {
+    const idParam = req.params.id;
+
+    if (Array.isArray(idParam)) {
+        return res.status(400).json({ success: false });
+    }
+
+    const targetId = parseInt(idParam, 10);
+    const user = await UserModel.findByPk(targetId, {
+      attributes: { exclude: ["password"] },
+    });
+
+    if (!user) {
+      return res.status(404).json({ success: false });
+    }
+
+    const now = new Date();
+
+    const tempPassword = `${now.getDate().toString().padStart(2, "0")}/${(now.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}/${now.getFullYear()}`;
+
+    user.password = tempPassword
+    user.must_reset_password = true;
+    await user.save();
+
+    res.status(200).json({ success: true, message: "User is now required to change their password during their next session" })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ success: false });
+  }
+};
+
+export const COMPLETE_PASSWORD_RESET = async (req: Request, res: Response) => {
+  try {
+    const userId = req.user.id;
+
+    const user = await UserModel.findByPk(userId);
+    if (!user) return res.status(404).json({ success: false });
+
+    const newPassword = req.body.newPassword;
+    const skipOldPasswordCheck = req.auth?.skipOldPasswordCheck === true;
+
+    if (!skipOldPasswordCheck) {
+      const oldPassword = req.body.oldPassword;
+
+      const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
+      if (!isPasswordValid) return res.status(403).json({ success: false });
+    }
+
+    user.password = newPassword;
+    user.must_reset_password = false;
+
+    await user.save();
+    return res.status(200).json({ success: true });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ success: false });
   }
 };

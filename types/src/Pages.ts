@@ -18,4 +18,5 @@ export interface PageProps {
   children: React.ReactNode;
   requiredPermission?: PERMISSIONS_STRING;
   requiresAccount?: boolean;
+  allowPasswordReset?: boolean;
 }

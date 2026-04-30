@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { User } from "@bookwebapp/types";
-import { getAllUsers, updateUser } from "../Services/Users.service";
+import { getAllUsers, updateUser, forcePasswordReset } from "../Services/Users.service";
 import { DataTable } from "./DataTable";
 
 export function UserTable() {
@@ -58,6 +58,12 @@ export function UserTable() {
                             setEmail(u.email);
                         }}>
                             Edit
+                        </a>
+
+                        <a onClick={() => {
+                            forcePasswordReset(u.id);
+                        }}>
+                            Reset Password
                         </a>
                     </div>
                 ),

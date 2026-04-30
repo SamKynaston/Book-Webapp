@@ -13,6 +13,7 @@ export class UserModel extends Model implements User {
   declare email: string;
   declare roles: RoleModel[];
   declare favourites: BookModel[];
+  declare must_reset_password: Boolean;
 
   // Role Management
   declare setRoles: BelongsToManyAddAssociationsMixin<RoleModel, number>; 
@@ -50,6 +51,11 @@ UserModel.init(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+    },
+
+    must_reset_password: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   {

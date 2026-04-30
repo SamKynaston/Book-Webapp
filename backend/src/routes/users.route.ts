@@ -2,6 +2,7 @@ import Express, { Request, Response } from "express";
 
 import {
   IS_AUTHENTICATED,
+  BYPASS_PASSWORD_RESET
 } from "../middleware/authentication.middleware";
 
 import { OWNERSHIP_CHECK, REQUIRE_PERMISSION } from "../middleware/permissions.middleware";
@@ -13,10 +14,12 @@ import {
   GET_ALL_USERS,
   GET_FAVOURITES,
   UPDATE_USER,
+  FORCE_PASSWORD_RESET,
   LOGOUT_USER,
+  COMPLETE_PASSWORD_RESET
 } from "../controllers/users.controller";
 
-import { UserSchema, UserAuthenticationSchema, UserEditSchema } from "../schemas/users.schema";
+import { UserSchema, UserAuthenticationSchema, UserEditSchema, UserPasswordReset } from "../schemas/users.schema";
 import { VALIDATE_INPUT } from "../middleware/validate.middleware";
 
 const router = Express.Router();
@@ -28,5 +31,7 @@ router.post("/logout", IS_AUTHENTICATED, LOGOUT_USER);
 router.get("/me", IS_AUTHENTICATED, GET_USER);
 router.get("/favourites", IS_AUTHENTICATED, GET_FAVOURITES)
 router.put("/:id", IS_AUTHENTICATED, VALIDATE_INPUT(UserEditSchema), OWNERSHIP_CHECK, UPDATE_USER);
+router.post("/:id/admin-reset-password", IS_AUTHENTICATED, REQUIRE_PERMISSION("WRITE_USERS"), FORCE_PASSWORD_RESET);
+router.post("/:id/reset-password", BYPASS_PASSWORD_RESET, IS_AUTHENTICATED, VALIDATE_INPUT(UserPasswordReset), OWNERSHIP_CHECK, COMPLETE_PASSWORD_RESET)
 
 export default router;

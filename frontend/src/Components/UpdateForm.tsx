@@ -17,17 +17,19 @@ export const UpdateForm = ({ id }: UpdateFormType ) => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        try {
-            if (!id) {
-                id = user?.id
+        if (user) {
+            try {
+                if (!id) {
+                    id = user.id
+                }
+                
+                if (await updateUser(email, username, id)) {
+                    await refreshUser()
+                }; 
+            } catch (err) {
+                console.log(err)
+                alert("Login failed.");
             }
-            
-            if (await updateUser(email, username, password, id)) {
-                await refreshUser()
-            }; 
-        } catch (err) {
-            console.log(err)
-            alert("Login failed.");
         }
     }
     

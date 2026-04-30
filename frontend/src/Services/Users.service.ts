@@ -41,6 +41,27 @@ export async function login(email: string, password: string): Promise<boolean> {
     return data.success
 }
 
+export async function resetPassword(id: number, oldPassword: string, newPassword: string): Promise<boolean> {
+    const data = await handleResponse<{ success: boolean }>(
+        await apiFetch(`v1/users/${id}/reset-password`, {
+            method: "POST",
+            body: JSON.stringify({ oldPassword, newPassword }),
+        })
+    );
+
+    return data.success
+}
+
+export async function forcePasswordReset(id: number): Promise<boolean> {
+    const data = await handleResponse<{ success: boolean }>(
+        await apiFetch(`v1/users/${id}/admin-reset-password`, {
+            method: "POST",
+        })
+    );
+
+    return data.success
+}
+
 export async function signup(email: string, username: string, password: string): Promise<boolean> {
     const data = await handleResponse<{ success: boolean }>(
         await apiFetch(`v1/users`, {

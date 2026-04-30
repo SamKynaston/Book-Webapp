@@ -25,6 +25,7 @@ import CreateAccountPage from "./Pages/CreateAccount";
 
 import MobileNavigation from "./Components/MobileNavigation";
 import { checkAuth, AuthProvider, useAuth } from "./Context/Authentication";
+import PasswordResetPage from "./Pages/PasswordReset";
 
 const bookDirectory = import.meta.env.VITE_BOOK_DIRECTORY || "/book";
 
@@ -60,6 +61,7 @@ const App: React.FC = () => {
             <Route path="/account" element={<AccountPage />} />
             <Route path="/login" element={<AuthenticationPage />} />
             <Route path="/dashboard" element={<AdminDashboardPage />} />
+            <Route path="/password-reset" element={<PasswordResetPage />} />
             <Route path="/newaccount" element={<CreateAccountPage />} />
             <Route path="*" element={<Error code={404} />} />
           </Routes>

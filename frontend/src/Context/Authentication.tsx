@@ -7,17 +7,18 @@ type AuthContextType = {
   user: User | null;
   authenticated: boolean;
   loading: boolean;
+  forceReset: boolean;
   hasPermission: (permissionName: string) => boolean;
   refreshUser: () => Promise<void>;
 };
 
-export async function checkAuth(): Promise<{ body: User, success: boolean  } | null> {
+export async function checkAuth(): Promise<{ body: User, success: boolean, forceReset?: boolean; } | null> {
   const apiUrl = import.meta.env.VITE_API_URL;
   
   const res = await apiFetch(`v1/users/me`, { credentials: "include" });
 
   const data = await res.json()
-  if (!res.ok) return null;
+  if (!res.ok && res.status !== 403) return null;
   
   return data;
 }
@@ -26,6 +27,7 @@ const AuthContext = createContext<AuthContextType>({
   user: null,
   authenticated: false,
   loading: true,
+  forceReset: false,
   hasPermission: () => false,
   refreshUser: async () => {},
 });
@@ -34,6 +36,8 @@ export const AuthProvider = ({ children }: any) => {
   const [user, setUser] = useState<User | null>(null);
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [forceReset, setForceReset] = useState(false);
+
   const authRequestId = useRef(0);
 
   const isAdmin = user?.roles?.some((role: any) =>
@@ -56,17 +60,25 @@ export const AuthProvider = ({ children }: any) => {
 
     const data = await checkAuth();
 
-    if (requestId !== authRequestId.current) return;
-
     if (!data) {
       setUser(null);
       setAuthenticated(false);
+      setForceReset(false);
+      setLoading(false);
+      return;
+    }
+
+    if (data.forceReset) {
+      setUser(data.body);
+      setAuthenticated(false);
+      setForceReset(true);
       setLoading(false);
       return;
     }
 
     setUser(data.body);
     setAuthenticated(data.success);
+    setForceReset(false);
     setLoading(false);
   };
 
@@ -80,10 +92,22 @@ export const AuthProvider = ({ children }: any) => {
         setUser(null);
         setAuthenticated(false);
         setLoading(false);
-      } else {
-        setUser(data.body);
-        setAuthenticated(data.success);
+        setForceReset(false);
+
+        return;
       }
+
+      if (data.forceReset) {
+        setUser(data.body);
+        setAuthenticated(false);
+        setForceReset(true);
+
+        return;
+      }
+
+      setUser(data.body);
+      setAuthenticated(data.success);
+      setForceReset(false);
     })
     .catch((err) => {
       setUser(null);
@@ -96,7 +120,7 @@ export const AuthProvider = ({ children }: any) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, authenticated, loading, hasPermission, refreshUser }}>
+    <AuthContext.Provider value={{ user, authenticated, forceReset, loading, hasPermission, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );
