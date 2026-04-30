@@ -42,7 +42,7 @@ const authenticateUser = async (email: string, password: string) => {
   }
 
   const token = jwt.sign({ id: user.id, username: user.username, email: user.email }, process.env.JWT_SECRET!, {
-    expiresIn: "1h",
+    expiresIn: "24h",
   });
 
   return token;
@@ -52,7 +52,7 @@ export const CREATE_USER = async (req: Request, res: Response) => {
   try {
     const { username, password, email } = req.body;
 
-    const user = await createUser(username, password, email);
+    await createUser(username, password, email);
     const token = await authenticateUser(email, password)
 
     res.cookie(process.env.SESSION_TOKEN_NAME || "SESSION_TOKEN", token, {
@@ -181,7 +181,7 @@ export const LOGOUT_USER = async (req: Request, res: Response) => {
 
 export const UPDATE_USER = async (req: Request, res: Response) => {
   try {
-     const idParam = req.params.id;
+    const idParam = req.params.id;
 
     if (Array.isArray(idParam)) {
         return res.status(400).json({ success: false });
@@ -196,12 +196,22 @@ export const UPDATE_USER = async (req: Request, res: Response) => {
       return res.status(404).json({ success: false });
     }
 
-    const { email, username, password } = req.body;
+    const { email, username } = req.body;
     if (email) user.email = email;
     if (username) user.username = username;
-    if (password !== null && password.trim() !== "") user.password = password;
 
     await user.save();
+
+    const token = jwt.sign({ id: user.id, username: user.username, email: user.email }, process.env.JWT_SECRET!, {
+      expiresIn: "24h",
+    });
+    
+    res.cookie(process.env.SESSION_TOKEN_NAME || "SESSION_TOKEN", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax", 
+      path: "/",
+    });
 
     res.status(200).json({ success: true, body: user })
   } catch (err) {

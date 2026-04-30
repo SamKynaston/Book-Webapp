@@ -21,6 +21,8 @@ export function UserTable() {
     const reset = () => {
         setUsername("");
         setEmail("");
+        setEditingId(null);
+        setCreating(false);
     };
 
     const saveUpdate = async (id: number) => {
