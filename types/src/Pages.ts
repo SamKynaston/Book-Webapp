@@ -11,7 +11,7 @@ export type Page = {
 };
 
 export interface NavigationProps {
-  pages: Page[];
+
 }
 
 export interface PageProps {

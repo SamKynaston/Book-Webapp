@@ -11,7 +11,6 @@ import icon from "../public/logo.svg"
 
 // Components
 import Navigation from "./Components/Navigation";
-import { pages } from "./Components/Routes";
 
 // Pages
 import { HomeRouter } from "./Components/HomeRouter";
@@ -52,7 +51,7 @@ const App: React.FC = () => {
     <BrowserRouter>      
       <AuthProvider>
         <AuthGate>
-          {!isMobileDevice && <Navigation pages={pages} />}
+          {!isMobileDevice && <Navigation />}
 
           <Routes>
             <Route path="/" element={<HomeRouter />} />
@@ -65,7 +64,7 @@ const App: React.FC = () => {
             <Route path="*" element={<Error code={404} />} />
           </Routes>
 
-          {isMobileDevice && <MobileNavigation pages={pages} />}
+          {isMobileDevice && <MobileNavigation />}
           {!isMobileDevice && <Footer />}
         </AuthGate>
       </AuthProvider>

@@ -3,7 +3,7 @@ import type { NavigationProps } from "@bookwebapp/types";
 import { useAuth } from "../Context/Authentication";
 import icon from "../../public/logo.svg";
 
-function Navigation({ pages }: NavigationProps) {
+function Navigation({ }: NavigationProps) {
   const { authenticated, hasPermission } = useAuth() as any;
 
   return (
