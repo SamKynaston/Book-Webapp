@@ -100,8 +100,26 @@ export const IS_AUTHENTICATED = async (
   }
 };
 
-export const BYPASS_PASSWORD_RESET = async ( req: Request, res: Response, next: NextFunction ) => {
+export const CONFIRM_ADMIN_RESET = async ( req: Request, res: Response, next: NextFunction ) => {
   try {
+    const userId = req.params.id;
+
+    if (!userId || Array.isArray(userId)) {
+      return res.status(400).json({ success: false });
+    }
+
+    const user = await UserModel.findByPk(parseInt(userId, 10))
+    if (!user) {
+      return res.status(404).json({ success: false });
+    }
+    
+    if (!user.must_reset_password) {
+      return res.status(403).json({
+        success: false,
+        message: "User is not in reset state"
+      });
+    }
+
     req.allowPasswordResetBypass = true;
     next()
   } catch (err) {

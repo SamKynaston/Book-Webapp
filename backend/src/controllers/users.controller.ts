@@ -262,7 +262,7 @@ export const COMPLETE_PASSWORD_RESET = async (req: Request, res: Response) => {
 
     const newPassword = req.body.newPassword;
     const skipOldPasswordCheck = req.auth?.skipOldPasswordCheck === true;
-
+    
     if (!skipOldPasswordCheck) {
       const oldPassword = req.body.oldPassword;
 

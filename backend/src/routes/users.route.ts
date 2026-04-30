@@ -2,8 +2,8 @@ import Express, { Request, Response } from "express";
 
 import {
   IS_AUTHENTICATED,
-  BYPASS_PASSWORD_RESET,
-  VALIDATE_PASSWORD_RESET_TOKEN
+  VALIDATE_PASSWORD_RESET_TOKEN,
+  CONFIRM_ADMIN_RESET
 } from "../middleware/authentication.middleware";
 
 import { OWNERSHIP_CHECK, REQUIRE_PERMISSION } from "../middleware/permissions.middleware";
@@ -35,7 +35,7 @@ router.get("/me", IS_AUTHENTICATED, GET_USER);
 router.get("/favourites", IS_AUTHENTICATED, GET_FAVOURITES)
 router.put("/:id", IS_AUTHENTICATED, VALIDATE_INPUT(UserEditSchema), OWNERSHIP_CHECK, UPDATE_USER);
 router.post("/:id/admin-reset-password", IS_AUTHENTICATED, REQUIRE_PERMISSION("WRITE_USERS"), FORCE_PASSWORD_RESET);
-router.post("/:id/reset-password", BYPASS_PASSWORD_RESET, IS_AUTHENTICATED, VALIDATE_INPUT(UserPasswordReset), OWNERSHIP_CHECK, COMPLETE_PASSWORD_RESET)
+router.post("/:id/reset-password", IS_AUTHENTICATED, CONFIRM_ADMIN_RESET, VALIDATE_INPUT(UserPasswordReset), OWNERSHIP_CHECK, COMPLETE_PASSWORD_RESET)
 router.post("/:id/reset-password/token", VALIDATE_PASSWORD_RESET_TOKEN, VALIDATE_INPUT(UserPasswordReset), OWNERSHIP_CHECK, COMPLETE_PASSWORD_RESET)
 
 export default router;
