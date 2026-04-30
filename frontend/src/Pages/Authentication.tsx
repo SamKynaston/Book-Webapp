@@ -10,9 +10,19 @@ type AuthenticationPageProps = {
 function AuthenticationPage({ }: AuthenticationPageProps) {  
   return (
     <Page>
-      <h1>Sign In</h1>
-      <AuthenticationForm />
-      <p>Don't have an account? Sign up <a href="/newaccount">here!</a></p>
+      <div className="md:gap-24 md:grid md:grid-cols-2 md:max-w-3/4">
+        <div className="">
+          <h1>Sign into your account</h1>
+          <AuthenticationForm />
+        </div>
+
+        <div className="inline-block h-[250px] min-h-[1em] w-0.5 self-stretch"></div>
+
+        <div className="">
+          <h1>Create a new account</h1>
+          <SignupForm />
+        </div>
+      </div>
     </Page>
   );
 }

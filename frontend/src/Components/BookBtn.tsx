@@ -25,6 +25,16 @@ export const BookBtn: React.FC<BookBtnProps> = ({ book, isRecommended, routeToBo
     isFavouriteBook()
   }, [user, book.id])
 
+  const handleContainerClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement;
+    
+    if (target.closest('a') || target.tagName === 'I') {
+      return;
+    }
+
+    routeToBook(book.id.toString());
+  };
+
   const handleFavouriteClick = async (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
 
@@ -55,9 +65,7 @@ export const BookBtn: React.FC<BookBtnProps> = ({ book, isRecommended, routeToBo
     <div
       className={`Book${isRecommended ? " Recommended" : ""}`}
       key={book.id}
-      onClick={() => {
-        //routeToBook(book.id.toString());
-      }}
+      onClick={handleContainerClick}
     >
       {book.cover_id && (
         <BookCover src={`https://covers.openlibrary.org/b/id/${book.cover_id}-M.jpg`} alt={book.title} className="LimitBookSize"/>

@@ -36,11 +36,17 @@ function Home({ }: HomeProps) {
       {user ? (
         <>
           <h1>Your Favourites</h1>
-          <div className="Books">
-            {allBooks.map((book: Book) => (
-              <BookBtn book={book} isRecommended={book.is_recommended || false} routeToBook={routeToBook} refresh={loadFavourites} />
-            ))}
-          </div>
+          <>
+            {allBooks && allBooks.length > 0 ? (
+              <div className="Books">
+                {allBooks.map((book: Book) => (
+                  <BookBtn book={book} isRecommended={book.is_recommended || false} routeToBook={routeToBook} refresh={loadFavourites} />
+                ))}
+              </div>
+            ) : (
+              <h2 className="text-center text-gray-600">It is time to read!</h2>
+            )}
+          </>
         </>
       ) : (
         <>

@@ -6,6 +6,9 @@ import { useState, useEffect } from "react";
 // Styling
 import "./Styles/tailwind.css";
 
+// Icon
+import icon from "../public/logo.svg"
+
 // Components
 import Navigation from "./Components/Navigation";
 import { pages } from "./Components/Routes";
@@ -50,7 +53,7 @@ const App: React.FC = () => {
       <AuthProvider>
         <AuthGate>
           {!isMobileDevice && <Navigation pages={pages} />}
-
+          
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<SearchPage />} />
