@@ -86,7 +86,7 @@ h3 {
 }
 
 div .Books {
-    @apply pb-20 md:pb-0 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 md:gap-4 items-start justify-items-center w-full lg:max-w-3/4 mx-auto;
+    @apply pb-20 md:pb-0 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 md:gap-4 items-start justify-items-center w-full lg:max-w-3/4 mx-auto text-left;
 }
 
 div .Books .Book {
@@ -110,7 +110,7 @@ div .Book p {
 }
 
 div .Book .BookContent {
-    @apply flex flex-col w-full h-full justify-between;
+    @apply flex flex-col w-full h-full justify-around;
 }
 
 div .Book .BookContent a {

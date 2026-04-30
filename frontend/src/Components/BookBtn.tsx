@@ -92,19 +92,33 @@ export const BookBtn: React.FC<BookBtnProps> = ({ book, isRecommended, routeToBo
       )}
 
       <div className="BookContent">
-        <h2>{book.title}</h2>
-        {/*<p>
-          {book.authors &&
-            book.authors.map((author: Author) => author.name).join(", ")}
-        </p>*/}
+        <div className="grid grid-cols-1">
+          <h2>{book.title}</h2>
+          <p>
+            {book.authors &&
+              book.authors.map((author: Author) => author.name).join(", ")}
+          </p>
+        </div>
 
-        <p>{inventory} / {total}</p>
+        <div className="grid grid-cols-2 items-center">
+          <p>{inventory} copies available</p>
 
-        {user ? (
-          !isFavourite ? (<a onClick={ handleFavouriteClick }><i className="fa-regular fa-star"></i></a>) : (<a onClick={ handleUnfavouriteClick }><i className="fa-solid fa-star"></i></a>)
-        ) : ( 
-          <></>
-        )}
+          <div className="flex justify-end">
+            {user ? (
+              isFavourite ? (
+                <a onClick={handleUnfavouriteClick}>
+                  <i className="fa-solid fa-star"></i>
+                </a>
+              ) : (
+                <a onClick={handleFavouriteClick}>
+                  <i className="fa-regular fa-star"></i>
+                </a>
+              )
+            ) : (
+              <div className="w-4 h-4 opacity-0" />
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
