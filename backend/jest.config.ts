@@ -198,6 +198,9 @@ const config: Config = {
   // watchman: true,
   preset: "ts-jest",
   testEnvironment: "node",
+  moduleNameMapper: {
+    "^@bookwebapp/types$": "<rootDir>/../types/src/index.ts"  
+  },
 };
 
 export default config;

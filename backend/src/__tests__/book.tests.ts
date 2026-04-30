@@ -1,16 +1,25 @@
-import { GET_ALL_BOOKS, GET_BOOK, CREATE_BOOK, UPDATE_BOOK } from "../controllers/book.controller";
 import { Request, Response } from "express";
-import { BookModel } from "../models/book.model";
+
+jest.mock("../models/user.model", () => ({
+  __esModule: true,
+
+  default: {
+    findOne: jest.fn(),
+  },
+}));
 
 jest.mock("../models/book.model", () => ({
-    __esModule: true,
+  __esModule: true,
 
-    BookModel: {
-        findAll: jest.fn(),
-        findOne: jest.fn(),
-        create: jest.fn()
-    }
+  BookModel: {
+    findAll: jest.fn(),
+    findOne: jest.fn(),
+    create: jest.fn(),
+  },
 }));
+
+import { GET_ALL_BOOKS, GET_BOOK, CREATE_BOOK, UPDATE_BOOK } from "../controllers/book.controller";
+import { BookModel } from "../models/book.model";
 
 jest.mock("../models/author.model", () => ({
     __esModule: true,

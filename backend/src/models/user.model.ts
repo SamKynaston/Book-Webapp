@@ -3,8 +3,8 @@ import { sequelize } from "../database";
 import { User } from "@bookwebapp/types";
 import { hashPassword } from "../utils/password";
 
-import RoleModel from "./role.model";
-import BookModel from "./book.model";
+import { RoleModel } from "./role.model";
+import { BookModel } from "./book.model";
 
 export class UserModel extends Model implements User {
   declare id: CreationOptional<number>;

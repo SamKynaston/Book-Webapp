@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { CreateBookInput } from "@bookwebapp/types";
 import { BookModel } from "../models/book.model";
 import { AuthorModel } from "../models/author.model";
-import UserModel from "../models/user.model";
+import { UserModel } from "../models/user.model";
 
 export const GET_ALL_BOOKS = async (req: Request, res: Response) => {
   try {

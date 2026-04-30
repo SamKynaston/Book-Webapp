@@ -4,6 +4,9 @@ import AuthorModel from "./models/author.model";
 import BookModel from "./models/book.model";
 import RoleModel from "./models/role.model";
 import PermissionModel from "./models/permission.model";
+import BorrowModel from "./models/booking.model";
+import InventoryModel from "./models/inventory.model";
+import { InventoryStatus, BorrowStatus } from "@bookwebapp/types";
 
 import { hashPassword } from "./utils/password";
 
@@ -103,4 +106,16 @@ export async function seedSampleData() {
     await sampleBooks[13].setAuthors([sampleAuthors[7]]);
     await sampleBooks[14].setAuthors([sampleAuthors[8]]);
     await sampleBooks[15].setAuthors([sampleAuthors[9]]);
+
+    await InventoryModel.bulkCreate([
+        { bookId: sampleBooks[0].id, location: "Floor 2, Shelf A", status: InventoryStatus.AVAILABLE },
+        { bookId: sampleBooks[0].id, location: "Floor 2, Shelf A", status: InventoryStatus.AVAILABLE },
+        { bookId: sampleBooks[0].id, location: "Floor 2, Shelf B", status: InventoryStatus.AVAILABLE },
+        { bookId: sampleBooks[0].id, location: "Floor 2, Shelf B", status: InventoryStatus.AVAILABLE },
+        { bookId: sampleBooks[0].id, location: "Floor 2, Shelf C", status: InventoryStatus.AVAILABLE },
+        { bookId: sampleBooks[1].id, location: "Floor 2, Shelf A", status: InventoryStatus.AVAILABLE },
+        { bookId: sampleBooks[1].id, location: "Floor 2, Shelf B", status: InventoryStatus.AVAILABLE },
+        { bookId: sampleBooks[2].id, location: "Floor 1, Shelf D", status: InventoryStatus.AVAILABLE },
+        { bookId: sampleBooks[4].id, location: "Floor 3, Shelf A", status: InventoryStatus.AVAILABLE },
+    ]); 
 }
