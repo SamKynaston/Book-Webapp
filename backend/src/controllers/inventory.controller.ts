@@ -22,8 +22,8 @@ export const GET_BOOK_AVAILABILITY = async (req: Request, res: Response) => {
         res.status(200).json({
             success: true,
             body: {
-                availability: availableCount,
-                total: totalCount
+                availability: availableCount || 0,
+                total: totalCount || 0
             }
         })
     } catch(err) {

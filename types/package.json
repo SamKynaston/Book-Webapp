@@ -2,6 +2,7 @@
   "name": "@bookwebapp/types",
   "version": "1.0.0",
   "types": "dist/index.d.ts",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc --build"
   },

@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",      // Changed from ESNext to match Backend
     "declaration": true,
-    "emitDeclarationOnly": true,
+    "emitDeclarationOnly": false, // Set to false to actually generate .js files
     "outDir": "dist",
+    "rootDir": "src",          // Ensures dist/index.js is created correctly
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "module": "ESNext",
-    "target": "ES2022",
+    "skipLibCheck": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*"]
 }

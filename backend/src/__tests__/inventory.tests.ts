@@ -32,7 +32,7 @@ describe("GET_BOOK_AVAILABILITY", () => {
                 .mockResolvedValueOnce(5);
 
             await GET_BOOK_AVAILABILITY(req as Request, res as Response);
-            expect(res.status).toHaveBeenCalledWith(200);
+            expect(res.status).toHaveBeenCalledWith(200); 
             expect(res.json).toHaveBeenCalledWith({
                 success: true,
                 body: {
