@@ -117,6 +117,25 @@ export const GET_USER = async (req: Request, res: Response) => {
   }
 };
 
+export const GET_ALL_USERS = async( req: Request, res: Response ) => {
+  try {
+    const books = await UserModel.findAll({
+      attributes: { exclude: ["password"] },
+      include: [
+        {
+          model: RoleModel,
+          as: "roles",
+          through: { attributes: [] },
+        }
+      ]
+    });
+
+    res.status(200).json({ body: books, success: true });
+  } catch (err) {
+    return res.status(500).json({ success: false });
+  }
+}
+
 export const GET_FAVOURITES = async (req: Request, res: Response) => {
   try {
     const user = await UserModel.findByPk(req.user!.id, {

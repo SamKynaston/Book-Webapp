@@ -1,14 +1,13 @@
 import { User, Book } from "@bookwebapp/types";
 import { apiFetch, handleResponse } from "../Utilities/Fetch.utilities";
 
-export async function updateUser(email: string, username: string, password: string, id: number | undefined): Promise<boolean> {
+export async function updateUser(email: string, username: string, id: number): Promise<boolean> {
     const data = await handleResponse<{ success: boolean, body: User }>(
         await apiFetch(`v1/users/${id}`, {
             method: "PUT",
             body: JSON.stringify({ 
                 email: email, 
                 username: username, 
-                password: password 
             }),
         })
     )
@@ -24,6 +23,11 @@ export async function logout(): Promise<boolean> {
     );
 
     return data.success
+}
+
+export async function getAllUsers(): Promise<{ success: boolean, body: User[] }> {
+    const res = await apiFetch(`v1/users`);
+    return await handleResponse<{ success: boolean, body: User[] }>(res)
 }
 
 export async function login(email: string, password: string): Promise<boolean> {
