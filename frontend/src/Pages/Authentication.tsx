@@ -10,7 +10,7 @@ type AuthenticationPageProps = {
 function AuthenticationPage({ }: AuthenticationPageProps) {  
   return (
     <Page>
-      <div className="md:grid md:grid-cols-[1fr_auto_1fr] md:gap-8 md:max-w-3/4">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-8 md:gap-16 md:max-w-3/4">
         <div className="">
           <h1>Sign into your account</h1>
           <AuthenticationForm />

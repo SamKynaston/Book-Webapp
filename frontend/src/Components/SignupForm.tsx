@@ -26,9 +26,9 @@ export const SignupForm = () => {
     
     return (
         <form onSubmit={handleSubmit}>
-            <input onChange={(e) => setUsername(e.target.value)} placeholder="Username" required={true}></input>
-            <br />
             <input onChange={(e) => setEmail(e.target.value)} placeholder="Email" required={true}></input>
+            <br />
+            <input onChange={(e) => setUsername(e.target.value)} placeholder="Username" required={true}></input>
             <br />
             <input onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" required={true}></input>
             <br />
