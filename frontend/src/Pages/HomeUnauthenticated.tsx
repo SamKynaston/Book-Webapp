@@ -18,7 +18,7 @@ function UnauthenticatedHome({ }: HomeProps) {
       const books = fetchedBooks.body
       const shuffled = [...books].sort(() => 0.5 - Math.random())
 
-      setRandomBooks(shuffled.slice(0, 5))
+      setRandomBooks(shuffled.slice(0, 6))
     })
     .finally(() => {
       setBooksReady(true)
@@ -27,8 +27,8 @@ function UnauthenticatedHome({ }: HomeProps) {
 
   return (
     <Page>
-      <h1 className="mb-1">Welcome to your brand new digital library!</h1>
-      <h2 className="mb-4">The place to discover your next book, just start below</h2>
+      <h1 className="mb-1">Welcome to your digital library!</h1>
+      <p className="mb-4">This is the place for you to discover your next read, starting below</p>
       { booksReady ? (
         randomBooks.length > 0 ? (
           <div className="Books">

@@ -8,7 +8,7 @@ type AdminDashboardPageProps = {
 
 function AdminDashboardPage({ }: AdminDashboardPageProps) {
   return (
-    <Page>
+    <Page requiresAccount={true} requiredPermission="ADMINISTRATOR">
       <UserTable />
       <BookTable />
     </Page>

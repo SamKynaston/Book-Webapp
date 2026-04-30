@@ -2,6 +2,7 @@ import type { JSX } from "react";
 import type { PageProps } from "@bookwebapp/types";
 import { useAuth } from "../Context/Authentication";
 import { Navigate } from "react-router-dom";
+import Error from "../Pages/Error";
 
 function Page({ children, requiresAccount, requiredPermission }: PageProps): JSX.Element | null {
 
@@ -16,7 +17,7 @@ function Page({ children, requiresAccount, requiredPermission }: PageProps): JSX
       if (!user) {
         return <Navigate to="/login" />;
       } else {
-        return <div className="Content">You do not have permission to view this content.</div>;
+        return <Error code={403}/>;
       }
     }
     
