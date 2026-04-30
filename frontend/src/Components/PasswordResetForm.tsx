@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { resetPassword } from "../Services/Users.service";
 
-export const PasswordResetForm = () => {
+export const PasswordResetForm = ( { token }: { token?: string | null } ) => {
     const [oldPassword, setOldPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
 
@@ -15,7 +15,7 @@ export const PasswordResetForm = () => {
 
         if (user) {
             try {
-                if (await resetPassword(user.id, oldPassword, newPassword)) {
+                if (await resetPassword(user.id, oldPassword, newPassword, token)) {
                     await refreshUser();
                     navigate("/account")
                 }

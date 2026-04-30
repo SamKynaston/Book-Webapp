@@ -35,7 +35,7 @@ export async function seedSampleData() {
 
     const sampleUsers = await UserModel.bulkCreate([
         { username: "Admin", password: "debug12345", email: "sam.kynaston@kynno.co.uk" },
-        { username: "User", password: "debug12345", email: "sam.kynaston2@kynno.co.uk", must_reset_password: true }
+        { username: "User", password: "debug12345", email: "sam.kynaston2@kynno.co.uk", /*must_reset_password: true*/ }
     ], { individualHooks: true });
 
     await sampleUsers[0].setRoles([sampleRoles[0]]);

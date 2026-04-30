@@ -6,6 +6,7 @@ import { RoleModel } from "../models/role.model";
 import { PermissionModel } from "../models/permission.model";
 import BookModel from "../models/book.model";
 import AuthorModel from "../models/author.model";
+import PasswordResetModel from "../models/password-reset.model";
 
 // Local Functions
 const createUser = async (username: string, password: string, email: string) => {
@@ -215,7 +216,6 @@ export const UPDATE_USER = async (req: Request, res: Response) => {
 
     res.status(200).json({ success: true, body: user })
   } catch (err) {
-    console.error(err)
     res.status(500).json({ success: false });
   }
 };
@@ -249,7 +249,6 @@ export const FORCE_PASSWORD_RESET = async (req: Request, res: Response) => {
 
     res.status(200).json({ success: true, message: "User is now required to change their password during their next session" })
   } catch (err) {
-    console.error(err)
     res.status(500).json({ success: false });
   }
 };
@@ -277,7 +276,37 @@ export const COMPLETE_PASSWORD_RESET = async (req: Request, res: Response) => {
     await user.save();
     return res.status(200).json({ success: true });
   } catch (err) {
-    console.error(err);
+    return res.status(500).json({ success: false });
+  }
+};
+
+export const REQUEST_PASSWORD_RESET = async (req: Request, res: Response) => {
+  try {
+    const token = crypto.randomUUID();
+    const userId = req.user.id
+
+    const user = await UserModel.findByPk(userId);
+    if (!user) return res.status(404).json({ success: false });
+
+    await PasswordResetModel.destroy({
+      where: { userId }
+    });
+
+    await PasswordResetModel.create({
+      userId: userId,
+      token,
+      expiresAt: new Date(Date.now() + 1000 * 60 * 30) // 30 mins
+    });
+    
+    user.must_reset_password = true;
+    await user.save();
+
+    return res.status(200).json({
+      success: true,
+      token: token,
+      message: "Password reset requested"
+    });
+  } catch (err) {
     return res.status(500).json({ success: false });
   }
 };

@@ -2,7 +2,7 @@ import { DataTypes, Model, CreationOptional } from "sequelize";
 import { sequelize } from "../database";
 import { UserModel } from "./user.model";
 
-export class PasswordResetModel extends Model {
+export default class PasswordResetModel extends Model {
   declare id: CreationOptional<number>;
   declare userId: number;
   declare token: string;

@@ -3,6 +3,43 @@ import jwt from "jsonwebtoken";
 import UserModel from "../models/user.model";
 import RoleModel from "../models/role.model";
 import PermissionModel from "../models/permission.model";
+import PasswordResetModel from "../models/password-reset.model";
+
+export const VALIDATE_PASSWORD_RESET_TOKEN = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const token = req.body.token;
+
+    if (!token) {
+      return res.status(400).json({ success: false, error: "Missing token" });
+    }
+
+    const resetEntry = await PasswordResetModel.findOne({
+      where: { token },
+      include: [{ model: UserModel, as: "user" }]
+    }) as PasswordResetModel & { user: UserModel };
+
+    if (!resetEntry) {
+      return res.status(403).json({ success: false, error: "Invalid token" });
+    }
+
+    if (resetEntry.expiresAt < new Date()) {
+      return res.status(403).json({ success: false, error: "Token expired" });
+    }
+
+    req.user = resetEntry.user;
+
+    req.auth = {
+      skipOldPasswordCheck: true
+    };
+    next();
+  } catch (err) {
+    return res.status(500).json({ success: false });
+  }
+};
 
 export const IS_AUTHENTICATED = async (
   req: Request,

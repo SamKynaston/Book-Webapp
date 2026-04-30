@@ -49,7 +49,7 @@ export const OWNERSHIP_CHECK = async (req: Request, res: Response, next: NextFun
         if (isAdmin) {
             return next();
         }
-
+        
         return res.status(403).json({success: false, error: "Unauthorised."})
     } catch(err) {
         return res.status(500).json({success: false, error: "An error occured."})
