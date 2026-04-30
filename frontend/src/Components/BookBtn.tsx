@@ -3,17 +3,19 @@ import { BookCover } from "../Components/BookCover";
 import { favouriteBook, unFavouriteBook, isFavourited } from "../Services/Books.service";
 import { useEffect, useState } from "react";
 import { useAuth } from "../Context/Authentication";
+import { useNavigate } from "react-router-dom";
 
 interface BookBtnProps {
   book: Book;
   isRecommended: boolean;
-  routeToBook: (id: string) => void;
+  routeToBook?: (id: string) => void;
   refresh?: () => void;
 }
 
 export const BookBtn: React.FC<BookBtnProps> = ({ book, isRecommended, routeToBook, refresh }) => {
   const { user } = useAuth();
   const [isFavourite, setFavouritedStatus] = useState<Boolean>(false)
+  const navigate = useNavigate();
 
   const isFavouriteBook = async () => {
     const status = await isFavourited(book.id);
@@ -32,7 +34,11 @@ export const BookBtn: React.FC<BookBtnProps> = ({ book, isRecommended, routeToBo
       return;
     }
 
-    routeToBook(book.id.toString());
+    if (routeToBook) {
+      routeToBook(book.id.toString());
+    } else {
+      navigate("/login")
+    }
   };
 
   const handleFavouriteClick = async (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -78,7 +84,11 @@ export const BookBtn: React.FC<BookBtnProps> = ({ book, isRecommended, routeToBo
             book.authors.map((author: Author) => author.name).join(", ")}
         </p>
 
-        {!isFavourite ? (<a onClick={ handleFavouriteClick }><i className="fa-regular fa-star"></i></a>) : (<a onClick={ handleUnfavouriteClick }><i className="fa-solid fa-star"></i></a>)}
+        {user ? (
+          !isFavourite ? (<a onClick={ handleFavouriteClick }><i className="fa-regular fa-star"></i></a>) : (<a onClick={ handleUnfavouriteClick }><i className="fa-solid fa-star"></i></a>)
+        ) : ( 
+          <></>
+        )}
       </div>
     </div>
   );

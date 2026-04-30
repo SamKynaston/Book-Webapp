@@ -1,5 +1,5 @@
 import type { Page } from "@bookwebapp/types";
-import Home from "../Pages/Home";
+import Home from "../Pages/HomeAuthenticated";
 import icon from "../../public/logo.svg";
 import Search from "../Pages/Search";
 

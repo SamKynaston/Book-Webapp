@@ -14,7 +14,7 @@ import Navigation from "./Components/Navigation";
 import { pages } from "./Components/Routes";
 
 // Pages
-import Home from "./Pages/Home";
+import { HomeRouter } from "./Components/HomeRouter";
 import BookPage from "./Pages/Book";
 import Error from "./Pages/Error";
 import Footer from "./Components/Footer";
@@ -53,9 +53,9 @@ const App: React.FC = () => {
       <AuthProvider>
         <AuthGate>
           {!isMobileDevice && <Navigation pages={pages} />}
-          
+
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<HomeRouter />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path={`${bookDirectory}/:id`} element={<BookPage />} />
             <Route path="/account" element={<AccountPage />} />
