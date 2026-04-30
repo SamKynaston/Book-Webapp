@@ -74,11 +74,11 @@ a:hover {
 }
 
 h1 {
-    @apply text-4xl mb-4;
+    @apply text-2xl mb-4;
 }
 
 h2 {
-    @apply text-2xl mb-2;
+    @apply text-xl mb-2;
 }
 
 h3 {
