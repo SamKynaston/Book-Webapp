@@ -17,6 +17,10 @@ export async function getAllBooks(): Promise<{ body: Book[] }> {
     return await handleResponse<{ body: Book[] }>(res)
 }
 
+export async function updateBook(): Promise<void> {
+    
+}
+
 export async function createNewBook(title: string, coverId: number, authors: number[], firstPublishYear: number, isRecommended: boolean): Promise<{ success: boolean }> {
     const res = await apiFetch(`v1/books`, {
         method: "POST",
