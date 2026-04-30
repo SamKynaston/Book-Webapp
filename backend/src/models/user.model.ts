@@ -77,6 +77,8 @@ UserModel.belongsToMany(RoleModel, {
   foreignKey: "userId",
   otherKey: "roleId",
   as: "roles",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 });
 
 RoleModel.belongsToMany(UserModel, {
@@ -84,20 +86,26 @@ RoleModel.belongsToMany(UserModel, {
   foreignKey: "roleId",
   otherKey: "userId",
   as: "users",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 });
 
 BookModel.belongsToMany(UserModel, {
   through: "UserFavourites",
   foreignKey: "bookId",
   otherKey: "userId",
-  as: "favourites"
+  as: "favourites",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 })
 
 UserModel.belongsToMany(BookModel, {
   through: "UserFavourites",
   foreignKey: "userId",
   otherKey: "bookId",
-  as: "favourites"
+  as: "favourites",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 });
 
 export default UserModel;

@@ -47,6 +47,25 @@ export const GET_BOOK = async (req: Request, res: Response) => {
   }
 };
 
+export const DELETE_BOOK = async (req: Request, res: Response) => {
+  const bookId = req.params.id as string;
+
+  try {
+    const book = await BookModel.findOne({
+      where: { id: bookId },
+    });
+
+    if (!book) {
+      return res.status(404).json({ error: "Book not found", success: false });
+    }
+
+    book.destroy()
+    res.status(200).json({ success: true });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete book", success: false });
+  }
+};
+
 export const CREATE_BOOK = async (req: Request, res: Response) => {
   const newBook: CreateBookInput = req.body;
 
@@ -105,7 +124,7 @@ export const UPDATE_BOOK = async (req: Request, res: Response) => {
       title: updatedBook.title,
       first_publish_year: updatedBook.first_publish_year,
       cover_id: updatedBook.cover_id,
-      isRecommended: updatedBook.is_recommended,
+      is_recommended: updatedBook.is_recommended,
     });
 
     if (updatedBook.authors && updatedBook.authors.length > 0) {

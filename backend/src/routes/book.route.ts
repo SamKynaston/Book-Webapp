@@ -9,7 +9,8 @@ import {
   UPDATE_BOOK,
   FAVOURITE_BOOK,
   UNFAVOURITE_BOOK,
-  IS_FAVOURITE_BOOK
+  IS_FAVOURITE_BOOK,
+  DELETE_BOOK
 } from "../controllers/book.controller";
 import { VALIDATE_INPUT } from "../middleware/validate.middleware";
 import { BookSchema } from "../schemas/books.schema";
@@ -23,5 +24,6 @@ router.put("/:id", IS_AUTHENTICATED, VALIDATE_INPUT(BookSchema), REQUIRE_PERMISS
 router.get("/:id/favourited", IS_AUTHENTICATED, IS_FAVOURITE_BOOK);
 router.post("/:id/favourite", IS_AUTHENTICATED, FAVOURITE_BOOK);
 router.post("/:id/unfavourite", IS_AUTHENTICATED, UNFAVOURITE_BOOK);
+router.delete("/:id", IS_AUTHENTICATED, REQUIRE_PERMISSION("DELETE_BOOKS"), DELETE_BOOK)
 
 export default router;

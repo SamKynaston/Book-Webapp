@@ -55,11 +55,15 @@ InventoryModel.init(
 InventoryModel.belongsTo(BookModel, {
   foreignKey: "bookId",
   as: "book",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 });
 
 BookModel.hasMany(InventoryModel, {
   foreignKey: "bookId",
   as: "copies",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 });
 
 export default InventoryModel;

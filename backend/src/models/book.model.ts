@@ -57,6 +57,8 @@ BookModel.belongsToMany(AuthorModel, {
   foreignKey: "bookId",
   otherKey: "authorId",
   as: "authors",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 });
 
 AuthorModel.belongsToMany(BookModel, {
@@ -64,6 +66,8 @@ AuthorModel.belongsToMany(BookModel, {
   foreignKey: "authorId",
   otherKey: "bookId",
   as: "books",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
 });
 
 export default BookModel;

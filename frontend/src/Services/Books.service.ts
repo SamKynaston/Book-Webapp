@@ -17,8 +17,27 @@ export async function getAllBooks(): Promise<{ body: Book[] }> {
     return await handleResponse<{ body: Book[] }>(res)
 }
 
-export async function updateBook(): Promise<void> {
+export async function updateBook(id: string, title: string, coverId: number, authors: number[], firstPublishYear: number, isRecommended: boolean): Promise< { success: boolean } > {
+    const res = await apiFetch(`v1/books/${id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+            title: title,
+            cover_id: coverId,
+            first_publish_year: firstPublishYear,
+            authors: authors,
+            is_recommended: isRecommended
+        })
+    })
+
+    return await handleResponse<{ success: boolean }>(res)
+}
+
+export async function deleteBook(id: string) {
+    const res = await apiFetch(`v1/books/${id}`, {
+        method: "DELETE",
+    })
     
+    return await handleResponse<{ success: boolean }>(res)
 }
 
 export async function createNewBook(title: string, coverId: number, authors: number[], firstPublishYear: number, isRecommended: boolean): Promise<{ success: boolean }> {
