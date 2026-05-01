@@ -69,12 +69,31 @@ export const CREATE_USER = async (req: Request, res: Response) => {
   }
 };
 
+export const CREATE_USER_ADMIN = async (req: Request, res: Response) => {
+  try {
+    const { username, email } = req.body;
+
+    const now = new Date()
+    const tempPassword = `${now.getDate().toString().padStart(2, "0")}/${(now.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}/${now.getFullYear()}`;
+    
+    const user = await createUser(username, tempPassword, email);
+    user.must_reset_password = true;
+    await user.save();
+
+    res.status(201).json({ success: true });
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ success: false });
+  }
+};
+
 export const AUTHENTICATE_USER = async (req: Request, res: Response) => {
   try {
-    const { password, email } = req.body;
+    const { email, password } = req.body;
     
     let token = await authenticateUser(email, password);
-
     res.cookie(process.env.SESSION_TOKEN_NAME || "SESSION_TOKEN", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -297,9 +316,6 @@ export const REQUEST_PASSWORD_RESET = async (req: Request, res: Response) => {
       token,
       expiresAt: new Date(Date.now() + 1000 * 60 * 30) // 30 mins
     });
-    
-    user.must_reset_password = true;
-    await user.save();
 
     return res.status(200).json({
       success: true,

@@ -97,3 +97,17 @@ export async function signup(email: string, username: string, password: string):
 
     return data.success; 
 }
+
+export async function createAccountAdmin(email: string, username: string): Promise<boolean> {
+    const data = await handleResponse<{ success: boolean }>(
+        await apiFetch(`v1/users/create-account`, {
+            method: "POST",
+            body: JSON.stringify({ 
+                email: email, 
+                username: username
+            }),
+        })
+    );
+
+    return data.success;
+}

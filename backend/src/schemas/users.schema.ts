@@ -8,6 +8,11 @@ export const UserSchema = zod.object({
   email: zod.email("Needs to be an email"),
 }).strict();
 
+export const AdminUserCreationSchema = zod.object({
+  username: zod.string().regex(/^\S+$/),
+  email: zod.email("Needs to be an email"),
+}).strict();
+
 export const UserEditSchema = zod.object({
   username: zod.string().regex(/^\S+$/),
   email: zod.email("Needs to be an email"),

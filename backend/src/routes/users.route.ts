@@ -18,10 +18,11 @@ import {
   FORCE_PASSWORD_RESET,
   LOGOUT_USER,
   COMPLETE_PASSWORD_RESET,
-  REQUEST_PASSWORD_RESET
+  REQUEST_PASSWORD_RESET,
+  CREATE_USER_ADMIN
 } from "../controllers/users.controller";
 
-import { UserSchema, UserAuthenticationSchema, UserEditSchema, UserPasswordReset } from "../schemas/users.schema";
+import { UserSchema, UserAuthenticationSchema, UserEditSchema, UserPasswordReset, AdminUserCreationSchema } from "../schemas/users.schema";
 import { VALIDATE_INPUT } from "../middleware/validate.middleware";
 
 const router = Express.Router();
@@ -33,9 +34,10 @@ router.post("/logout", IS_AUTHENTICATED, LOGOUT_USER);
 router.post("/request-password-reset", IS_AUTHENTICATED, REQUEST_PASSWORD_RESET);
 router.get("/me", IS_AUTHENTICATED, GET_USER);
 router.get("/favourites", IS_AUTHENTICATED, GET_FAVOURITES)
+router.post("/create-account", IS_AUTHENTICATED, REQUIRE_PERMISSION("WRITE_USERS"), VALIDATE_INPUT(AdminUserCreationSchema), CREATE_USER_ADMIN);
 router.put("/:id", IS_AUTHENTICATED, VALIDATE_INPUT(UserEditSchema), OWNERSHIP_CHECK, UPDATE_USER);
 router.post("/:id/admin-reset-password", IS_AUTHENTICATED, REQUIRE_PERMISSION("WRITE_USERS"), FORCE_PASSWORD_RESET);
-router.post("/:id/reset-password", IS_AUTHENTICATED, CONFIRM_ADMIN_RESET, VALIDATE_INPUT(UserPasswordReset), OWNERSHIP_CHECK, COMPLETE_PASSWORD_RESET)
+router.post("/:id/reset-password", CONFIRM_ADMIN_RESET, IS_AUTHENTICATED, VALIDATE_INPUT(UserPasswordReset), OWNERSHIP_CHECK, COMPLETE_PASSWORD_RESET)
 router.post("/:id/reset-password/token", VALIDATE_PASSWORD_RESET_TOKEN, VALIDATE_INPUT(UserPasswordReset), OWNERSHIP_CHECK, COMPLETE_PASSWORD_RESET)
 
 export default router;
