@@ -86,10 +86,6 @@ export const IS_AUTHENTICATED = async (
 
     if (user) {
       req.user = user;
-
-      req.auth = {
-        skipOldPasswordCheck: req.user.must_reset_password
-      };
     } else {
       res.status(401).json({ success: false, error: "Authentication failed." });
     }
@@ -112,7 +108,7 @@ export const CONFIRM_ADMIN_RESET = async ( req: Request, res: Response, next: Ne
     if (!user) {
       return res.status(404).json({ success: false });
     }
-    
+
     if (!user.must_reset_password) {
       return res.status(403).json({
         success: false,

@@ -280,14 +280,9 @@ export const COMPLETE_PASSWORD_RESET = async (req: Request, res: Response) => {
     if (!user) return res.status(404).json({ success: false });
 
     const newPassword = req.body.newPassword;
-    const skipOldPasswordCheck = req.auth?.skipOldPasswordCheck === true;
-    
-    if (!skipOldPasswordCheck) {
-      const oldPassword = req.body.oldPassword;
-
-      const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
-      if (!isPasswordValid) return res.status(403).json({ success: false });
-    }
+    const oldPassword = req.body.oldPassword;
+    const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
+    if (!isPasswordValid) return res.status(403).json({ success: false });
 
     user.password = newPassword;
     user.must_reset_password = false;
