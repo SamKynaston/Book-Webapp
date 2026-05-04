@@ -1,6 +1,6 @@
 export enum InventoryStatus {
     AVAILABLE = "AVAILABLE",
-    BORROWED = "BORROWED",
+    UNAVAILABLE = "UNAVAILABLE",
     MISSING = "MISSING"
 }
 

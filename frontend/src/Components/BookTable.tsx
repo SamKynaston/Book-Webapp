@@ -10,7 +10,7 @@ export function BookTable() {
     const [editingId, setEditingId] = useState<number | null>(null);
 
     const [title, setTitle] = useState("");
-    const [authorId, setAuthorId] = useState<number>(0);
+    const [authorId, setAuthorId] = useState<number>(1);
     const [year, setYear] = useState("");
     const [cover, setCover] = useState("");
     const [recommended, setRecommended] = useState(false);
@@ -36,7 +36,7 @@ export function BookTable() {
 
     const reset = () => {
         setTitle("");
-        setAuthorId(0);
+        setAuthorId(1);
         setYear("");
         setCover("");
         setRecommended(false);

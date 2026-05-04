@@ -29,10 +29,10 @@ export function UserTable() {
         const res = await createAccountAdmin(email, username);
 
         if (res) {
-        const fresh = await getAllUsers();
-        setUsers(fresh.body);
+            const fresh = await getAllUsers();
+            setUsers(fresh.body);
 
-        reset();
+            reset();
         }
     };
 

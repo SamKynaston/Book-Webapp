@@ -40,11 +40,6 @@ InventoryModel.init(
             allowNull: false,
             defaultValue: DataTypes.NOW
         },
-
-        last_checked: {
-            type: DataTypes.DATE,
-            allowNull: true,
-        },  
     },
     {
         sequelize,
