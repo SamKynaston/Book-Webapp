@@ -5,9 +5,11 @@ import { AuthorModel } from "../models/author.model";
 // Gets all authors and then returns in a structured JSON format
 export const GET_ALL_AUTHORS = async (req: Request, res: Response) => {
   try {
+    // NOTE: This is not an optimal way of performing this. In real world applications, the developer should opt to use pagination.
     // Calls the Author's Database Model and then runs the .findAll() command, which gets every possible listing (SELECT * FROM AUTHORS).
     const authors = await AuthorModel.findAll();
-    res.status(200).json({ body: authors, success: true });
+
+    res.status(201).json({ body: authors, success: true });
   } catch (error) {
     res.status(500).json({ error: "Failed to retrieve authors", success: false });
   }
@@ -30,7 +32,7 @@ export const GET_AUTHOR = async (req: Request, res: Response) => {
     }
 
     // Return the author
-    res.status(200).json({ body: author, success: true });
+    res.status(201).json({ body: author, success: true });
   } catch (error) {
 
     // If there's an error for any reason, return 500 (Internal Server Error)
@@ -59,7 +61,7 @@ export const CREATE_AUTHOR = async (req: Request, res: Response) => {
     const createdAuthor = await AuthorModel.create(newAuthor);
 
     // Return the author
-    res.status(201).json({ body: createdAuthor, success: true });
+    res.status(200).json({ body: createdAuthor, success: true });
   } catch (error) {
     // If any error occurs, return a 500 error. 
     res.status(500).json({ success: false });
