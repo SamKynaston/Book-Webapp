@@ -17,6 +17,13 @@ function Navigation({ }: NavigationProps) {
             />
         </Link>
 
+        <Link to={"/search"} className="Navigation-Button text-gray-400">
+          <span className="border-b border-gray-400 mr-12 ">
+            <i className="fa-solid fa-magnifying-glass mr-4 mb-8"></i>
+            Search
+          </span>
+        </Link>
+
         {/*<div className="Navigation-Button w-full justify-start">
           <button className="w-full"></button>
         </div>*/}

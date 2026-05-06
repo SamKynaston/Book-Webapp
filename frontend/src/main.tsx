@@ -21,7 +21,6 @@ import AccountPage from "./Pages/Account";
 import AuthenticationPage from "./Pages/Authentication";
 import SearchPage from "./Pages/Search";
 import AdminDashboardPage from "./Pages/Dashboard";
-import CreateAccountPage from "./Pages/CreateAccount";
 
 import MobileNavigation from "./Components/MobileNavigation";
 import { checkAuth, AuthProvider, useAuth } from "./Context/Authentication";
@@ -62,7 +61,6 @@ const App: React.FC = () => {
             <Route path="/login" element={<AuthenticationPage />} />
             <Route path="/dashboard" element={<AdminDashboardPage />} />
             <Route path="/password-reset" element={<PasswordResetPage />} />
-            <Route path="/newaccount" element={<CreateAccountPage />} />
             <Route path="*" element={<Error code={404} />} />
           </Routes>
 
