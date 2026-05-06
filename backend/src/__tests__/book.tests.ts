@@ -139,7 +139,7 @@ describe("Book Controller", () => {
                 title: "Updated Book",
                 first_publish_year: 2020,
                 cover_id: 123,
-                isRecommended: true
+                is_recommended: true
             });
 
             expect(mockBook.setAuthors).toHaveBeenCalledWith([
