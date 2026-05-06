@@ -24,6 +24,8 @@ function BookPage({ }: BookPageProps) {
   const { hasPermission, user } = useAuth();
   const navigate = useNavigate();
 
+  // Gets the book from its ID using the books service. If it doesn't exist it'll set the error to 404 and redirect to the home page
+  // If unable to read books, it'll check if the user is signed in, redirecting to /login if not, otherwise to the error page.
   useEffect(() => {
     if (!id) {
       setErrorCode(404);
@@ -51,6 +53,8 @@ function BookPage({ }: BookPageProps) {
     return <ErrorPage code={errorCode || -1}/>;
   }
 
+  // Gets the cover url from another API
+  // cover uploads were not implemented into this system
   const coverUrl = book?.cover_id
   ? `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
   : null;

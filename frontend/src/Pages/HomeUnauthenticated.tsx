@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { BookBtn } from "../Components/BookBtn";
 import { useState, useEffect } from "react";
 
+// Home Page for unauthenticated users. Will show six book examples, all redirecting to /login, which also provides options for sign up..
+
 interface HomeProps {
   //setAllBooks: React.Dispatch<React.SetStateAction<Book[]>>;
 }

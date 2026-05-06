@@ -40,10 +40,12 @@ export const AuthProvider = ({ children }: any) => {
 
   const authRequestId = useRef(0);
 
+  // Function to check if a user has admin-level permissions
   const isAdmin = user?.roles?.some((role: any) =>
     role.permissions?.some((p: any) => p.permission_string === "ADMINISTRATOR")
   );
 
+  // Function to check if a user has a specified permission, should use the permissionName type but sadly does not.
   const hasPermission = (permissionName: string) => {
     if (!user || !user.roles) return false;
     if (isAdmin) return true;
@@ -53,6 +55,7 @@ export const AuthProvider = ({ children }: any) => {
     );
   };
 
+  // Confirms the user's identity by calling the /me route on the API, if in a forceReset state, makes it clear and forces user to always redirect to /reset-password
   const refreshUser = async () => {
     const requestId = ++authRequestId.current;
 
@@ -82,6 +85,7 @@ export const AuthProvider = ({ children }: any) => {
     setLoading(false);
   };
 
+  // Check's the user's identity every time the page changes. Contains a lot of repeated code byt works otherwise.
   useEffect(() => {
     setUser(null);
     setAuthenticated(false);

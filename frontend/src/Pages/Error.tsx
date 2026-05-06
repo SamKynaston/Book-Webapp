@@ -5,6 +5,7 @@ type ErrorPageProps = {
   code: number
 }
 
+// Basic Error Page. Will use the error messages utility to get error + any other details.
 function Error({ code }: ErrorPageProps) {
   const error = errorMessages[code || 0]
 

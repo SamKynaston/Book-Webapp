@@ -5,6 +5,8 @@ import type { Book } from "@bookwebapp/types";
 import { BookBtn } from "../Components/BookBtn";
 import { getAllBooks, getBookLink } from "../Services/Books.service";
 
+// Search page for books using the BookBtn component, which then redirects to book pages and also provides options for favouriting and viewing stock.
+
 interface SearchProps {
   //setAllBooks: React.Dispatch<React.SetStateAction<Book[]>>;
 }

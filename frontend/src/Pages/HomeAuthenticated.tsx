@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { BookBtn } from "../Components/BookBtn";
 import { useState, useEffect } from "react";
 
+// Home Page for authenticated users. Will show their favourited books using the BookBtn component, alongside how much stock there is.
+
 interface HomeProps {
   //setAllBooks: React.Dispatch<React.SetStateAction<Book[]>>;
 }

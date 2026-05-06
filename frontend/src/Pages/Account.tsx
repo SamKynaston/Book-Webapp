@@ -12,6 +12,7 @@ function AccountManagementPage({ }: AccountManagementPageProps) {
   const { user, refreshUser } = useAuth();
   const navigate = useNavigate();
 
+  // Signs the user out
   const handleSignout = async () => {
     if (await logout()) {
       refreshUser();
@@ -19,6 +20,7 @@ function AccountManagementPage({ }: AccountManagementPageProps) {
     }
   }
 
+  // Sends a password reset request to the server
   const handlePasswordReset = async () => {
     const data = await requestPasswordReset()
 
@@ -27,11 +29,6 @@ function AccountManagementPage({ }: AccountManagementPageProps) {
       navigate(`/password-reset?token=${data.token}`)
     }
   }
-
-  const ignoreForNow = async () => {
-    console.log(await getAllUsers())
-  }
-  ignoreForNow()
 
   return (
     <Page requiresAccount={true}>
