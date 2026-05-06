@@ -9,6 +9,7 @@ function Page({ children, requiresAccount, requiredPermission, allowPasswordRese
   const location = useLocation();
 
   if (!loading) {
+    // If the account is in a force password reset state, then always navigate to /password-reset regardless of the user's current context
     if (forceReset) {
       if (location.pathname !== "/password-reset") {
         return <Navigate to="/password-reset" replace />;
@@ -17,10 +18,12 @@ function Page({ children, requiresAccount, requiredPermission, allowPasswordRese
       return <div className="Content">{children}</div>;
     }
 
+    // If an account requires a page and the user isn't currently signed in, then navigate to login
     if (requiresAccount && !user) {
       return <Navigate to="/login" replace />;
     }
 
+    // If a page requires a specific permission the user lacks, then return to the error page or login if not authenticated
     if (requiredPermission && !hasPermission(requiredPermission)) {
       if (!user) {
         return <Navigate to="/login" replace />;

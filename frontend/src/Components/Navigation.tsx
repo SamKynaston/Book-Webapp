@@ -24,6 +24,7 @@ function Navigation({ }: NavigationProps) {
 
       <div className="Navigation-End">
         {
+          // If an administrator, then add the dashboard to their navigiation
           hasPermission("ADMINISTRATOR") ? (
             <Link to="/dashboard" className="Navigation-Button">
               <i className="fa-solid fa-wrench"></i>
@@ -31,6 +32,7 @@ function Navigation({ }: NavigationProps) {
           ) : null
         }
 
+        { /* If signed in, then show "Account" as opposed to "Sign Up", alongside a solid user icon */ }
         <Link to={authenticated ? "/account" : "/login"} className="Navigation-Button">
           {authenticated ? <i className="fa-solid fa-user"></i> : <i className="fa-regular fa-user"></i>}
         </Link>

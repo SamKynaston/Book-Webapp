@@ -17,7 +17,9 @@ function MobileNavigation({ }: NavigationProps) {
           <p>Search</p>
         </Link>
 
+
         {
+          // If an administrator, then add the dashboard to their navigiation
           hasPermission("ADMINISTRATOR") ? (
             <Link to="/dashboard" className="Navigation-Button">
               <i className="fa-solid fa-wrench"></i>
@@ -26,6 +28,7 @@ function MobileNavigation({ }: NavigationProps) {
           ) : null
         }
 
+        { /* If signed in, then show "Account" as opposed to "Sign Up" */ }
         <Link to={authenticated ? "/account" : "/login"} className="Navigation-Button">
           <i className="fa-solid fa-user"></i>
           <p>{authenticated ? "Account" : "Sign In"}</p>

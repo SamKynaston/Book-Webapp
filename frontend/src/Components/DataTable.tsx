@@ -15,6 +15,9 @@ type DataTableProps<T> = {
   onAdd?: () => void;
 };
 
+// Essentially the component table for all CRUD tables, such as users and inventory
+// Data is the data that the table uses, while columns specify what data should be shown in the table
+// All other props are functions or booleans provided by all children components
 export function DataTable<T>({data, columns, isEditing, renderEditRow, renderCreateRow, onAdd}: DataTableProps<T>) {
   return (
     <div className="w-full md:max-w-6xl mx-auto p-4">

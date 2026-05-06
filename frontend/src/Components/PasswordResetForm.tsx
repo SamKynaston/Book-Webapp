@@ -11,6 +11,7 @@ export const PasswordResetForm = ( { token }: { token?: string | null } ) => {
     const { user, refreshUser } = useAuth();
     const navigate = useNavigate();
 
+    // Submits the user's old and new passwords to the API through the resetPassword function under User Services
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -31,6 +32,7 @@ export const PasswordResetForm = ( { token }: { token?: string | null } ) => {
     }
     
     return (
+        // Create a brand new form with its onSubmit function set to handleSubmit
         <form onSubmit={handleSubmit}>
             <input onChange={(e) => setOldPassword(e.target.value)} type="password" placeholder="Your old password" required={true}></input>
             <br />

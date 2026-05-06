@@ -11,6 +11,7 @@ export function UserTable() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
 
+    // Gets all users and sets the users state to the API's output
     useEffect(() => {
         (async () => {
             const body = await getAllUsers();
@@ -18,6 +19,7 @@ export function UserTable() {
         })();
     }, []);
 
+    // Resets state when switching between entries
     const reset = () => {
         setUsername("");
         setEmail("");
@@ -25,6 +27,7 @@ export function UserTable() {
         setCreating(false);
     };
 
+    // Saves the creation of a brand new account
     const saveCreate = async () => {
         const res = await createAccountAdmin(email, username);
 

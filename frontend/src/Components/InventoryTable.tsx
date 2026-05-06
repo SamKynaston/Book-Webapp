@@ -59,6 +59,7 @@ export function InventoryTable() {
     };
 
     return (
+        // Use the inventory table of the database for this table, with Book and Location as columns
         <DataTable data={inventory} isEditing={(i) => i.id === editingId} onAdd={() => setCreating(true)}
             columns={[
                 {
@@ -88,6 +89,7 @@ export function InventoryTable() {
                 },
             ]}
 
+            // Changes the row the data is on to the create format, but with the current data it uses
             renderEditRow={(b) => (
                 <>
                     <td>
@@ -106,6 +108,7 @@ export function InventoryTable() {
                 </>
             )}
 
+            // Creates a new row when creating a new entry in that specific table for the database
             renderCreateRow={() =>
                 creating && (
                     <>
