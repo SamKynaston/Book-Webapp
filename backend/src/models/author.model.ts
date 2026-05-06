@@ -2,6 +2,7 @@ import { DataTypes, Model, CreationOptional } from "sequelize";
 import { sequelize } from "../database";
 import { Author } from "@bookwebapp/types";
 
+// Database Model for the Author, implementing its shared type
 export class AuthorModel extends Model implements Author {
   declare id: CreationOptional<number>;
   declare name: string;

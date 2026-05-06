@@ -3,6 +3,7 @@ import { sequelize } from "../database";
 import BookModel from "./book.model";
 import { InventoryStatus } from "@bookwebapp/types";
 
+// Inventory model in the database
 export class InventoryModel extends Model {
     declare id: CreationOptional<number>;
     declare bookId: ForeignKey<number>;
@@ -47,6 +48,7 @@ InventoryModel.init(
     },
 )
 
+// One-to-Many relationship with BookModel
 InventoryModel.belongsTo(BookModel, {
   foreignKey: "bookId",
   as: "book",

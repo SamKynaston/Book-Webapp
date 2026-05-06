@@ -3,6 +3,7 @@ import { sequelize } from "../database";
 import { PERMISSIONS_STRING, RolePermission } from "@bookwebapp/types";
 import RoleModel from "./role.model";
 
+// The permission's database model, implementing its shared type
 export class PermissionModel extends Model implements RolePermission {
   declare permissionId: CreationOptional<number>;
   declare permission_string: PERMISSIONS_STRING;
@@ -28,6 +29,7 @@ PermissionModel.init(
   },
 );
 
+// Many-to-Many junction tables through RolePermissions
 PermissionModel.belongsToMany(RoleModel, {
   through: "RolePermissions",
   foreignKey: "permissionId",

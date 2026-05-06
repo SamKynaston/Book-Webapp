@@ -3,6 +3,7 @@ import { sequelize } from "../database";
 import { Role, RolePermission } from "@bookwebapp/types";
 import PermissionModel from "./permission.model";
 
+// The role's database model, implementing its shared type
 export class RoleModel extends Model implements Role {
   declare roleId: CreationOptional<number>;
   declare name: string;

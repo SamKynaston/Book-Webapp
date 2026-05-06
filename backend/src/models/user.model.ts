@@ -6,6 +6,7 @@ import { hashPassword } from "../utils/password";
 import { RoleModel } from "./role.model";
 import { BookModel } from "./book.model";
 
+// The user's database model, implementing its shared type
 export class UserModel extends Model implements User {
   declare id: CreationOptional<number>;
   declare username: string;
@@ -78,6 +79,7 @@ UserModel.init(
   },
 );
 
+// Many-to-Many relationship with RoleModel through the UserRole junction table.
 UserModel.belongsToMany(RoleModel, {
   through: "UserRole",
   foreignKey: "userId",
@@ -87,6 +89,7 @@ UserModel.belongsToMany(RoleModel, {
   onUpdate: "CASCADE",
 });
 
+// Many-to-Many relationship with UserModel through the UserRole junction table.
 RoleModel.belongsToMany(UserModel, {
   through: "UserRole",
   foreignKey: "roleId",
@@ -96,6 +99,7 @@ RoleModel.belongsToMany(UserModel, {
   onUpdate: "CASCADE",
 });
 
+// Many-to-Many relationship with UserModel through the UserFavourites junction table.
 BookModel.belongsToMany(UserModel, {
   through: "UserFavourites",
   foreignKey: "bookId",
@@ -105,6 +109,7 @@ BookModel.belongsToMany(UserModel, {
   onUpdate: "CASCADE",
 })
 
+// Many-to-Many relationship with BookModel through the UserRole junction table.
 UserModel.belongsToMany(BookModel, {
   through: "UserFavourites",
   foreignKey: "userId",
