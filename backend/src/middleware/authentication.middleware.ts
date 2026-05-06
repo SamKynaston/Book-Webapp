@@ -120,6 +120,7 @@ export const CONFIRM_ADMIN_RESET = async ( req: Request, res: Response, next: Ne
       });
     }
 
+    req.allowPasswordResetBypass = true;
     next()
   } catch (err) {
     res.status(500).json({ success: false });
