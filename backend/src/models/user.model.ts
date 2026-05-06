@@ -63,6 +63,7 @@ UserModel.init(
     sequelize,
     modelName: "User",
 
+    // Automatically hash passwords before the creation or update of user models
     hooks: {
       beforeCreate: async (user: UserModel) => {
         if (user.password) {

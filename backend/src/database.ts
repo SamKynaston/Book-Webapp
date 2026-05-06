@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 
+// Create a new sequelize instance using postgres, and using environment variables set by docker
 export const sequelize = new Sequelize(
   process.env.POSTGRES_DB || "bookwebapp",
   process.env.POSTGRES_USER || "postgres",

@@ -4,12 +4,13 @@ import AuthorModel from "./models/author.model";
 import BookModel from "./models/book.model";
 import RoleModel from "./models/role.model";
 import PermissionModel from "./models/permission.model";
-import BorrowModel from "./models/booking.model";
 import InventoryModel from "./models/inventory.model";
 import { InventoryStatus, BorrowStatus } from "@bookwebapp/types";
 
 import { hashPassword } from "./utils/password";
 
+// Sample Data function. Runs when env.ENVIRONMENT == "DEVELOPMENT"
+// Note: Roles and admin password should be moved into its own data function in the future.
 export async function seedSampleData() {
     await sequelize.sync({ force: true });
 
