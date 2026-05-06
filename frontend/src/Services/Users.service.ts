@@ -1,6 +1,7 @@
 import { User, Book } from "@bookwebapp/types";
 import { apiFetch, handleResponse } from "../Utilities/Fetch.utilities";
 
+// Calls the API to update a user's email or username
 export async function updateUser(email: string, username: string, id: number): Promise<boolean> {
     const data = await handleResponse<{ success: boolean, body: User }>(
         await apiFetch(`v1/users/${id}`, {
@@ -15,6 +16,7 @@ export async function updateUser(email: string, username: string, id: number): P
     return data.success
 }
 
+// Calls the API to log a user out
 export async function logout(): Promise<boolean> {    
     const data = await handleResponse<{ success: boolean }>(
         await apiFetch(`v1/users/logout`, {
@@ -25,11 +27,13 @@ export async function logout(): Promise<boolean> {
     return data.success
 }
 
+// Calls the API to get all users
 export async function getAllUsers(): Promise<{ success: boolean, body: User[] }> {
     const res = await apiFetch(`v1/users`);
     return await handleResponse<{ success: boolean, body: User[] }>(res)
 }
 
+// Calls the API to authenticate a user
 export async function login(email: string, password: string): Promise<boolean> {
     const data = await handleResponse<{ success: boolean, message: string }>(
         await apiFetch(`v1/users/authenticate`, {
@@ -41,6 +45,7 @@ export async function login(email: string, password: string): Promise<boolean> {
     return data.success
 }
 
+// Calls the API to submit a user password reset, using a token if provided
 export async function resetPassword(id: number, oldPassword: string, newPassword: string, token: string | undefined | null): Promise<boolean> {
     if (token) {
         const data = await handleResponse<{ success: boolean }>(
@@ -63,6 +68,7 @@ export async function resetPassword(id: number, oldPassword: string, newPassword
     }
 }
 
+// Calls the API to force a password reset on an account
 export async function forcePasswordReset(id: number): Promise<boolean> {
     const data = await handleResponse<{ success: boolean }>(
         await apiFetch(`v1/users/${id}/admin-reset-password`, {
@@ -73,6 +79,7 @@ export async function forcePasswordReset(id: number): Promise<boolean> {
     return data.success
 }
 
+// Calls the API to request a password reset from an account
 export async function requestPasswordReset(): Promise<{ success: boolean, token: string, message: string }> {
     const data = await handleResponse<{ success: boolean, token: string, message: string }>(
         await apiFetch(`v1/users/request-password-reset`, {
@@ -83,6 +90,7 @@ export async function requestPasswordReset(): Promise<{ success: boolean, token:
     return data
 }
 
+// Calls the API to create a new user account
 export async function signup(email: string, username: string, password: string): Promise<boolean> {
     const data = await handleResponse<{ success: boolean }>(
         await apiFetch(`v1/users`, {
@@ -98,6 +106,7 @@ export async function signup(email: string, username: string, password: string):
     return data.success; 
 }
 
+// Calls the API to force the creation of a new user account via the CRUD table.
 export async function createAccountAdmin(email: string, username: string): Promise<boolean> {
     const data = await handleResponse<{ success: boolean }>(
         await apiFetch(`v1/users/create-account`, {
