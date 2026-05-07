@@ -22,7 +22,7 @@ export function DataTable<T>({data, columns, isEditing, renderEditRow, renderCre
   return (
     <div className="w-full md:max-w-6xl mx-auto p-4">
         <div className="bg-white rounded-xl border border-gray-200 overflow-x-auto shadow-sm">
-            <table className="min-w-[900px] w-full leading-normal">
+            <table className="min-w-225 w-full leading-normal">
             <thead>
                 <tr className="bg-stone-900 text-gray-300 text-xs uppercase tracking-widest">
                     {columns.map((c, i) => (
