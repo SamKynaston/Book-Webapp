@@ -14,6 +14,7 @@ This is a full-stack university library web application written in typescript. I
 > Make sure the init script is executeable `chmod +x ./init.sh`. 
 >> Use `docker-compose-up` if you'd prefer to run directly.
 ## Structure
+```text
 ├── README.md             # Project documentation and execution instructions
 ├── docker-compose.yml    # Orchestrates frontend, backend, and PostgreSQL services
 ├── init.sh               # Helper script to initialize and start the app
@@ -41,3 +42,4 @@ This is a full-stack university library web application written in typescript. I
 └── types/                # Shared TypeScript package
     ├── src/              # Common type definitions shared by frontend & backend
     └── package.json
+```
