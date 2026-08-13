@@ -14,27 +14,30 @@ This is a full-stack university library web application written in typescript. I
 > Make sure the init script is executeable `chmod +x ./init.sh`. 
 >> Use `docker-compose-up` if you'd prefer to run directly.
 ## Structure
-> README.MD                   details about the project, ways to execute and use
-> docker-compose.yml          docker compose for frontend + backend (and DB)
-> init.sh                     helper script to start the system
-> frontend/                   Vite + React app (index.html, src/, tailwind, vite config)
->  package.json              deps: react, react-dom, react-router-dom, tailwind, vite
->  src/                      React app source (UI, routes, components)
->  public/                   static assets
->  Dockerfile, nginx.conf
-> backend/                    Express API in TypeScript
->  package.json              deps: express, sequelize, pg, jsonwebtoken, bcrypt, zod
->  src/
->    server.ts               app bootstrap, routes mounted (/v1/books, /v1/authors, /v1/users, /v1/inventory)
->    database.ts             Sequelize initialization (Postgres)
->    routes/                 route modules for the API surface
->    controllers/            request handlers and business logic
->    models/                 Sequelize models
->    schemas/                validation (zod) schemas
->    middleware/             auth / session middleware
->    sample.ts               seedSampleData called in DEVELOPMENT
->  Dockerfile
-> types/                      local package with shared TypeScript types used by frontend & backend
->  package.json
->  src/                      type definitions
-
+├── README.md             # Project documentation and execution instructions
+├── docker-compose.yml    # Orchestrates frontend, backend, and PostgreSQL services
+├── init.sh               # Helper script to initialize and start the app
+│
+├── frontend/             # React + Vite application
+│   ├── src/              # UI components, routes, and application logic
+│   ├── public/           # Static assets
+│   ├── package.json      # Dependencies (React, React Router, Tailwind, Vite)
+│   ├── nginx.conf        # Production Nginx configuration
+│   └── Dockerfile
+│
+├── backend/              # Express API (TypeScript)
+│   ├── src/
+│   │   ├── server.ts     # App entry point & route mounts (/v1/books, /v1/authors, etc.)
+│   │   ├── database.ts   # Sequelize initialization & database connection
+│   │   ├── routes/       # API route definitions
+│   │   ├── controllers/  # Request handlers and core business logic
+│   │   ├── models/       # Sequelize database models
+│   │   ├── schemas/      # Zod validation schemas
+│   │   ├── middleware/   # Authentication & session middleware
+│   │   └── sample.ts     # Seed script for development data
+│   ├── package.json      # Dependencies (Express, Sequelize, pg, JWT, Zod)
+│   └── Dockerfile
+│
+└── types/                # Shared TypeScript package
+    ├── src/              # Common type definitions shared by frontend & backend
+    └── package.json
